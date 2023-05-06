@@ -42,7 +42,6 @@ export default function Status() {
   useEffect(() => {
     dispatch(statusFetch());
   }, []);
-  //console.log(status,"status-=>->")
   return (
     <div>
       <div className="page-header">

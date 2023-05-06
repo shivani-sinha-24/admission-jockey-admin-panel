@@ -25,8 +25,8 @@ export function DropImg({imgtype,formik}) {
       allFiles.forEach((f) => arr.push(f.file));
       formik.setFieldValue("gallery_img",arr)
      }
-     if(imgtype == "team_leader"){
-      formik.setFieldValue("team_lead_img",allFiles[0].file)
+     if(imgtype == "image"){
+      formik.setFieldValue("image",allFiles[0].file)
      }
      if(imgtype == "placement"){
       formik.setFieldValue("placement_img",allFiles[0].file)
@@ -56,7 +56,7 @@ export function DropImg({imgtype,formik}) {
       onChangeStatus={handleChangeStatus}
     //  onSubmit={handleSubmit}
        maxFiles={(imgtype == "logo" 
-       || imgtype == "team_leader" 
+       || imgtype == "image" 
        || imgtype == "placement"
        || imgtype == "loan_img"
        || imgtype == "admission_process_img"

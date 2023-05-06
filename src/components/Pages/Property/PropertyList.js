@@ -6,23 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
-import { getCollegeList } from "../../../redux/Action/PropertyAction";
+import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
+import {propertyDelete} from "../../../redux/Action/PropertyAction";
 export default function Editors() {
   const dispatch = useDispatch();
 
   const { users,college,tab_status } = useSelector(state => ({
     users: state?.userAuth?.users,
-    college: state?.property?.college,
-    tab_status: state?.property?.tab_status,
+    college: state?.propertyType?.college,
+    tab_status: state?.propertyType?.tab_status,
   }));
-
-console.log(college,"college")
 
   useEffect(() => {
     dispatch(getCollegeList())
   }, [])
-
-  console.log(college, "affiliate_approve")
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -31,9 +28,9 @@ console.log(college,"college")
   const [deleteId, setDeleteId] = useState();
 
   const handleClickOpen = (scrollType, row) => () => {
-    setEditUser(row)
-    setOpen(true);
-    setScroll(scrollType);
+    // setEditUser(row)
+    // setOpen(true);
+    // setScroll(scrollType);
   };
   const handleStatusUpdate = (row) => () => {
     dispatch(userUpdate(row?._id, {...row,type:"property"}));
@@ -47,6 +44,12 @@ console.log(college,"college")
   const userDeleteAction = (id) => {
     dispatch(userDelete(deleteId))
     dispatch(fetchUserByRole(2))
+  }
+
+  const propertyDeleteAction = (id) => {
+    dispatch(propertyDelete(deleteId))
+    dispatch(getCollegeList())
+    window.location.reload(false);
   }
 
   useEffect(() => {
@@ -73,7 +76,7 @@ console.log(college,"college")
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <NavLink to="/add-property" className="btn btn-primary btn-icon text-white me-3">
+          <NavLink to="/add-propertys" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
@@ -93,7 +96,7 @@ console.log(college,"college")
                 <datatable.ProrpertyListTable 
                  handleStatusUpdate={handleStatusUpdate} 
                   handleShow={handleShow}
-                   userDeleteAction={userDeleteAction} 
+                   propertyDeleteAction={propertyDeleteAction}
                    handleClickOpen={handleClickOpen} 
                    tab_status={tab_status}
                    college={college} />
@@ -103,7 +106,7 @@ console.log(college,"college")
         </Col>
       </Row>
       <SimpleModal role={2} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

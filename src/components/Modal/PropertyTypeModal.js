@@ -6,14 +6,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import "react-datepicker/dist/react-datepicker.css";
-import { FormSelect } from "../Forms/FormSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import { register } from "../../redux/Action/AuthAction";
-import { createStatus, statusCreate, statusFetch, statusUpdate } from "../../redux/Action/Status";
-import user8 from "../../assets/images/profile__.png";
-import { createPropertyType, getPropertyType } from "../../redux/Action/PropertyAction";
+import { createPropertyType, getPropertyType } from "../../redux/Action/PropertyTypeAction";
 
 const PropertyTypeSchema = Yup.object().shape({
     parent: Yup.string().required('Please select parent property.'),
@@ -27,7 +23,6 @@ export function PropertyTypeModal({ open, scroll, handleClose,editStatus }) {
     property: state?.property?.property,
   }));
 
-  console.log(property,"uysfhgfdfhagdyfgdh")
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (open) {
@@ -77,7 +72,6 @@ export function PropertyTypeModal({ open, scroll, handleClose,editStatus }) {
               ref={descriptionElementRef}
               tabIndex={-1}
             >
-
               <div className="control-group form-group ">
                 <label className="form-label">Parent</label>
                 <select
@@ -96,8 +90,6 @@ export function PropertyTypeModal({ open, scroll, handleClose,editStatus }) {
                         )
                     })
                   }
-                 
-
                 </select>
                 {formik.errors.parent && formik.touched.parent ? (
                       <div style={{color:"red"}}>{formik.errors.parent}</div>

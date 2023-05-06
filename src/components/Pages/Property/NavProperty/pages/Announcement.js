@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createAnnouncement, createTeamLeader, getAnnouncement, getTeamLead, updateAnnouncement, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createAnnouncement, createTeamLeader, getAnnouncement, getTeamLead, updateAnnouncement, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Announcement({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
@@ -20,7 +20,6 @@ export default function Announcement({ setAddTeam, editTeam }) {
         announcement: state?.property?.announcement,
     }));
 
-    console.log(announcement, "announcement")
     useEffect(() => {
         dispatch(getAnnouncement())
     }, [])
@@ -37,36 +36,34 @@ export default function Announcement({ setAddTeam, editTeam }) {
             "id": editTeam?._id || "",
             "property_id": params.id,
             "title": editTeam?.title || "",
-            "description": editTeam?.description || "",
-            "announcement_img": editTeam?.announcement_img || ""
+            "description": editTeam?.description || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
             if (editTeam != undefined) {
-                if (typeof values.announcement_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(updateAnnouncement(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.announcement_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(updateAnnouncement(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(updateAnnouncement(values));
                     setAddTeam(false)
-                }
+                // }
             } else {
-                if (typeof values.announcement_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(createAnnouncement(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.announcement_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(createAnnouncement(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(createAnnouncement(values));
                     setAddTeam(false)
-                }
+                // }
             }
 
         },
@@ -107,25 +104,23 @@ export default function Announcement({ setAddTeam, editTeam }) {
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Description</label>
-                                                <input
-                                                    type="text"
+                                                <textarea type="text"
                                                     className="form-control required"
                                                     placeholder="Description"
                                                     name="description"
                                                     onChange={formik.handleChange}
-                                                    value={formik.values.description}
-                                                />
+                                                    value={formik.values.description}></textarea>
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
+                                            {/* <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Team Leader Image</label>
                                                 <DropImg
                                                     type="file" className="dropify" imgtype="announcement_img"
                                                     formik={formik}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>

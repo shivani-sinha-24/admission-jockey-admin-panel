@@ -13,7 +13,7 @@ import Other from './component/Other';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ValidationStep from './ValidationStep';
-import { getCollegeAffliateApprove, preopertyForm } from '../../../../redux/Action/PropertyAction';
+import { getCollegeAffliateApprove, preopertyForm } from '../../../../redux/Action/PropertyTypeAction';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

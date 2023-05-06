@@ -28,12 +28,17 @@ export const  MENUITEMS = [
           {
             path: `/guest`,
             type: "link",
-            title: "Guest Users",
+            title: "Students",
           },
           {
             path: `editor`,
             type: "link",
             title: "Editors",
+          },
+          {
+            path: `/agent`,
+            type: "link",
+            title: "Agent",
           },
           {
             path: `cyber-partner`,
@@ -47,24 +52,24 @@ export const  MENUITEMS = [
           }
         ],
       },
-      {
-        title: "College",
-        icon: "user",
-        type: "sub",
-        active: false,
-        children: [
-          {
-            path: `/college-list`,
-            type: "link",
-            title: "All College",
-          },
-          {
-            path: `/guest`,
-            type: "link",
-            title: "Add College",
-          }
-        ],
-      },
+      // {
+      //   title: "College",
+      //   icon: "user",
+      //   type: "sub",
+      //   active: false,
+      //   children: [
+      //     {
+      //       path: `/college-list`,
+      //       type: "link",
+      //       title: "All College",
+      //     },
+      //     {
+      //       path: `/guest`,
+      //       type: "link",
+      //       title: "Add College",
+      //     }
+      //   ],
+      // },
       {
         title: "Property",
         icon: "user",

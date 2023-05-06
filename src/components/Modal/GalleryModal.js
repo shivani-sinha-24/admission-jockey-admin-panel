@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 import { register } from "../../redux/Action/AuthAction";
 import { createStatus, statusCreate, statusFetch, statusUpdate } from "../../redux/Action/Status";
 import { DropImg } from "../Pages/Property/StepForm/component/DropImg";
-import { createGallery, getGallery } from "../../redux/Action/PropertyAction";
+import { createGallery, getGallery } from "../../redux/Action/PropertyTypeAction";
 import { useParams } from "react-router-dom";
 
 const statusvalSchema = Yup.object().shape({
@@ -77,6 +77,8 @@ export function GalleryModal({ open, scroll, handleClose, editGallery }) {
           formData.append("gallery_img", image);
         }
         dispatch(createGallery(formData));
+        dispatch(getGallery());
+        
       }
       dispatch(getGallery());
       formik.resetForm();

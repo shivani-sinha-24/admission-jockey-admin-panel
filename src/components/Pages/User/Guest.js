@@ -3,6 +3,7 @@ import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { SimpleModal } from "../../Modal/SimpleModal";
+import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { WarningModal } from "../../Modal/WarningModal";
@@ -15,6 +16,7 @@ const { users } = useSelector(state => ({
 
 const [show, setShow] = useState(false);
 const [open, setOpen] = React.useState(false);
+const [userData, setUserData] = React.useState({});
 const [scroll, setScroll] = React.useState("paper");
 const [editUser,setEditUser]= useState();
 const [deleteId,setDeleteId] = useState();
@@ -46,28 +48,32 @@ const handleShow = (id) => () => {
   setDeleteId(id)
   setShow(true)
 };
-console.log(users,"users->->====")
+
+const handleOpen  = (id) => {
+  setShow(true);
+  setUserData(id);
+};
   return (
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title">Guests</h1>
+          <h1 className="page-title">Students</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
              Users
             </Breadcrumb.Item>
             <Breadcrumb.Item className="breadcrumb-item active breadcrumds" aria-current="page">
-              Guests
+            Students
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
+          {/* <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Add User
-          </Link>
+          </Link> */}
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;
@@ -83,18 +89,19 @@ console.log(users,"users->->====")
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">Guests</h3>
+              <h3 className="card-title">Students</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTables  handleStatusUpdate={handleStatusUpdate} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen ={handleClickOpen} users={users} />
+                <datatable.DataTables  handleStatusUpdate={handleStatusUpdate} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen ={handleClickOpen} users={users} handleOpen={handleOpen}/>
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <SimpleModal role={0} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      {/* <SimpleModal role={0} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
+      <WarningModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} /> */}
+      <UserDetailModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} userData={userData} />
     </div>
   );
 }

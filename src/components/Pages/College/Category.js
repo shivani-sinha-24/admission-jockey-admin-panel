@@ -50,7 +50,7 @@ export default function DataTables() {
     setDeleteId(id)
     setShow(true)
   };
-  console.log(users)
+
   return (
     <div>
       <div className="page-header">
@@ -80,10 +80,7 @@ export default function DataTables() {
           </Link> */}
         </div>
       </div>
-
-
-
-      <Row className=" row-sm">
+      <Row className="row-sm">
         <Col lg={12}>
           <Card>
             <Card.Header>

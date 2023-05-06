@@ -18,6 +18,8 @@ import Profile from "./components/Pages/Profile/Profile";
 import PropertyManager from "./components/Pages/User/PropertyManager";
 import CyberPartner from "./components/Pages/User/CyberPartner";
 import Editors from "./components/Pages/User/Editors";
+import AddEditors from "./components/Pages/User_crud/add";
+import Agent from "./components/Pages/User/Agent";
 import Guest from "./components/Pages/User/Guest";
 import Caller from "./components/Pages/User/Caller";
 import Status from "./components/Pages/Status/Status";
@@ -39,10 +41,11 @@ import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
 import Category from "./components/Pages/College/Category";
+import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
+import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
-  console.log(authenticate, "authenticate");
   return (
     <>
       <ToastContainer />
@@ -66,6 +69,8 @@ function App() {
               <Route path={"/property-manager"} element={<PropertyManager />} />
               <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
+              <Route path={"/editorAdd"} element={<AddEditors />} />
+              <Route path={"/agent"} element={<Agent />} />
               <Route path={"/guest"} element={<Guest />} />
               <Route path={"/caller"} element={<Caller />} />
               <Route path={"/status"} element={<Status />} />
@@ -102,6 +107,14 @@ function App() {
               <Route
                 path={"/property-list/:id/announcement"}
                 element={<Announcement />}
+              />
+              <Route
+                path={"/add-propertys"}
+                element={< PropertyAdd />}
+              />
+              <Route
+                path={"/update-propertys/:id"}
+                element={< PropertyUpdate />}
               />
               <Route path={"/property-list/:id/faqs"} element={<Faqs />} />
               <Route

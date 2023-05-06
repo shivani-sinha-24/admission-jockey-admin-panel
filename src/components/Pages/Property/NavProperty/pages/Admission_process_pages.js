@@ -11,16 +11,15 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createAdmission_process, createTeamLeader, getAdmission_process, getTeamLead, updateAdmission_process, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createAdmission_process, createTeamLeader, getAdmission_process, getTeamLead, updateAdmission_process, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Admission_process_pages({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
     const params = useParams()
     const { admission_process } = useSelector(state => ({
-        admission_process: state?.property?.admission_process,
+        admission_process: state?.admission_process
     }));
 
-    console.log(admission_process, "admission_process")
     useEffect(() => {
         dispatch(getAdmission_process())
     }, [])
@@ -37,36 +36,36 @@ export default function Admission_process_pages({ setAddTeam, editTeam }) {
             "id": editTeam?._id || "",
             "property_id": params.id,
             "title": editTeam?.title || "",
-            "description": editTeam?.description || "",
-            "admission_process_img": editTeam?.admission_process_img || ""
+            "description": editTeam?.description || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
+            console.log(editTeam, 'editTeam');
             if (editTeam != undefined) {
-                if (typeof values.admission_process_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(updateAdmission_process(formData));
-                    setAddTeam(false)
-                } else {
-                    dispatch(updateAdmission_process(values));
-                    setAddTeam(false)
-                }
+                // if (typeof values.admission_process_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(updateAdmission_process(formData));
+                //     setAddTeam(false)
+                // } else {
+                dispatch(updateAdmission_process(values));
+                setAddTeam(false)
+                // }
             } else {
-                if (typeof values.admission_process_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(createAdmission_process(formData));
-                    setAddTeam(false)
-                } else {
-                    dispatch(createAdmission_process(values));
-                    setAddTeam(false)
-                }
+                // if (typeof values.admission_process_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(createAdmission_process(formData));
+                //     setAddTeam(false)
+                // } else {
+                dispatch(createAdmission_process(values));
+                dispatch(getAdmission_process())
+                setAddTeam(false)
+                // }
             }
 
         },
@@ -107,25 +106,24 @@ export default function Admission_process_pages({ setAddTeam, editTeam }) {
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Description</label>
-                                                <input
+                                                <textarea
                                                     type="text"
                                                     className="form-control required"
                                                     placeholder="Description"
                                                     name="description"
                                                     onChange={formik.handleChange}
-                                                    value={formik.values.description}
-                                                />
+                                                    value={formik.values.description}></textarea>
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
+                                            {/* <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Admission Process Image</label>
                                                 <DropImg
                                                     type="file" className="dropify" imgtype="admission_process_img"
                                                     formik={formik}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>

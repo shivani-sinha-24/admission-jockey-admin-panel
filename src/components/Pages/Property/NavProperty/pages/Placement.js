@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createPlacement, createTeamLeader, getPlacement, getTeamLead, updatePlacement, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createPlacement, createTeamLeader, getPlacement, getTeamLead, updatePlacement, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Placement({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();

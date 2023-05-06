@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 import { Col, Form, Row, } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import fromadvanced from '../../../../../'
-import { getCollegeAffliateApprove } from "../../../../../redux/Action/PropertyAction";
+import { getCollegeAffliateApprove } from "../../../../../redux/Action/PropertyTypeAction";
 import { SearchSelect } from "./SelectCreatable";
 const CollegeDetails = ({ formik }) => {
   const dispatch = useDispatch();

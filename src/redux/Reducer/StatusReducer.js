@@ -6,7 +6,6 @@ let initState = {
 
 const statusReducer = (state = initState, action) => {
     switch (action.type) {
-
         case USER_STATUS_CREATE_SUCCESS:
             return ({
                 ...state,

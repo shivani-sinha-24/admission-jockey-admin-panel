@@ -16,7 +16,7 @@ import { StatusModal } from "../../Modal/StatusModal";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createStatus } from "../../../redux/Action/Status";
-import { getPropertyType } from "../../../redux/Action/PropertyAction";
+import { getPropertyType } from "../../../redux/Action/PropertyTypeAction";
 import { StepForm } from "./StepForm/StepForm";
 export default function FormProperty() {
   const dispatch = useDispatch()
@@ -26,8 +26,8 @@ export default function FormProperty() {
   const [activeChildId, setChildActiveId] = React.useState();
   
 
-  const { property } = useSelector(state => ({
-    property: state?.property?.property,
+  const { propertyType } = useSelector(state => ({
+    propertyType: state?.propertyType?.property,
   }));
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);

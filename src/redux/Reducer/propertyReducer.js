@@ -1,4 +1,4 @@
-import { PROPERTY_ADMISSION_PROCESS_ADD_SUCCESS, PROPERTY_ADMISSION_PROCESS_UPDATE_SUCCESS, PROPERTY_ANNOUNCEMENT_ADD_SUCCESS, PROPERTY_ANNOUNCEMENT_UPDATE_SUCCESS, PROPERTY_FAQS_ADD_SUCCESS, PROPERTY_FAQS_UPDATE_SUCCESS, PROPERTY_FORM_SUCCESS, PROPERTY_GALLERY_ADD_SUCCESS, PROPERTY_LOAN_ADD_SUCCESS, PROPERTY_LOAN_UPDATE_SUCCESS, PROPERTY_PLACEMENT_ADD_SUCCESS, PROPERTY_PLACEMENT_UPDATE_SUCCESS, PROPERTY_SCHOLARSHIP_ADD_SUCCESS, PROPERTY_SCHOLARSHIP_UPDATE_SUCCESS, PROPERTY_TEAM_ADD_SUCCESS, PROPERTY_TEAM_UPDATE_SUCCESS, PROPERTY_TYPE_ADD_SUCCESS, PROPERTY_TYPE_GET_SUCCESS, SUCCESS_ADMISSION_PROCESS_LIST, SUCCESS_AFFILIATE_APPROVE, SUCCESS_ANNOUNCEMENT_LIST, SUCCESS_COLLEGE_LIST, SUCCESS_FAQS_LIST, SUCCESS_GALLERY_LIST, SUCCESS_LOAN_LIST, SUCCESS_PLACEMENT_LIST, SUCCESS_SCHOLARSHIP_LIST, SUCCESS_TEAM_LIST } from '../Constants/Constants';
+import { PROPERTY_DELETE_REQUEST, PROPERTY_DELETE_SUCCESS, PROPERTY_UPDATE_SUCCESS, PROPERTY_DELETE_FAILURE, PROPERTY_ADMISSION_PROCESS_ADD_SUCCESS, PROPERTY_CREATE_SUCCESS, PROPERTY_ADMISSION_PROCESS_UPDATE_SUCCESS, PROPERTY_ANNOUNCEMENT_ADD_SUCCESS, PROPERTY_ANNOUNCEMENT_UPDATE_SUCCESS, PROPERTY_FAQS_ADD_SUCCESS, PROPERTY_FAQS_UPDATE_SUCCESS, PROPERTY_FORM_SUCCESS, PROPERTY_GALLERY_ADD_SUCCESS, PROPERTY_LOAN_ADD_SUCCESS, PROPERTY_LOAN_UPDATE_SUCCESS, PROPERTY_PLACEMENT_ADD_SUCCESS, PROPERTY_PLACEMENT_UPDATE_SUCCESS, PROPERTY_SCHOLARSHIP_ADD_SUCCESS, PROPERTY_SCHOLARSHIP_UPDATE_SUCCESS, PROPERTY_TEAM_ADD_SUCCESS, PROPERTY_TEAM_UPDATE_SUCCESS, PROPERTY_TYPE_ADD_SUCCESS, PROPERTY_TYPE_GET_SUCCESS, SUCCESS_ADMISSION_PROCESS_LIST, SUCCESS_AFFILIATE_APPROVE, SUCCESS_ANNOUNCEMENT_LIST, SUCCESS_COLLEGE_LIST, SUCCESS_FAQS_LIST, SUCCESS_GALLERY_LIST, SUCCESS_LOAN_LIST, SUCCESS_PLACEMENT_LIST, SUCCESS_SCHOLARSHIP_LIST, SUCCESS_TEAM_LIST } from '../Constants/Constants';
 
 let initState = {
     property: [],
@@ -15,11 +15,24 @@ let initState = {
     faqs: []
 }
 
-const propertyReducer = (state = initState, action) => {
+const propertyTypeReducer = (state = initState, action) => {
     switch (action.type) {
-
         case PROPERTY_TYPE_ADD_SUCCESS:
-            console.log(action.payload, "PROPERTY_TYPE_ADD_SUCCESS")
+            return ({
+                ...state,
+                property: [...state.property, action.payload]
+            });
+        // case PROPERTY_DELETE_SUCCESS:
+        //     return ({
+        //         ...state,
+        //         property: state?.property.filter(property => property?._id !== action.payload)
+        //     });
+        case PROPERTY_DELETE_SUCCESS:
+            return ({
+                ...state,
+                property: action.payload.collegeList
+            });
+        case PROPERTY_CREATE_SUCCESS:
             return ({
                 ...state,
                 property: [...state.property, action.payload]
@@ -38,7 +51,6 @@ const propertyReducer = (state = initState, action) => {
             });
 
         case SUCCESS_COLLEGE_LIST:
-            console.log(action.payload, "action.payload")
             return ({
                 ...state,
                 college: action.payload.colleges,
@@ -73,6 +85,13 @@ const propertyReducer = (state = initState, action) => {
             return ({
                 ...state,
                 team_lead: state.team_lead.map((item) =>
+                    item?._id == action.payload?._id ? { ...action.payload } : item
+                )
+            });
+        case PROPERTY_UPDATE_SUCCESS:
+            return ({
+                ...state,
+                college: state.college.map((item) =>
                     item?._id == action.payload?._id ? { ...action.payload } : item
                 )
             });
@@ -121,7 +140,7 @@ const propertyReducer = (state = initState, action) => {
         case PROPERTY_SCHOLARSHIP_ADD_SUCCESS:
             return ({
                 ...state,
-                scholarship: [...state.scholarship, action.payload]
+                scholarship: action.payload
             });
         case PROPERTY_SCHOLARSHIP_UPDATE_SUCCESS:
             return ({
@@ -135,11 +154,10 @@ const propertyReducer = (state = initState, action) => {
                 ...state,
                 scholarship: action.payload
             });
-
         case PROPERTY_ADMISSION_PROCESS_ADD_SUCCESS:
             return ({
                 ...state,
-                admission_process: [...state.admission_process, action.payload]
+                admission_process: action.payload
             });
         case PROPERTY_ADMISSION_PROCESS_UPDATE_SUCCESS:
             return ({
@@ -157,7 +175,7 @@ const propertyReducer = (state = initState, action) => {
         case PROPERTY_ANNOUNCEMENT_ADD_SUCCESS:
             return ({
                 ...state,
-                announcement: [...state.announcement, action.payload]
+                announcement: action.payload
             });
         case PROPERTY_ANNOUNCEMENT_UPDATE_SUCCESS:
             return ({
@@ -194,5 +212,5 @@ const propertyReducer = (state = initState, action) => {
             return state;
     }
 };
-export default propertyReducer;
+export default propertyTypeReducer;
 

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { getAnnouncement } from "../../../../redux/Action/PropertyAction";
+import { NavLink,useParams} from "react-router-dom";
+import { getAnnouncement } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Announcement_pages from "./pages/Announcement.js";
 
 const Announcement = () => {
   const dispatch = useDispatch();
+  const params = useParams()
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { announcement } = useSelector((state) => ({
-    announcement: state?.property?.announcement,
+    announcement: state?.propertyType?.announcement,
   }));
 
-  console.log(announcement, "announcement");
   useEffect(() => {
     dispatch(getAnnouncement());
   }, []);
@@ -51,9 +51,9 @@ const Announcement = () => {
                     </Card.Title>
                   </Card.Header>
                   {announcement?.map((item, i) => {
-                    return (
+                    if (item?.property_id == params.id) {
+                      return (
                       <Card.Body>
-                        <>
                           <div className="example">
                             <div className="media media-lg mt-0">
                               <div className=" mt-0">
@@ -79,17 +79,16 @@ const Announcement = () => {
                                   Edit
                                 </NavLink>
                               </div>
-                              <img
-                                className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
-                                crossOrigin="annonymous"
-                                src={`${process.env.REACT_APP_API_BASE_URL}/${item?.announcement_img}`}
-                                alt=""
-                              />
+                              {/* <img
+                                  className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
+                                  crossOrigin="annonymous"
+                                  src={`${process.env.REACT_APP_API_BASE_URL}/${item?.announcement_img}`}
+                                  alt=""
+                                /> */}
                             </div>
                           </div>
-                        </>
-                      </Card.Body>
-                    );
+                      </Card.Body>)
+                    }
                   })}
                 </Card>
               </Col>

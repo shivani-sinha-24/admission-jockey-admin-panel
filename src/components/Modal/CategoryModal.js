@@ -96,10 +96,6 @@ export function CategoryModal({
       //alert(JSON.stringify(values, null, 2));
     },
   });
-  console.log(
-    editUser,
-    "confirm_passwordconfirm_passwordconfirm_passwordconfirm_passwordconfirm_password"
-  );
   return (
     <>
       <Dialog

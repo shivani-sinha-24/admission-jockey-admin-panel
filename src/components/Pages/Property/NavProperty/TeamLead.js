@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { getTeamLead } from "../../../../redux/Action/PropertyAction";
+import { getTeamLead } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Team_lead from "./pages/Team_lead";
 
@@ -12,13 +12,13 @@ const TeamLead = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { team_lead } = useSelector((state) => ({
-    team_lead: state?.property?.team_lead,
+    team_lead: state?.propertyType?.team_lead,
   }));
 
-  console.log(team_lead, "team_lead");
   useEffect(() => {
     dispatch(getTeamLead());
   }, []);
+  console.log(team_lead,"team");
   return (
     <>
       <PropertyDetails>
@@ -53,7 +53,7 @@ const TeamLead = () => {
                             <img
                               className="avatar avatar-xxl brround cover-image"
                               crossOrigin="annonymous"
-                              src={`${process.env.REACT_APP_API_BASE_URL}/${item?.team_lead_img}`}
+                              src={`${process.env.REACT_APP_API_BASE_URL}/${item?.image}`}
                               alt=""
                             />
                             <span

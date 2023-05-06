@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createScholarship, createTeamLeader, getScholarship, getTeamLead, updateScholarship, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createScholarship, createTeamLeader, getScholarship, getTeamLead, updateScholarship, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Scholarship_pages({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
@@ -42,31 +42,30 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
             if (editTeam != undefined) {
-                if (typeof values.scholarship_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(updateScholarship(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.scholarship_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(updateScholarship(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(updateScholarship(values));
                     setAddTeam(false)
-                }
+                // }
             } else {
-                if (typeof values.scholarship_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(createScholarship(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.scholarship_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(createScholarship(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(createScholarship(values));
                     setAddTeam(false)
-                }
+                // }
             }
 
         },
@@ -107,7 +106,7 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Description</label>
-                                                <input
+                                                <textarea
                                                     type="text"
                                                     className="form-control required"
                                                     placeholder="Description"
@@ -119,13 +118,13 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
+                                            {/* <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Scholarship Image</label>
                                                 <DropImg
                                                     type="file" className="dropify" imgtype="scholarship_img"
                                                     formik={formik}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>

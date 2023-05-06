@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Card, NavLink } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getFaqs } from "../../../../redux/Action/PropertyAction";
+import { getFaqs } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Faqs_pages from "./pages/Faqs_pages";
 

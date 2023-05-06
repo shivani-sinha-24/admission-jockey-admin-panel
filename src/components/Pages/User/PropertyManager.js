@@ -3,6 +3,7 @@ import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { SimpleModal } from "../../Modal/SimpleModal";
+import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
@@ -15,6 +16,8 @@ export default function DataTables() {
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [userModal, setUserModal] = React.useState(false);
+  const [userData, setUserData] = React.useState({});
   const [scroll, setScroll] = React.useState("paper");
   const [editUser, setEditUser] = useState();
   const [deleteId, setDeleteId] = useState();
@@ -47,7 +50,11 @@ export default function DataTables() {
     setDeleteId(id)
     setShow(true)
   };
-  console.log(users)
+  const handleOpen  = (id) => {
+    // setOpen(true);
+    setShow(true);
+    setUserData(id);
+  };
   return (
     <div>
       <div className="page-header">
@@ -63,12 +70,12 @@ export default function DataTables() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
+          {/* <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Add User
-          </Link>
+          </Link> */}
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;
@@ -88,14 +95,15 @@ export default function DataTables() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTables handleStatusUpdate={handleStatusUpdate} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
+                <datatable.DataTables handleStatusUpdate={handleStatusUpdate} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} handleOpen={handleOpen}/>
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <SimpleModal role={1} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal  setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      {/* <SimpleModal  userData={userData}  open={open} handleClose={handleClose} /> */}
+      <UserDetailModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} userData={userData} />
+      {/* <WarningModal  setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} /> */}
     </div>
   );
 }

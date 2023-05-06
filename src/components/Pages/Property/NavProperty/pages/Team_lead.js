@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createTeamLeader, getTeamLead, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createTeamLeader, getTeamLead, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Team_lead({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
@@ -20,7 +20,6 @@ export default function Team_lead({ setAddTeam, editTeam }) {
         team_lead: state?.property?.team_lead,
     }));
 
-    console.log(editTeam, "editTeam")
     useEffect(() => {
         dispatch(getTeamLead())
     }, [])
@@ -39,12 +38,12 @@ export default function Team_lead({ setAddTeam, editTeam }) {
             "property_id": params.id,
             "name": editTeam?.name || "",
             "designation": editTeam?.designation || "",
-            "team_lead_img": editTeam?.team_lead_img || ""
+            "image": editTeam?.image || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
             if (editTeam != undefined) {
-                if (typeof values.team_lead_img == 'object') {
+                if (typeof values.image == 'object') {
                     let formData = new FormData();
                     for (let value in values) {
                         formData.append(value, values[value]);
@@ -56,7 +55,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                     setAddTeam(false)
                 }
             } else {
-                if (typeof values.team_lead_img == 'object') {
+                if (typeof values.image == 'object') {
                     let formData = new FormData();
                     for (let value in values) {
                         formData.append(value, values[value]);
@@ -122,7 +121,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                                             <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Team Leader Image</label>
                                                 <DropImg
-                                                    type="file" className="dropify" imgtype="team_leader"
+                                                    type="file" className="dropify" imgtype="image"
                                                     formik={formik}
                                                 />
                                             </div>

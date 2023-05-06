@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { getLoan } from "../../../../redux/Action/PropertyAction";
+import { NavLink,useParams } from "react-router-dom";
+import { getLoan } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Loan_pages from "./pages/Loan_pages.js";
 
 const Loan = () => {
   const dispatch = useDispatch();
+  const params = useParams()
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { loan } = useSelector((state) => ({
-    loan: state?.property?.loan,
+    loan: state?.propertyType?.loan,
   }));
 
   console.log(loan, "loan");
@@ -51,9 +52,9 @@ const Loan = () => {
                     </Card.Title>
                   </Card.Header>
                   {loan?.map((item, i) => {
-                    return (
+                    if (item?.property_id == params.id) {
+                      return (
                       <Card.Body>
-                        <>
                           <div className="example">
                             <div className="media media-lg mt-0">
                               <div className=" mt-0">
@@ -79,17 +80,16 @@ const Loan = () => {
                                   Edit
                                 </NavLink>
                               </div>
-                              <img
-                                className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
-                                crossOrigin="annonymous"
-                                src={`${process.env.REACT_APP_API_BASE_URL}/${item?.loan_img}`}
-                                alt=""
-                              />
+                              {/* <img
+                                  className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
+                                  crossOrigin="annonymous"
+                                  src={`${process.env.REACT_APP_API_BASE_URL}/${item?.announcement_img}`}
+                                  alt=""
+                                /> */}
                             </div>
                           </div>
-                        </>
-                      </Card.Body>
-                    );
+                      </Card.Body>)
+                    }
                   })}
                 </Card>
               </Col>

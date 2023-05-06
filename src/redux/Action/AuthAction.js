@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 //register action
 export const register = (userInfo, forregister) => async (dispatch) => {
-  console.log(userInfo, 'userInfouserInfo');
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
     const { data } = await API.post(`/userCreate`, userInfo);
@@ -224,13 +223,9 @@ export const fetchUserByRole = (role) => async (dispatch) => {
 
 //userDelete pass action
 export const userDelete = (id) => async (dispatch) => {
-
   try {
     dispatch({ type: USER_DELETE_REQUEST });
     const { data } = await API.delete(`/userDelete?id=${id}`);
-    console.log(data, data?.data, "userDelete")
-
-
     dispatch({ type: USER_DELETE_SUCCESS, payload: data });
     toast.success("User deleted successfully.")
 

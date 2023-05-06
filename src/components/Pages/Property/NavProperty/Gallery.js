@@ -3,7 +3,7 @@ import { Card, Col } from "react-bootstrap";
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getGallery } from "../../../../redux/Action/PropertyAction";
+import { getGallery } from "../../../../redux/Action/PropertyTypeAction";
 import { GalleryModal } from "../../../Modal/GalleryModal";
 import PropertyDetails from "../PropertyDetails";
 
@@ -50,6 +50,7 @@ function PhotobookImage({ url }) {
           crossOrigin="annonymous"
           src={url}
           alt=""
+          style={{height:"200px"}}
         />
       </div>
     </div>
@@ -72,10 +73,9 @@ const Gallery = () => {
   const [editGallery, setEditGallery] = useState(false);
 
   const { gallery } = useSelector((state) => ({
-    gallery: state?.property?.gallery,
+    gallery: state?.propertyType?.gallery,
   }));
 
-  console.log(gallery, "gallery");
   const handleClickOpen = (scrollType, row) => () => {
     setEditGallery(row);
     setOpen(true);
@@ -137,6 +137,7 @@ const Gallery = () => {
                             return (
                               <div className="col-4" key={index}>
                                 <PhotoItem
+                                  // image="http://localhost:5500/images"
                                   image={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
                                   className="br-5"
                                   group="group1"

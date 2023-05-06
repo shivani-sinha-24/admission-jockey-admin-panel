@@ -11,7 +11,6 @@ export const createStatus = (status) => async (dispatch) => {
     dispatch({ type: USER_STATUS_FOR_SUCCESS });
     if(data.status_code == 200){
         toast.success(data?.message)
-     
     }else{
       toast.error(data?.message)
     }
@@ -59,11 +58,8 @@ export const statusUpdate = (id,status) => async (dispatch) => {
   try {
     dispatch({ type: USER_STATUS_UPDATE_REQUEST });
     const { data } = await API.put(`/statusUpdate?id=${id}`, status);
-console.log(data,"llllllooooo")
     dispatch({ type: USER_STATUS_UPDATE_SUCCESS, payload:data });
-
         toast.success("Status updated successfully.")
-
   } catch (error) {
     dispatch({
       type: USER_STATUS_UPDATE_FAILURE,

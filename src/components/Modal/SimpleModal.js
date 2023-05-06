@@ -67,7 +67,6 @@ export function SimpleModal({ open, role, scroll, handleClose, editUser, profile
       //alert(JSON.stringify(values, null, 2));
     },
   });
-  console.log(editUser, "confirm_passwordconfirm_passwordconfirm_passwordconfirm_passwordconfirm_password")
   return (
     <>
       <Dialog
@@ -77,7 +76,6 @@ export function SimpleModal({ open, role, scroll, handleClose, editUser, profile
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-
         <form onSubmit={formik.handleSubmit}>
           <DialogTitle id="scroll-dialog-title">{editUser != undefined ? "Edit User" : "Add User"}</DialogTitle>
           <DialogContent dividers={scroll === "paper"}>

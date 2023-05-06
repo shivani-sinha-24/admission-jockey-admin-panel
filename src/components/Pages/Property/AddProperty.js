@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useHistory } from "react-router-dom";
 import {
-  Col,
-  Row,
-  Card,
   Breadcrumb,
+  Button
 } from "react-bootstrap";
 import { StatusModal } from "../../Modal/StatusModal";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createStatus } from "../../../redux/Action/Status";
-import { getPropertyType } from "../../../redux/Action/PropertyAction";
-import { StepForm } from "./StepForm/StepForm";
+import { getPropertyType } from "../../../redux/Action/PropertyTypeAction";
 export default function AddProperty() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
-  const [activeId, setActiveId] = React.useState();
-  const [activeChildId, setChildActiveId] = React.useState();
 
 
   const { property } = useSelector(state => ({
@@ -48,6 +43,10 @@ export default function AddProperty() {
     },
   });
 
+  function addProperty(){
+    navigate("/add-propertys");
+  }
+
   return (
     <div>
       <div className="page-header">
@@ -62,11 +61,10 @@ export default function AddProperty() {
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-
       </div>
 
-
-      <form onSubmit={formik.handleSubmit}>
+      <Button onClick={() => addProperty()} >Add Property</Button>
+      {/* <form onSubmit={formik.handleSubmit}>
         <Row className=" row-sm">
           <Col lg={12} xl={12} md={12} sm={12}>
             <Card>
@@ -169,7 +167,7 @@ export default function AddProperty() {
             </Card>
           </Col>
         </Row>
-      </form>
+      </form> */}
       <StatusModal open={open} scroll={scroll} handleClose={handleClose} />
     </div>
   );

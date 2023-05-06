@@ -3,6 +3,7 @@ import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { WarningModal } from "../../Modal/WarningModal";
@@ -14,7 +15,8 @@ export default function CyberPartner() {
   }));
   
   const [show, setShow] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);  
+  const [userData, setUserData] = React.useState({});
   const [scroll, setScroll] = React.useState("paper");
   const [editUser,setEditUser]= useState();
   const [deleteId,setDeleteId] = useState();
@@ -48,6 +50,11 @@ dispatch(userDelete(deleteId))
     setShow(true)
   };
 
+  const handleOpen  = (id) => {
+    setShow(true);
+    setUserData(id);
+  };
+
   return (
     <div>
       <div className="page-header">
@@ -63,12 +70,12 @@ dispatch(userDelete(deleteId))
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link to="#" onClick={handleClickOpen("paper")} className="btn btn-primary btn-icon text-white me-3">
+          {/* <Link to="#" onClick={handleClickOpen("paper")} className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Add User
-          </Link>
+          </Link> */}
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;
@@ -88,14 +95,15 @@ dispatch(userDelete(deleteId))
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTables  handleStatusUpdate={handleStatusUpdate}  handleShow={handleShow} userDeleteAction={userDeleteAction}  handleClickOpen={handleClickOpen} role={4} users={users}  />
+                <datatable.DataTables  handleStatusUpdate={handleStatusUpdate}  handleShow={handleShow} userDeleteAction={userDeleteAction}  handleClickOpen={handleClickOpen} handleOpen={handleOpen} role={4} users={users}  />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <WarningModal role={4} setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
-      <SimpleModal editUser={editUser} role={4} open={open} scroll={scroll} handleClose={handleClose} />
+      {/* <WarningModal role={4} setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      <SimpleModal editUser={editUser} role={4} open={open} scroll={scroll} handleClose={handleClose} /> */}
+      <UserDetailModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} userData={userData} />
     </div>
   );
 }

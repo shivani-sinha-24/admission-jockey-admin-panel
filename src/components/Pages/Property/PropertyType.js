@@ -11,17 +11,17 @@ import { PropertyTypeModal } from "../../Modal/PropertyTypeModal";
 export default function PropertyType() {
   const dispatch = useDispatch();
 
-  const { property } = useSelector(state => ({
-    property: state?.property?.property,
-  }));
+  const { property } = useSelector(state =>({
+    property: state?.propertyType?.property
 
+  }));
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
   const [editStatus, setEditStatus] = useState();
   const [deleteId, setDeleteId] = useState();
   const [show, setShow] = useState(false);
 
-  const handleClickOpen = (scrollType,row) => () => {
+  const handleClickOpen = (scrollType, row) => () => {
     setEditStatus(row)
     setOpen(true);
     setScroll(scrollType);
@@ -39,15 +39,14 @@ export default function PropertyType() {
     setDeleteId(id)
     setShow(true)
   };
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(statusFetch())
-  },[])
-console.log(property,"property-=>->")
+  }, [])
   return (
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title">Proerty Type</h1>
+          <h1 className="page-title">Property Type</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
               Property Type
@@ -90,7 +89,7 @@ console.log(property,"property-=>->")
         </Col>
       </Row>
       <PropertyTypeModal editStatus={editStatus} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal  setShow={setShow} userDeleteAction={statusDeleteAction} show={show} handleShow={handleShow} />
+      <WarningModal setShow={setShow} userDeleteAction={statusDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

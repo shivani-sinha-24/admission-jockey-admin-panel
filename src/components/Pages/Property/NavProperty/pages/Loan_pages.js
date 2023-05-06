@@ -11,16 +11,15 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
-import { createLoan, createTeamLeader, getLoan, getTeamLead, updateLoan, updateTeamLeader } from "../../../../../redux/Action/PropertyAction";
+import { createLoan, createTeamLeader, getLoan, getTeamLead, updateLoan, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
 
 export default function Loan_pages({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
     const params = useParams()
     const { loan } = useSelector(state => ({
-        loan: state?.property?.loan,
+        loan: state?.propertyType?.loan,
     }));
 
-    console.log(loan, "loan")
     useEffect(() => {
         dispatch(getLoan())
     }, [])
@@ -35,38 +34,36 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
         enableReinitialize: true,
         initialValues: {
             "id": editTeam?._id || "",
-            "property_id": params.id,
+            "property_id": params?.id,
             "title": editTeam?.title || "",
-            "description": editTeam?.description || "",
-            "loan_img": editTeam?.loan_img || ""
+            "description": editTeam?.description || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
             if (editTeam != undefined) {
-                if (typeof values.loan_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(updateLoan(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.loan_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(updateLoan(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(updateLoan(values));
                     setAddTeam(false)
-                }
+                // }
             } else {
-                if (typeof values.loan_img == 'object') {
-                    let formData = new FormData();
-                    for (let value in values) {
-                        formData.append(value, values[value]);
-                    }
-                    dispatch(createLoan(formData));
-                    setAddTeam(false)
-                } else {
+                // if (typeof values.loan_img == 'object') {
+                //     let formData = new FormData();
+                //     for (let value in values) {
+                //         formData.append(value, values[value]);
+                //     }
+                //     dispatch(createLoan(formData));
+                //     setAddTeam(false)
+                // } else {
                     dispatch(createLoan(values));
                     setAddTeam(false)
-                }
+                // }
             }
 
         },
@@ -74,7 +71,6 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
 
     return (
         <div>
-
             <form onSubmit={formik.handleSubmit}>
                 <Row className=" row-sm">
                     <Col lg={12} xl={12} md={12} sm={12}>
@@ -107,7 +103,7 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Description</label>
-                                                <input
+                                                <textarea
                                                     type="text"
                                                     className="form-control required"
                                                     placeholder="Description"
@@ -119,13 +115,13 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
+                                            {/* <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Loan Image</label>
                                                 <DropImg
                                                     type="file" className="dropify" imgtype="loan_img"
                                                     formik={formik}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>
