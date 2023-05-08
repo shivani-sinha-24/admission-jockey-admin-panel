@@ -53,6 +53,7 @@ export function PropertyTypeModal({ open, scroll, handleClose,editProperty }) {
       if(editProperty != undefined) {
         dispatch(updatePropertyType(editProperty?._id,values));
         dispatch(getPropertyType());
+        window.location.reload(false);
       }else{
         dispatch(createPropertyType(values));
       }
