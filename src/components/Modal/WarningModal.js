@@ -1,7 +1,7 @@
 import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 
 //SuccessAlertMessages
-export function WarningModal({ setShow, show, handleShow, propertyDeleteAction }) {
+export function WarningModal({ setShow, show, handleShow, userDeleteAction }) {
 
 
   return (
@@ -24,7 +24,7 @@ export function WarningModal({ setShow, show, handleShow, propertyDeleteAction }
             aria-label="Close"
             className="btn btn-danger pd-x-25"
             onClick={() => {
-              propertyDeleteAction();
+              userDeleteAction();
               setShow(false);
               
             }}

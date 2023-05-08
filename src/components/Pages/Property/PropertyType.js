@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { StatusModal } from "../../Modal/StatusModal";
 import { useEffect } from "react";
-import { statusDelete, statusFetch } from "../../../redux/Action/Status";
+import { updatePropertyType,deletePropertyType,getPropertyType} from "../../../redux/Action/PropertyTypeAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { PropertyTypeModal } from "../../Modal/PropertyTypeModal";
@@ -17,30 +17,38 @@ export default function PropertyType() {
   }));
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
-  const [editStatus, setEditStatus] = useState();
+  const [editProperty, setEditProperty] = useState();
   const [deleteId, setDeleteId] = useState();
   const [show, setShow] = useState(false);
 
   const handleClickOpen = (scrollType, row) => () => {
-    setEditStatus(row)
+    setEditProperty(row)
     setOpen(true);
     setScroll(scrollType);
+    //window.location.reload(false);
+  };
+
+  const handlePropertyUpdate = (row) => () => {
+    dispatch(updatePropertyType(row?._id, {...row,type:"property"}));
+    dispatch(getPropertyType());
+    window.location.reload(false);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const statusDeleteAction = (id) => {
-    dispatch(statusDelete(deleteId))
-    dispatch(statusFetch())
+  const propertyDeleteAction = (id) => {
+    dispatch(deletePropertyType(deleteId))
+    dispatch(getPropertyType());
+    window.location.reload(false);
   }
   const handleShow = (id) => () => {
     setDeleteId(id)
     setShow(true)
   };
   useEffect(() => {
-    dispatch(statusFetch())
+    dispatch(getPropertyType());
   }, [])
   return (
     <div>
@@ -82,14 +90,17 @@ export default function PropertyType() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTablesForProperty handleShow={handleShow} property={property} handleClickOpen={handleClickOpen} />
+                <datatable.DataTablesForProperty 
+                handlePropertyUpdate={handlePropertyUpdate}
+                handleShow={handleShow} userDeleteAction={propertyDeleteAction}
+                property={property} handleClickOpen={handleClickOpen} />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <PropertyTypeModal editStatus={editStatus} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={statusDeleteAction} show={show} handleShow={handleShow} />
+      <PropertyTypeModal editProperty={editProperty} open={open} scroll={scroll} handleClose={handleClose} />
+      <WarningModal setShow={setShow} userDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

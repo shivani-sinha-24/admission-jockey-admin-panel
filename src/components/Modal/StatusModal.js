@@ -110,7 +110,7 @@ export function StatusModal({ open, scroll, handleClose,editStatus }) {
                     ) : null}
               </div>
 
-              <FormSelect />
+              {/* <FormSelect /> */}
               <div className="control-group form-group">
                 <label className="form-label">Staus For</label>
                 <select
