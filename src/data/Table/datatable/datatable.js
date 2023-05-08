@@ -742,7 +742,7 @@ export const EditorDataTables = ({
               </i>
             </Link> */}
             <NavLink
-              to={`/update-propertys/${row._id}`}
+              to={`/editor-update/${row._id}`}
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>

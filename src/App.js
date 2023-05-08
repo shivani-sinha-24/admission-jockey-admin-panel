@@ -42,6 +42,7 @@ import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
 import Category from "./components/Pages/College/Category";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
+import UpdateEditor from "./components/Pages/User_crud/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 
 function App() {
@@ -70,11 +71,11 @@ function App() {
               <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
               <Route path={"/editorAdd"} element={<AddEditors />} />
+              <Route path={"/editor-update/:id"} element={<UpdateEditor />}/>
               <Route path={"/agent"} element={<Agent />} />
               <Route path={"/guest"} element={<Guest />} />
               <Route path={"/caller"} element={<Caller />} />
               <Route path={"/status"} element={<Status />} />
-
               <Route path={"/property-list"} element={<PropertyList />} />
               <Route path={"/category"} element={<Category />} />
 
@@ -82,6 +83,7 @@ function App() {
                 path={"/property-list/:id"}
                 element={<PropertyDetails />}
               />
+
 
               {/* PROPERTY NAVIGATION ROUTES */}
               <Route

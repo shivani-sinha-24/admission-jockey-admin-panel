@@ -107,8 +107,8 @@ export default function PropertyUpdate() {
                                                         type="text"
                                                         name="type"
                                                         onChange={formik.handleChange}
-                                                        value={formik.values.type}
-                                                        placeholder='University'
+                                                        value={formik.values.edu_type}
+                                                        // placeholder='Type'
                                                         className="form-control required"
                                                         disabled
 

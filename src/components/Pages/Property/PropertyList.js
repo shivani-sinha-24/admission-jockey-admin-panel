@@ -13,7 +13,7 @@ export default function Editors() {
 
   const { users,college,tab_status } = useSelector(state => ({
     users: state?.userAuth?.users,
-    college: state?.propertyType?.college,
+    college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     tab_status: state?.propertyType?.tab_status,
   }));
 

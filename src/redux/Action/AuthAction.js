@@ -219,6 +219,21 @@ export const fetchUserByRole = (role) => async (dispatch) => {
   }
 };
 
+//
+export const fetchUserById = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_FETCH_ROLE_REQUEST });
+    const { data } = await API.post(`/getUserById`,{id:id});
+    dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
+  } catch (error) {
+    console.log(error, "error")
+    toast.error(error)
+    dispatch({
+      type: USER_FETCH_ROLE_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+}
 
 
 //userDelete pass action
@@ -242,12 +257,11 @@ export const userDelete = (id) => async (dispatch) => {
 
 
 //userUpdate pass action
-export const userUpdate = (id, user) => async (dispatch) => {
-
+export const userUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
     console.log("APi",API);
-    const { data } = await API.put(`/userUpdate?id=${id}`, user);
+    const { data } = await API.put(`/userUpdate`, user);
 
     console.log("userUpdate", data, data?.data);
     console.log("data", data);
