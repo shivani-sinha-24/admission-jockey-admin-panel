@@ -77,7 +77,7 @@ export const  MENUITEMS = [
         active: false,
         children: [
           {
-            path: `/add-property`,
+            path: `/university-property-list`,
             type: "link",
             title: "University Properties",
           },

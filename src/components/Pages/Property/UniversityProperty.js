@@ -13,7 +13,7 @@ export default function Editors() {
 
   const { users,college,tab_status } = useSelector(state => ({
     users: state?.userAuth?.users,
-    college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
+    college: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
     tab_status: state?.propertyType?.tab_status,
   }));
 
@@ -65,7 +65,7 @@ export default function Editors() {
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title"> College Property List</h1>
+          <h1 className="page-title"> University Property List</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
               Property 
@@ -89,7 +89,7 @@ export default function Editors() {
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">College Property List</h3>
+              <h3 className="card-title">University Property List</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">

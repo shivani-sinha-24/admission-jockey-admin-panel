@@ -37,6 +37,7 @@ import Hostel from "./components/Pages/Property/NavProperty/Hostel";
 import Scholarship from "./components/Pages/Property/NavProperty/Scholarship";
 import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
+import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
@@ -77,6 +78,7 @@ function App() {
               <Route path={"/caller"} element={<Caller />} />
               <Route path={"/status"} element={<Status />} />
               <Route path={"/property-list"} element={<PropertyList />} />
+              <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/category"} element={<Category />} />
 
               <Route

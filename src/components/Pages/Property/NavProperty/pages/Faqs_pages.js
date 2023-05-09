@@ -85,7 +85,6 @@ export default function Faqs_pages({ setAddTeam, editTeam }) {
                                                         ) : null}
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Answer</label>
