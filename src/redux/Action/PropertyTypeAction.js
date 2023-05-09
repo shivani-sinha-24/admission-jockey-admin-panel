@@ -277,7 +277,7 @@ export const createPlacement = (property) => async (dispatch) => {
 export const updatePlacement = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_PLACEMENT_UPDATE_REQUEST });
-    const { data } = await API.post(`/updatePlacement`, property);
+    const { data } = await API.put(`/updatePlacement`, property);
 
     console.log("PROPERTY_PLACEMENT_UPDATE_REQUEST", data);
 
@@ -583,7 +583,7 @@ export const createFaqs = (property) => async (dispatch) => {
 export const updateFaqs = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_FAQS_UPDATE_REQUEST });
-    const { data } = await API.post(`/updateFaqs`, property);
+    const { data } = await API.put(`/updateFaqs`, property);
     console.log(data, "PROPERTY_FAQS_UPDATE_REQUEST")
 
     if (data.status_code == 200) {

@@ -10,7 +10,7 @@ const Faqs = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { faqs } = useSelector(state => ({
-    faqs: state?.property?.faqs,
+    faqs: state?.propertyType?.faqs,
   }));
 
   console.log(faqs, "faqs")
@@ -35,7 +35,7 @@ const Faqs = () => {
                 <span>
                   <i className="fe fe-plus"></i>&nbsp;
                 </span>
-                Add Gallery
+                Add FAQ
               </NavLink>
             </div>
             <Card.Body className="faqaccordion">

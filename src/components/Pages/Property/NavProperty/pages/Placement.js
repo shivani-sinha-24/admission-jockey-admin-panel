@@ -37,12 +37,11 @@ export default function Placement({ setAddTeam, editTeam }) {
             "id": editTeam?._id || "",
             "property_id": params.id,
             "title": editTeam?.title || "",
-            "description": editTeam?.description || "",
-            "placement_img": editTeam?.placement_img || ""
+            "description": editTeam?.description || ""
+            // "placement_img": editTeam?.placement_img || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
             if (editTeam != undefined) {
                 if (typeof values.placement_img == 'object') {
                     let formData = new FormData();
@@ -119,13 +118,13 @@ export default function Placement({ setAddTeam, editTeam }) {
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
+                                            {/* <div className="control-group form-group mb-0 drop">
                                                 <label className="form-label">Team Leader Image</label>
                                                 <DropImg
                                                     type="file" className="dropify" imgtype="placement"
                                                     formik={formik}
                                                 />
-                                            </div>
+                                            </div> */}
 
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>

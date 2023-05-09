@@ -11,7 +11,7 @@ const Placement = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { placement } = useSelector((state) => ({
-    placement: state?.property?.placement,
+    placement: state?.propertyType?.placement,
   }));
 
   console.log(placement, "placement");
@@ -79,12 +79,12 @@ const Placement = () => {
                                   Edit
                                 </NavLink>
                               </div>
-                              <img
+                              {/* <img
                                 className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                 crossOrigin="annonymous"
                                 src={`${process.env.REACT_APP_API_BASE_URL}/${item?.placement_img}`}
                                 alt=""
-                              />
+                              /> */}
                             </div>
                           </div>
                         </>
