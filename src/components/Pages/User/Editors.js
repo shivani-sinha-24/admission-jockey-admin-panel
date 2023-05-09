@@ -32,7 +32,7 @@ export default function Editors() {
     setOpen(false);
   };
 
-  const userDeleteAction = (id) => {
+  const userDeleteAction = () => {
     dispatch(userDelete(deleteId));
     dispatch(fetchUserByRole(2));
   }
