@@ -105,7 +105,7 @@ export default function Status() {
       />
       <WarningModal
         setShow={setShow}
-        userDeleteAction={statusDeleteAction}
+        propertyDeleteAction={statusDeleteAction}
         show={show}
         handleShow={handleShow}
       />

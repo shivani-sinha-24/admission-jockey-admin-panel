@@ -100,7 +100,7 @@ export default function PropertyType() {
         </Col>
       </Row>
       <PropertyTypeModal editProperty={editProperty} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
+      <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

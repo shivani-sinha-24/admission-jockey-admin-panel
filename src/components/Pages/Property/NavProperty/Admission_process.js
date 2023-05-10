@@ -8,7 +8,7 @@ import Admission_process_pages from "./pages/Admission_process_pages";
 
 const Admission_process = () => {
   const dispatch = useDispatch();
-  const params = useParams()
+  const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { admission_process } = useSelector((state) => ({
@@ -22,25 +22,8 @@ const Admission_process = () => {
   return (
     <>
       <PropertyDetails>
-
         {addTeam == false ? (
-          <><div
-          onClick={() => {
-            setAddTeam(true);
-            setEditTeam();
-          }}
-          className="ms-auto pageheader-btn"
-        >
-          <NavLink
-            to="#"
-            className="btn btn-primary btn-icon text-white me-3"
-          >
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add Admission Process
-          </NavLink>
-        </div>
+          <>
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">
@@ -48,6 +31,23 @@ const Admission_process = () => {
                     <Card.Title>
                       <h1 className="card-title">Admission Process</h1>
                     </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Admission Process
+                      </NavLink>
+                    </div>
                   </Card.Header>
                   {admission_process?.map((item, i) => {
                     if (item?.property_id == params.id) {
@@ -96,12 +96,13 @@ const Admission_process = () => {
               </Col>
             </Row>
           </>
-        ) : (<>
-          <Admission_process_pages
-            setAddTeam={setAddTeam}
-            editTeam={editTeam}
-          /></>
-
+        ) : (
+          <>
+            <Admission_process_pages
+              setAddTeam={setAddTeam}
+              editTeam={editTeam}
+            />
+          </>
         )}
       </PropertyDetails>
     </>

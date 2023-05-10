@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink,useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getScholarship } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Scholarship_pages from "./pages/Scholarship_pages.js";
 
 const Scholarship = () => {
   const dispatch = useDispatch();
-  const params = useParams()
+  const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { scholarship } = useSelector((state) => ({
@@ -23,24 +23,6 @@ const Scholarship = () => {
       <PropertyDetails>
         {addTeam == false ? (
           <>
-            <div
-              onClick={() => {
-                setAddTeam(true);
-                setEditTeam();
-              }}
-              className="ms-auto pageheader-btn"
-            >
-              <NavLink
-                to="#"
-                className="btn btn-primary btn-icon text-white me-3"
-              >
-                <span>
-                  <i className="fe fe-plus"></i>&nbsp;
-                </span>
-                Add Scholorship
-              </NavLink>
-            </div>
-
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">
@@ -48,11 +30,28 @@ const Scholarship = () => {
                     <Card.Title>
                       <h1 className="card-title">Scholarship</h1>
                     </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Scholorship
+                      </NavLink>
+                    </div>
                   </Card.Header>
                   {scholarship?.map((item, i) => {
                     if (item?.property_id == params.id) {
                       return (
-                      <Card.Body>
+                        <Card.Body>
                           <div className="example">
                             <div className="media media-lg mt-0">
                               <div className=" mt-0">
@@ -86,7 +85,8 @@ const Scholarship = () => {
                                 /> */}
                             </div>
                           </div>
-                      </Card.Body>)
+                        </Card.Body>
+                      );
                     }
                   })}
                 </Card>

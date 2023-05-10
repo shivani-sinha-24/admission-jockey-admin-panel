@@ -8,6 +8,7 @@ import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import {propertyDelete} from "../../../redux/Action/PropertyAction";
+
 export default function Editors() {
   const dispatch = useDispatch();
 

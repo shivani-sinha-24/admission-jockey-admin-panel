@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import JoditEditor from "jodit-react";
 import {
     Col,
     Row,
@@ -16,6 +17,10 @@ import { createAnnouncement, createTeamLeader, getAnnouncement, getTeamLead, upd
 export default function Announcement({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
     const params = useParams()
+
+    const editor = useRef(null);
+    const [content, setContent] = useState('');
+
     const { announcement } = useSelector(state => ({
         announcement: state?.property?.announcement,
     }));
@@ -104,12 +109,17 @@ export default function Announcement({ setAddTeam, editTeam }) {
                                             </div>
                                             <div className="control-group form-group">
                                                 <label className="form-label">Description</label>
-                                                <textarea type="text"
+                                                {/* <textarea type="text"
                                                     className="form-control required"
                                                     placeholder="Description"
                                                     name="description"
                                                     onChange={formik.handleChange}
-                                                    value={formik.values.description}></textarea>
+                                                    value={formik.values.description}></textarea> */}
+                                                    <JoditEditor 
+                        ref={editor}
+                        value={content}
+                        onChange={newContent=>setContent(newContent)}
+                        />
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
