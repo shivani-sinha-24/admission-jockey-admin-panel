@@ -24,23 +24,7 @@ const Admission_process = () => {
       <PropertyDetails>
 
         {addTeam == false ? (
-          <><div
-          onClick={() => {
-            setAddTeam(true);
-            setEditTeam();
-          }}
-          className="ms-auto pageheader-btn"
-        >
-          <NavLink
-            to="#"
-            className="btn btn-primary btn-icon text-white me-3"
-          >
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add Admission Process
-          </NavLink>
-        </div>
+          <>
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">
@@ -48,6 +32,23 @@ const Admission_process = () => {
                     <Card.Title>
                       <h1 className="card-title">Admission Process</h1>
                     </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Admission Process
+                      </NavLink>
+                    </div>
                   </Card.Header>
                   {admission_process?.map((item, i) => {
                     if (item?.property_id == params.id) {

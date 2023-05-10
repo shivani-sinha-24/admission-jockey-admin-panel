@@ -24,23 +24,7 @@ const Placement = () => {
       <PropertyDetails>
         {addTeam == false ? (
           <>
-            <div
-              onClick={() => {
-                setAddTeam(true);
-                setEditTeam();
-              }}
-              className="ms-auto pageheader-btn"
-            >
-              <NavLink
-                to="#"
-                className="btn btn-primary btn-icon text-white me-3"
-              >
-                <span>
-                  <i className="fe fe-plus"></i>&nbsp;
-                </span>
-                Add Placement
-              </NavLink>
-            </div>
+
 
             <Row>
               <Col>
@@ -49,6 +33,23 @@ const Placement = () => {
                     <Card.Title>
                       <h1 className="card-title">Placement</h1>
                     </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Placement
+                      </NavLink>
+                    </div>
                   </Card.Header>
                   {placement?.map((item, i) => {
                     return (

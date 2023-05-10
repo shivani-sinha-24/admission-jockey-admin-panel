@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink,useParams} from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getAnnouncement } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Announcement_pages from "./pages/Announcement.js";
@@ -24,23 +24,7 @@ const Announcement = () => {
       <PropertyDetails>
         {addTeam == false ? (
           <>
-            <div
-              onClick={() => {
-                setAddTeam(true);
-                setEditTeam();
-              }}
-              className="ms-auto pageheader-btn"
-            >
-              <NavLink
-                to="#"
-                className="btn btn-primary btn-icon text-white me-3"
-              >
-                <span>
-                  <i className="fe fe-plus"></i>&nbsp;
-                </span>
-                Add Placement
-              </NavLink>
-            </div>
+
 
             <Row>
               <Col>
@@ -49,11 +33,28 @@ const Announcement = () => {
                     <Card.Title>
                       <h1 className="card-title">Placement</h1>
                     </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Placement
+                      </NavLink>
+                    </div>
                   </Card.Header>
                   {announcement?.map((item, i) => {
                     if (item?.property_id == params.id) {
                       return (
-                      <Card.Body>
+                        <Card.Body>
                           <div className="example">
                             <div className="media media-lg mt-0">
                               <div className=" mt-0">
@@ -87,7 +88,7 @@ const Announcement = () => {
                                 /> */}
                             </div>
                           </div>
-                      </Card.Body>)
+                        </Card.Body>)
                     }
                   })}
                 </Card>

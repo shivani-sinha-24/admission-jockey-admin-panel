@@ -1,11 +1,12 @@
 import { CardContent } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { getTeamLead } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Team_lead from "./pages/Team_lead";
+
 
 const TeamLead = () => {
   const dispatch = useDispatch();
@@ -18,66 +19,81 @@ const TeamLead = () => {
   useEffect(() => {
     dispatch(getTeamLead());
   }, []);
-  console.log(team_lead,"team");
+  console.log(team_lead, "team");
   return (
     <>
       <PropertyDetails>
         {addTeam == false ? (
           <>
-            <div
-              onClick={() => {
-                setAddTeam(true);
-                setEditTeam();
-              }}
-              className="ms-auto pageheader-btn"
-            >
-              <NavLink
-                to="#"
-                className="btn btn-primary btn-icon text-white me-3"
-              >
-                <span>
-                  <i className="fe fe-plus"></i>&nbsp;
-                </span>
-                Add Team Lead
-              </NavLink>
-            </div>
 
-            <span className="widget-users row profiletab  mb-5">
-              {team_lead?.length > 0 &&
-                team_lead?.map((item, i) => {
-                  return (
-                    <li className="col-lg-4  col-md-6 col-sm-12 col-12  ">
-                      <Card className=" border p-0">
-                        <Link>
-                          <Card.Body className=" text-center">
-                            <img
-                              className="avatar avatar-xxl brround cover-image"
-                              crossOrigin="annonymous"
-                              src={`${process.env.REACT_APP_API_BASE_URL}/${item?.image}`}
-                              alt=""
-                            />
-                            <span
-                              onClick={() => {
-                                setEditTeam(item);
-                                setAddTeam(true);
-                              }}
-                              style={{ fontSize: "20px" }}
-                            >
-                              <i className="fe fe-edit"></i>&nbsp;
-                            </span>
-                            <h4 className="fs-16 mb-0 mt-3 text-dark fw-semibold">
-                              {item?.name}
-                            </h4>
-                            <span className="text-muted">
-                              {item?.designation}
-                            </span>
-                          </Card.Body>
-                        </Link>
-                      </Card>
-                    </li>
-                  );
-                })}
-            </span>
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Header>
+                  <Card.Title>
+                      <h1 className="card-title">Team Lead</h1>
+                    </Card.Title>
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setEditTeam();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Add Team Lead
+                      </NavLink>
+                    </div>
+                  </Card.Header>
+
+
+
+                  <span className="widget-users row profiletab  mb-5">
+                    {team_lead?.length > 0 &&
+                      team_lead?.map((item, i) => {
+                        return (
+                          <li className="col-lg-4  col-md-6 col-sm-12 col-12  ">
+                            <Card className=" border p-0">
+                              <Link>
+                                <Card.Body className=" text-center">
+                                  <img
+                                    className="avatar avatar-xxl brround cover-image"
+                                    crossOrigin="annonymous"
+                                    src={`${process.env.REACT_APP_API_BASE_URL}/${item?.image}`}
+                                    alt=""
+                                  />
+                                  <span
+                                    onClick={() => {
+                                      setEditTeam(item);
+                                      setAddTeam(true);
+                                    }}
+                                    style={{ fontSize: "20px" }}
+                                  >
+                                    <i className="fe fe-edit"></i>&nbsp;
+                                  </span>
+                                  <h4 className="fs-16 mb-0 mt-3 text-dark fw-semibold">
+                                    {item?.name}
+                                  </h4>
+                                  <span className="text-muted">
+                                    {item?.designation}
+                                  </span>
+                                </Card.Body>
+                              </Link>
+                            </Card>
+                          </li>
+                        );
+                      })}
+                  </span>
+                </Card>
+              </Col>
+
+            </Row>
           </>
         ) : (
           <Team_lead setAddTeam={setAddTeam} editTeam={editTeam} />

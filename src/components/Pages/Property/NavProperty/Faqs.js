@@ -20,7 +20,7 @@ const Faqs = () => {
   return (
     <>
       <PropertyDetails>
-        {addTeam == false ?
+        {addTeam === false ?
           <Card>
             <Card.Header className="border-bottom-0">
               <Card.Title as="h3">Faqs</Card.Title>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -50,7 +50,7 @@ function PhotobookImage({ url }) {
           crossOrigin="annonymous"
           src={url}
           alt=""
-          style={{height:"200px"}}
+          style={{ height: "200px" }}
         />
       </div>
     </div>
@@ -92,18 +92,32 @@ const Gallery = () => {
   return (
     <>
       <PropertyDetails>
-        <div className="ms-auto pageheader-btn">
-          <NavLink
-            onClick={handleClickOpen("paper")}
-            to="#"
-            className="btn btn-primary btn-icon text-white me-3"
-          >
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add Gallery
-          </NavLink>
-        </div>
+
+        <Row>
+          <Col>
+            <Card>
+              <Card.Header>
+              <Card.Title>
+                      <h1 className="card-title">Gallery</h1>
+                    </Card.Title>
+
+                <div className="ms-auto pageheader-btn">
+                  <NavLink
+                    onClick={handleClickOpen("paper")}
+                    to="#"
+                    className="btn btn-primary btn-icon text-white me-3"
+                  >
+                    <span>
+                      <i className="fe fe-plus"></i>&nbsp;
+                    </span>
+                    Add Gallery
+                  </NavLink>
+                </div>
+              </Card.Header>
+            </Card>
+          </Col>
+
+        </Row>
         {gallery?.length > 0 &&
           gallery?.map((item, i) => {
             return (
