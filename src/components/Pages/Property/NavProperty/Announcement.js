@@ -31,7 +31,7 @@ const Announcement = () => {
                 <Card className="Relatedpost nested-media ">
                   <Card.Header>
                     <Card.Title>
-                      <h1 className="card-title">Placement</h1>
+                      <h1 className="card-title">Announcement</h1>
                     </Card.Title>
                     <div
                       onClick={() => {
@@ -47,7 +47,7 @@ const Announcement = () => {
                         <span>
                           <i className="fe fe-plus"></i>&nbsp;
                         </span>
-                        Add Placement
+                        Add Announcement
                       </NavLink>
                     </div>
                   </Card.Header>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useHistory } from "react-router-dom";
+import { Card, Col, Row } from "react-bootstrap";
+import { Link, useNavigate, useHistory, NavLink } from "react-router-dom";
 import {
   Breadcrumb,
   Button
@@ -49,6 +50,8 @@ export default function AddProperty() {
 
   return (
     <div>
+      <Card.Header>
+      <NavLink>
       <div className="page-header">
         <div>
           <h1 className="page-title">Add Property</h1>
@@ -62,6 +65,8 @@ export default function AddProperty() {
           </Breadcrumb>
         </div>
       </div>
+      </NavLink>
+      </Card.Header>
 
       <Button onClick={() => addProperty()} >Add Property</Button>
       {/* <form onSubmit={formik.handleSubmit}>
