@@ -45,6 +45,7 @@ export function StatusModal({ open, scroll, handleClose,editStatus }) {
       if (editStatus != undefined) {
       dispatch(statusUpdate(editStatus?._id,values));
       dispatch(statusFetch());
+      window.location.reload(false);
       }else{
         dispatch(statusCreate(values));
       }
