@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 import {
@@ -54,8 +54,8 @@ export default function Announcement({ setAddTeam, editTeam }) {
                 //     dispatch(updateAnnouncement(formData));
                 //     setAddTeam(false)
                 // } else {
-                    dispatch(updateAnnouncement(values));
-                    setAddTeam(false)
+                dispatch(updateAnnouncement(values));
+                setAddTeam(false)
                 // }
             } else {
                 // if (typeof values.announcement_img == 'object') {
@@ -66,8 +66,8 @@ export default function Announcement({ setAddTeam, editTeam }) {
                 //     dispatch(createAnnouncement(formData));
                 //     setAddTeam(false)
                 // } else {
-                    dispatch(createAnnouncement(values));
-                    setAddTeam(false)
+                dispatch(createAnnouncement(values));
+                setAddTeam(false);
                 // }
             }
 
@@ -115,11 +115,12 @@ export default function Announcement({ setAddTeam, editTeam }) {
                                                     name="description"
                                                     onChange={formik.handleChange}
                                                     value={formik.values.description}></textarea> */}
-                                                    <JoditEditor 
-                        ref={editor}
-                        value={content}
-                        onChange={newContent=>setContent(newContent)}
-                        />
+                                                <JoditEditor
+                                                    className="form-control required"
+                                                    name="description"
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.description}
+                                                />
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}

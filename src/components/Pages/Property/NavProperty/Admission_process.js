@@ -5,11 +5,13 @@ import { NavLink, useParams } from "react-router-dom";
 import { getAdmission_process } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Admission_process_pages from "./pages/Admission_process_pages";
+import parse from 'html-react-parser';
 
 const Admission_process = () => {
   const dispatch = useDispatch();
   const params = useParams()
   const [addTeam, setAddTeam] = useState(false);
+  const [data, setData] = useState();
   const [editTeam, setEditTeam] = useState();
   const { admission_process } = useSelector((state) => ({
     admission_process: state?.propertyType?.admission_process,
@@ -17,12 +19,17 @@ const Admission_process = () => {
 
   useEffect(() => {
     dispatch(getAdmission_process());
+    if (admission_process.length > 0) {
+      setData(admission_process[0]);
+    }
   }, []);
 
+  const setDataForm = () => {
+    setEditTeam(data);
+  }
   return (
     <>
       <PropertyDetails>
-
         {addTeam == false ? (
           <>
             <Row>
@@ -36,6 +43,7 @@ const Admission_process = () => {
                       onClick={() => {
                         setAddTeam(true);
                         setEditTeam();
+                        setDataForm();
                       }}
                       className="ms-auto pageheader-btn"
                     >
@@ -46,7 +54,8 @@ const Admission_process = () => {
                         <span>
                           <i className="fe fe-plus"></i>&nbsp;
                         </span>
-                        Add Admission Process
+                        {editTeam ?
+                          "Add Admission Process" : "Edit"}
                       </NavLink>
                     </div>
                   </Card.Header>
@@ -61,9 +70,9 @@ const Admission_process = () => {
                                   <h4 className="mt-0 mb-4">
                                     <strong> {item?.title}</strong>
                                   </h4>
-                                  <p>{item?.description}</p>
+                                  <p>{parse(item?.description)}</p>
                                 </div>
-                                <div
+                                {/* <div
                                   onClick={() => {
                                     setAddTeam(true);
                                     setEditTeam(item);
@@ -79,7 +88,7 @@ const Admission_process = () => {
                                     </span>
                                     Edit
                                   </NavLink>
-                                </div>
+                                </div> */}
                                 {/* <img
                                 className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                 crossOrigin="annonymous"

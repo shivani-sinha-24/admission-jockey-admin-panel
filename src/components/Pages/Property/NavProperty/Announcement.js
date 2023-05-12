@@ -24,8 +24,6 @@ const Announcement = () => {
       <PropertyDetails>
         {addTeam == false ? (
           <>
-
-
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">

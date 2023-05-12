@@ -40,12 +40,11 @@ export default function Admission_process_pages({ setAddTeam, editTeam }) {
         initialValues: {
             "id": editTeam?._id || "",
             "property_id": params.id,
-            "title": editTeam?.title || "",
-            "description": editTeam?.description || ""
+            "title": editTeam?.title || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(editTeam, 'editTeam');
+            values = { ...values, "description": content }
             if (editTeam != undefined) {
                 // if (typeof values.admission_process_img == 'object') {
                 //     let formData = new FormData();
@@ -118,11 +117,11 @@ export default function Admission_process_pages({ setAddTeam, editTeam }) {
                                                     name="description"
                                                     onChange={formik.handleChange}
                                                     value={formik.values.description}></textarea> */}
-                                                    <JoditEditor 
-                        ref={editor}
-                        value={content}
-                        onChange={newContent=>setContent(newContent)}
-                        />
+                                                <JoditEditor
+                                                    ref={editor}
+                                                    value={content}
+                                                    onChange={newContent => setContent(newContent)}
+                                                />
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}
