@@ -19,13 +19,12 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
     const params = useParams()
 
     const editor = useRef(null);
-    const [content, setContent] =  useState('');
+    const [content, setContent] = useState(editTeam?.description || "");
 
     const { scholarship } = useSelector(state => ({
         scholarship: state?.property?.scholarship,
     }));
 
-    console.log(scholarship, "scholarship")
     useEffect(() => {
         dispatch(getScholarship())
     }, [])
@@ -42,11 +41,11 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
             "id": editTeam?._id || "",
             "property_id": params.id,
             "title": editTeam?.title || "",
-            "description": editTeam?.description || "",
-            "scholarship_img": editTeam?.scholarship_img || ""
+            "description": editTeam?.description || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
+            values = { ...values, "description": content }
             if (editTeam != undefined) {
                 // if (typeof values.scholarship_img == 'object') {
                 //     let formData = new FormData();
@@ -119,11 +118,11 @@ export default function Scholarship_pages({ setAddTeam, editTeam }) {
                                                     onChange={formik.handleChange}
                                                     value={formik.values.description}
                                                 /> */}
-                                                <JoditEditor 
-                        ref={editor}
-                        value={content}
-                        onChange={newContent=>setContent(newContent)}
-                        />
+                                               <JoditEditor
+                                                    ref={editor}
+                                                    value={content}
+                                                    onChange={newContent => setContent(newContent)}
+                                                />
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>
                                                 ) : null}

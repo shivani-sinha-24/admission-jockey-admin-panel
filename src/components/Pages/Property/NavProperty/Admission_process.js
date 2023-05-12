@@ -11,21 +11,17 @@ const Admission_process = () => {
   const dispatch = useDispatch();
   const params = useParams()
   const [addTeam, setAddTeam] = useState(false);
-  const [data, setData] = useState();
   const [editTeam, setEditTeam] = useState();
   const { admission_process } = useSelector((state) => ({
-    admission_process: state?.propertyType?.admission_process,
+    admission_process: state?.propertyType?.admission_process.filter(item => item?.property_id == params.id),
   }));
 
   useEffect(() => {
     dispatch(getAdmission_process());
-    if (admission_process.length > 0) {
-      setData(admission_process[0]);
-    }
   }, []);
 
   const setDataForm = () => {
-    setEditTeam(data);
+    setEditTeam(admission_process[0]);
   }
   return (
     <>
@@ -42,7 +38,6 @@ const Admission_process = () => {
                     <div
                       onClick={() => {
                         setAddTeam(true);
-                        setEditTeam();
                         setDataForm();
                       }}
                       className="ms-auto pageheader-btn"
@@ -54,8 +49,7 @@ const Admission_process = () => {
                         <span>
                           <i className="fe fe-plus"></i>&nbsp;
                         </span>
-                        {editTeam ?
-                          "Add Admission Process" : "Edit"}
+                        {admission_process.length > 0 ? "Edit" : "Add Admission Process"}
                       </NavLink>
                     </div>
                   </Card.Header>
@@ -70,7 +64,7 @@ const Admission_process = () => {
                                   <h4 className="mt-0 mb-4">
                                     <strong> {item?.title}</strong>
                                   </h4>
-                                  <p>{parse(item?.description)}</p>
+                                <p>{item?.description ? parse(item?.description) : ""}</p>
                                 </div>
                                 {/* <div
                                   onClick={() => {

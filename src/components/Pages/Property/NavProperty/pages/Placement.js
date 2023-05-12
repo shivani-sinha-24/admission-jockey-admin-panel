@@ -20,7 +20,7 @@ export default function Placement({ setAddTeam, editTeam }) {
   const params = useParams();
 
   const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(editTeam?.description || "");
 
   const { placement } = useSelector((state) => ({
     placement: state?.property?.placement,
@@ -46,30 +46,31 @@ export default function Placement({ setAddTeam, editTeam }) {
     },
     validationSchema: TeamLeadvalSchema,
     onSubmit: (values) => {
+      values = { ...values, "description": content }
       if (editTeam != undefined) {
-        if (typeof values.placement_img == "object") {
-          let formData = new FormData();
-          for (let value in values) {
-            formData.append(value, values[value]);
-          }
-          dispatch(updatePlacement(formData));
-          setAddTeam(false);
-        } else {
+        // if (typeof values.placement_img == "object") {
+        //   let formData = new FormData();
+        //   for (let value in values) {
+        //     formData.append(value, values[value]);
+        //   }
+        //   dispatch(updatePlacement(formData));
+        //   setAddTeam(false);
+        // } else {
           dispatch(updatePlacement(values));
           setAddTeam(false);
-        }
+        // }
       } else {
-        if (typeof values.placement_img == "object") {
-          let formData = new FormData();
-          for (let value in values) {
-            formData.append(value, values[value]);
-          }
-          dispatch(createPlacement(formData));
-          setAddTeam(false);
-        } else {
+        // if (typeof values.placement_img == "object") {
+        //   let formData = new FormData();
+        //   for (let value in values) {
+        //     formData.append(value, values[value]);
+        //   }
+        //   dispatch(createPlacement(formData));
+        //   setAddTeam(false);
+        // } else {
           dispatch(createPlacement(values));
           setAddTeam(false);
-        }
+        // }
       }
     },
   });

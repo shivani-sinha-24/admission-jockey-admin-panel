@@ -16,19 +16,16 @@ import { createAdmission_process, createTeamLeader, getAdmission_process, getTea
 
 export default function Admission_process_pages({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
-    const params = useParams()
-
+    const params = useParams();
     const editor = useRef(null);
-    const [content, setContent] = useState('');
-
+    const [content, setContent] = useState(editTeam?.description || "");
     const { admission_process } = useSelector(state => ({
         admission_process: state?.admission_process
     }));
-
+    
     useEffect(() => {
         dispatch(getAdmission_process())
     }, [])
-
 
     const TeamLeadvalSchema = Yup.object().shape({
         title: Yup.string().required('Title is required')

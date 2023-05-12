@@ -5,6 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { getAnnouncement } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Announcement_pages from "./pages/Announcement.js";
+import parse from 'html-react-parser';
 
 const Announcement = () => {
   const dispatch = useDispatch();
@@ -12,13 +13,16 @@ const Announcement = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { announcement } = useSelector((state) => ({
-    announcement: state?.propertyType?.announcement,
+    announcement: state?.propertyType?.announcement.filter(item => item?.property_id == params.id),
   }));
 
   useEffect(() => {
     dispatch(getAnnouncement());
   }, []);
 
+  const setDataForm = () => {
+    setEditTeam(announcement[0]);
+  }
   return (
     <>
       <PropertyDetails>
@@ -31,7 +35,7 @@ const Announcement = () => {
                     <Card.Title>
                       <h1 className="card-title">Announcement</h1>
                     </Card.Title>
-                    <div
+                    {/* <div
                       onClick={() => {
                         setAddTeam(true);
                         setEditTeam();
@@ -47,6 +51,23 @@ const Announcement = () => {
                         </span>
                         Add Announcement
                       </NavLink>
+                    </div> */}
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setDataForm();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        {announcement.length > 0 ? "Edit" : "Add Announcement"}
+                      </NavLink>
                     </div>
                   </Card.Header>
                   {announcement?.map((item, i) => {
@@ -59,9 +80,9 @@ const Announcement = () => {
                                 <h4 className="mt-0 mb-4">
                                   <strong> {item?.title}</strong>
                                 </h4>
-                                <p>{item?.description}</p>
+                                <p>{item?.description ? parse(item?.description) : ""}</p>
                               </div>
-                              <div
+                              {/* <div
                                 onClick={() => {
                                   setAddTeam(true);
                                   setEditTeam(item);
@@ -77,7 +98,7 @@ const Announcement = () => {
                                   </span>
                                   Edit
                                 </NavLink>
-                              </div>
+                              </div> */}
                               {/* <img
                                   className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                   crossOrigin="annonymous"

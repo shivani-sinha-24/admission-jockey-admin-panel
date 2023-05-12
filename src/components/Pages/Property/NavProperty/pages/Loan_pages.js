@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Col, Row, Card, Breadcrumb, Button } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -18,9 +18,8 @@ import {
 export default function Loan_pages({ setAddTeam, editTeam }) {
   const dispatch = useDispatch();
   const params = useParams();
-
+  const [content, setContent] = useState(editTeam?.description || "");
   const editor = useRef(null);
-  const [content, setContent] = useState('');
 
   const { loan } = useSelector((state) => ({
     loan: state?.propertyType?.loan,
@@ -39,11 +38,11 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
     initialValues: {
       id: editTeam?._id || "",
       property_id: params?.id,
-      title: editTeam?.title || "",
-      description: editTeam?.description || "",
+      title: editTeam?.title || ""
     },
     validationSchema: TeamLeadvalSchema,
     onSubmit: (values) => {
+      values = { ...values, "description": content }
       if (editTeam != undefined) {
         // if (typeof values.loan_img == 'object') {
         //     let formData = new FormData();
@@ -115,13 +114,13 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
                           onChange={formik.handleChange}
                           value={formik.values.description}
                         /> */}
-                        <JoditEditor 
-                        ref={editor}
-                        value={content}
-                        onChange={newContent=>setContent(newContent)}
+                        <JoditEditor
+                          ref={editor}
+                          value={content}
+                          onChange={newContent => setContent(newContent)}
                         />
                         {formik.errors.description &&
-                        formik.touched.description ? (
+                          formik.touched.description ? (
                           <div style={{ color: "red" }}>
                             {formik.errors.description}
                           </div>

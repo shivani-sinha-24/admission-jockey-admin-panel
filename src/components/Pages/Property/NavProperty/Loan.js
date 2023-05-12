@@ -5,20 +5,24 @@ import { NavLink, useParams } from "react-router-dom";
 import { getLoan } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Loan_pages from "./pages/Loan_pages.js";
+import parse from 'html-react-parser';
 
 const Loan = () => {
   const dispatch = useDispatch();
-  const params = useParams()
+  const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { loan } = useSelector((state) => ({
-    loan: state?.propertyType?.loan,
+    loan: state?.propertyType?.loan.filter(item => item?.property_id == params.id),
   }));
 
-  console.log(loan, "loan");
   useEffect(() => {
     dispatch(getLoan());
   }, []);
+
+  const setDataForm = () => {
+    setEditTeam(loan[0]);
+  }
 
   return (
     <>
@@ -34,7 +38,7 @@ const Loan = () => {
                     <Card.Title>
                       <h1 className="card-title">Loan</h1>
                     </Card.Title>
-                    <div
+                    {/* <div
                       onClick={() => {
                         setAddTeam(true);
                         setEditTeam();
@@ -50,6 +54,23 @@ const Loan = () => {
                         </span>
                         Add Loan
                       </NavLink>
+                    </div> */}
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setDataForm();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        {loan.length > 0 ? "Edit" : "Add Loan"}
+                      </NavLink>
                     </div>
                   </Card.Header>
                   {loan?.map((item, i) => {
@@ -62,9 +83,9 @@ const Loan = () => {
                                 <h4 className="mt-0 mb-4">
                                   <strong> {item?.title}</strong>
                                 </h4>
-                                <p>{item?.description}</p>
+                                <p>{item?.description ? parse(item?.description) : ""}</p>
                               </div>
-                              <div
+                              {/* <div
                                 onClick={() => {
                                   setAddTeam(true);
                                   setEditTeam(item);
@@ -80,7 +101,7 @@ const Loan = () => {
                                   </span>
                                   Edit
                                 </NavLink>
-                              </div>
+                              </div> */}
                               {/* <img
                                   className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                   crossOrigin="annonymous"
@@ -89,7 +110,8 @@ const Loan = () => {
                                 /> */}
                             </div>
                           </div>
-                        </Card.Body>)
+                        </Card.Body>
+                      )
                     }
                   })}
                 </Card>

@@ -5,26 +5,30 @@ import { NavLink, useParams } from "react-router-dom";
 import { getScholarship } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Scholarship_pages from "./pages/Scholarship_pages.js";
+import parse from 'html-react-parser';
+
 
 const Scholarship = () => {
   const dispatch = useDispatch();
-  const params = useParams()
+  const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { scholarship } = useSelector((state) => ({
-    scholarship: state?.propertyType?.scholarship,
+    scholarship: state?.propertyType?.scholarship.filter(item => item?.property_id == params.id),
   }));
+
   useEffect(() => {
     dispatch(getScholarship());
   }, []);
 
+  const setDataForm = () => {
+    setEditTeam(scholarship[0]);
+  }
   return (
     <>
       <PropertyDetails>
         {addTeam == false ? (
           <>
-
-
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">
@@ -35,7 +39,7 @@ const Scholarship = () => {
                     <div
                       onClick={() => {
                         setAddTeam(true);
-                        setEditTeam();
+                        setDataForm();
                       }}
                       className="ms-auto pageheader-btn"
                     >
@@ -46,7 +50,7 @@ const Scholarship = () => {
                         <span>
                           <i className="fe fe-plus"></i>&nbsp;
                         </span>
-                        Add Scholorship
+                        {scholarship.length > 0 ? "Edit" : "Add Scholarship"}
                       </NavLink>
                     </div>
                   </Card.Header>
@@ -60,9 +64,9 @@ const Scholarship = () => {
                                 <h4 className="mt-0 mb-4">
                                   <strong> {item?.title}</strong>
                                 </h4>
-                                <p>{item?.description}</p>
+                                <p>{item?.description ? parse(item?.description) : ""}</p>
                               </div>
-                              <div
+                              {/* <div
                                 onClick={() => {
                                   setAddTeam(true);
                                   setEditTeam(item);
@@ -78,7 +82,7 @@ const Scholarship = () => {
                                   </span>
                                   Edit
                                 </NavLink>
-                              </div>
+                              </div> */}
                               {/* <img
                                   className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                   crossOrigin="annonymous"

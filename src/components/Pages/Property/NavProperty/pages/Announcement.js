@@ -16,10 +16,11 @@ import { createAnnouncement, createTeamLeader, getAnnouncement, getTeamLead, upd
 
 export default function Announcement({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
-    const params = useParams()
+    const params = useParams();
 
     const editor = useRef(null);
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState(editTeam?.description || "");
+
 
     const { announcement } = useSelector(state => ({
         announcement: state?.property?.announcement,
@@ -40,11 +41,11 @@ export default function Announcement({ setAddTeam, editTeam }) {
         initialValues: {
             "id": editTeam?._id || "",
             "property_id": params.id,
-            "title": editTeam?.title || "",
-            "description": editTeam?.description || ""
+            "title": editTeam?.title || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
+            values = { ...values, "description": content }
             if (editTeam != undefined) {
                 // if (typeof values.announcement_img == 'object') {
                 //     let formData = new FormData();
@@ -115,11 +116,10 @@ export default function Announcement({ setAddTeam, editTeam }) {
                                                     name="description"
                                                     onChange={formik.handleChange}
                                                     value={formik.values.description}></textarea> */}
-                                                <JoditEditor
-                                                    className="form-control required"
-                                                    name="description"
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.description}
+                                                 <JoditEditor
+                                                    ref={editor}
+                                                    value={content}
+                                                    onChange={newContent => setContent(newContent)}
                                                 />
                                                 {formik.errors.description && formik.touched.description ? (
                                                     <div style={{ color: "red" }}>{formik.errors.description}</div>

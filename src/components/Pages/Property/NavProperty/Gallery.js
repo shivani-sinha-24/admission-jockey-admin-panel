@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useParams } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,39 +6,7 @@ import { NavLink } from "react-router-dom";
 import { getGallery } from "../../../../redux/Action/PropertyTypeAction";
 import { GalleryModal } from "../../../Modal/GalleryModal";
 import PropertyDetails from "../PropertyDetails";
-
-const images = [
-  {
-    id: "image1",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/1.jpg"),
-  },
-  {
-    id: "image2",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/2.jpg"),
-  },
-  {
-    id: "image3",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/13.jpg"),
-  },
-  {
-    id: "image4",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/12.jpg"),
-  },
-  {
-    id: "image5",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/8.jpg"),
-  },
-  {
-    id: "image6",
-    className: "d-block img-fluid br-5",
-    src: require("../../../../assets/images/media/9.jpg"),
-  },
-];
+import parse from 'html-react-parser';
 
 //GalleryImageswidgets
 function PhotobookImage({ url }) {

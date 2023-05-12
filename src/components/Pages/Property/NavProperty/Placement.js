@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink,useParams } from "react-router-dom";
 import { getPlacement } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Placement_pages from "./pages/Placement.js";
+import parse from 'html-react-parser';
 
 const Placement = () => {
   const dispatch = useDispatch();
+  const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { placement } = useSelector((state) => ({
-    placement: state?.propertyType?.placement,
+    placement: state?.propertyType?.placement.filter(item => item?.property_id == params.id),
   }));
 
-  console.log(placement, "placement");
   useEffect(() => {
     dispatch(getPlacement());
   }, []);
+
+  const setDataForm = () => {
+    setEditTeam(placement[0]);
+  }
 
   return (
     <>
       <PropertyDetails>
         {addTeam == false ? (
           <>
-
-
             <Row>
               <Col>
                 <Card className="Relatedpost nested-media ">
@@ -33,7 +36,7 @@ const Placement = () => {
                     <Card.Title>
                       <h1 className="card-title">Placement</h1>
                     </Card.Title>
-                    <div
+                    {/* <div
                       onClick={() => {
                         setAddTeam(true);
                         setEditTeam();
@@ -49,6 +52,23 @@ const Placement = () => {
                         </span>
                         Add Placement
                       </NavLink>
+                    </div> */}
+                    <div
+                      onClick={() => {
+                        setAddTeam(true);
+                        setDataForm();
+                      }}
+                      className="ms-auto pageheader-btn"
+                    >
+                      <NavLink
+                        to="#"
+                        className="btn btn-primary btn-icon text-white me-3"
+                      >
+                        <span>
+                          <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        {placement.length > 0 ? "Edit" : "Add Placement"}
+                      </NavLink>
                     </div>
                   </Card.Header>
                   {placement?.map((item, i) => {
@@ -61,9 +81,9 @@ const Placement = () => {
                                 <h4 className="mt-0 mb-4">
                                   <strong> {item?.title}</strong>
                                 </h4>
-                                <p>{item?.description}</p>
+                                <p>{item?.description ? parse(item?.description) : ""}</p>
                               </div>
-                              <div
+                              {/* <div
                                 onClick={() => {
                                   setAddTeam(true);
                                   setEditTeam(item);
@@ -79,7 +99,7 @@ const Placement = () => {
                                   </span>
                                   Edit
                                 </NavLink>
-                              </div>
+                              </div> */}
                               {/* <img
                                 className="ms-2 mt-3 mb-3 avatar avatar-xl brround"
                                 crossOrigin="annonymous"
