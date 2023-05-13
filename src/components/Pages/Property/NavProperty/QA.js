@@ -58,15 +58,16 @@ const Faqs = () => {
                             <Accordion className="acc-card mb-4 " flush>
                               <Accordion.Item eventKey="0">
                                 <Accordion.Header className="acc-header">
-                                  {item?.ques}
-                                  <div className="ms-auto pageheader-btn">
+                                  <div className="pageheader-btn">
                                     <span>
                                       <i onClick={() => {
                                         setAddTeam(true);
                                         setEditTeam(item);
-                                      }} className="fe fe-edit"></i>&nbsp;
+                                      }} className="fe fe-edit">
+                                        <button ></button></i>&nbsp;
                                     </span>
                                   </div>
+                                  {item?.ques}
                                 </Accordion.Header>
                                 <Accordion.Body className="border">
                                   {item?.answer}
