@@ -11,6 +11,9 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import { collegeUpdate } from "../../../redux/Action/PropertyAction";
+import { Chips } from 'primereact/chips';
+import { classNames } from 'primereact/utils';
+
 
 
 export default function PropertyUpdate() {
@@ -25,6 +28,7 @@ export default function PropertyUpdate() {
     useEffect(() => {
         dispatch(getCollegeList())
     }, []);
+    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -36,7 +40,7 @@ export default function PropertyUpdate() {
             "short_name": college[0]?.short_name || "",
             "est_year": college[0]?.est_year || "",
             "approved_by": college[0]?.approve_by || "",
-            "affliated_by": college[0]?.affilite_by || ""
+            "affliated_by": college[0]?.affilite_by || []
         },
         onSubmit: values => {
             let _id = params?.id;
@@ -166,8 +170,29 @@ export default function PropertyUpdate() {
                                                         value={formik.values.approved_by}
                                                         placeholder='approved_by'
                                                         className="form-control required"
-
                                                     />
+                                                    {/* <div className="card p-fluid justify-content-center">
+                                                        <div className="flex flex-column gap-2">
+                                                            <Chips
+                                                                inputId="c_chipArray"
+                                                                name="chipArray"
+                                                                value={formik.values.chipArray}
+                                                                className={classNames({ 'p-invalid': isFormFieldInvalid('chipArray') })}
+                                                                onChange={(e) => {
+                                                                    formik.setFieldValue('chipArray', e.value);
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div> */}
+                                                    {/* <Chips
+                                                        inputId="c_chipArray"
+                                                        name="chipArray"
+                                                        value={formik.values.chipArray}
+                                                        className="form-control required"
+                                                        onChange={(e) => {
+                                                            formik.setFieldValue('chipArray', e.value);
+                                                        }}
+                                                    /> */}
                                                     {formik.errors.approved_by && formik.touched.approved_by ? (
                                                         <div style={{ color: "red" }}>{formik.errors.approved_by}</div>
                                                     ) : null}

@@ -37,6 +37,7 @@ import Hostel from "./components/Pages/Property/NavProperty/Hostel";
 import Scholarship from "./components/Pages/Property/NavProperty/Scholarship";
 import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
+import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
@@ -104,6 +105,7 @@ function App() {
               <Route path={"/property-list/:id/course"} element={<Course />} />
               <Route path={"/property-list/:id/loan"} element={<Loan />} />
               <Route path={"/property-list/:id/hostel"} element={<Hostel />} />
+              <Route path={"/property-list/:id/QA"} element={<QA />} />
               <Route
                 path={"/property-list/:id/scholarship"}
                 element={<Scholarship />}

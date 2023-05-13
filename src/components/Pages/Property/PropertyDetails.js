@@ -178,7 +178,6 @@ const PropertyDetails = ({children}) => {
                         <i className="fe fe-layers"></i> Team lead
                       </span>
                     </Nav.Link>
-
                   </Nav.Item>
 
                   <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/review`)} className="nav-item">
@@ -218,6 +217,19 @@ const PropertyDetails = ({children}) => {
                     >
                       <span className="nav-link-icon d-block">
                         <i className="fe fe-image"></i> Aminities
+                      </span>
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/QA`)} className="nav-item">
+                    <Nav.Link
+                      className="nav-link border py-2 px-4 m-1"
+                      id="tab12"
+                      role="tab"
+                      aria-selected="false"
+                      eventKey="QA"
+                    >
+                      <span className="nav-link-icon d-block">
+                        <i className="fe fe-layers"></i> Q&A
                       </span>
                     </Nav.Link>
                   </Nav.Item>
