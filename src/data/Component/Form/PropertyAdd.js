@@ -37,65 +37,83 @@ function Name({ nextStep, handleFormData, values }) {
   return (
     <div>
       <Form onSubmit={submitFormData}>
-        <h1 style={{ fontSize: "5 rem", fontWeight: "600" }}> Add Property Details</h1>
-        <Form.Group className="">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="email"
-            defaultValue={values.email}
-            type="text"
-            placeholder="Email"
-            onChange={handleFormData("email")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="">
-          <Form.Label>Website</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="website"
-            defaultValue={values.website}
-            type="text"
-            placeholder="Website"
-            onChange={handleFormData("website")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="phonenumber"
-            pattern="[789][0-9]{9}"
-            defaultValue={values.phonenumber}
-            type="text"
-            placeholder="Phone Number"
-            onChange={handleFormData("phonenumber")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Button type="submit">
-          Continue
-        </Button>
+        <Row className=" row-sm mt-5">
+          <Col lg={12} xl={12} md={12} sm={12}>
+            <Card>
+              <Card.Header>
+                <Card.Title as="h3">Add Property Details</Card.Title>
+              </Card.Header>
+              <Col sm={12} lg={12} md={12} xl={12}>
+                <Row>
+                  <section>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Form.Group className="">
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="email"
+                            defaultValue={values.email}
+                            type="text"
+                            placeholder="Email"
+                            onChange={handleFormData("email")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <Form.Group className="">
+                          <Form.Label>Website</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="website"
+                            defaultValue={values.website}
+                            type="text"
+                            placeholder="Website"
+                            onChange={handleFormData("website")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <Form.Group className="">
+                          <Form.Label>Phone Number</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="phonenumber"
+                            pattern="[789][0-9]{9}"
+                            defaultValue={values.phonenumber}
+                            type="text"
+                            placeholder="Phone Number"
+                            onChange={handleFormData("phonenumber")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <Button type="submit" className="mb-5">
+                          Continue
+                        </Button>
+                      </div>
+                    </div>
+                  </section>
+                </Row>
+              </Col>
+            </Card>
+          </Col>
+        </Row>
       </Form>
     </div>
   );
@@ -114,120 +132,146 @@ function StepTwo({ nextStep, handleFormData, prevStep, values }) {
   return (
     <div>
       <Form onSubmit={submitFormData}>
-        <h1 style={{ fontSize: "5 rem", fontWeight: "600" }}> Add Property Details</h1>
-        <Form.Group className="mb-3">
-          <Form.Label>Type</Form.Label>
-          <Form.Select
-            style={{ border: error ? "2px solid red" : "" }}
-            onChange={handleFormData("type")}>
-            <option >Select Type</option>
-            <option value="University">University</option>
-            <option value="College">College</option>
-          </Form.Select>
-          {error ? (
-            <Form.Text style={{ color: "red" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid red" : "" }}
-            type="text"
-            placeholder="Name"
-            onChange={handleFormData("name")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "red" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Short Name</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid red" : "" }}
-            type="text"
-            placeholder="Short Name"
-            onChange={handleFormData("shortName")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "red" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Est. Year</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="estyr"
-            defaultValue={values.estyr}
-            pattern="^(19|20)\d{2}$"
-            type="number"
-            placeholder="1900-2050"
-            onChange={handleFormData("estyr")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Approved By</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="aprovedBy"
-            defaultValue={values.aprovedBy}
-            type="text"
-            placeholder="aprovedBy"
-            onChange={handleFormData("aprovedBy")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Affilated By</Form.Label>
-          <Form.Control
-            style={{ border: error ? "2px solid #ff0000" : "" }}
-            name="affilatedBy"
-            defaultValue={values.affilatedBy}
-            type="text"
-            placeholder="affilatedBy"
-            onChange={handleFormData("affilatedBy")}
-          />
-          {error ? (
-            <Form.Text style={{ color: "#ff0000" }}>
-              This is a required field
-            </Form.Text>
-          ) : (
-            ""
-          )}
-        </Form.Group>
-        <div >
-          <Button className="float-start" onClick={prevStep}>
-            Previous
-          </Button>
+        <Row className=" row-sm mt-3">
+          <Col lg={12} xl={12} md={12} sm={12}>
+            <Card>
+              <Card.Header>
+                <Card.Title as="h3">Add Property Details</Card.Title>
+              </Card.Header>
+              <Col sm={12} lg={12} md={12} xl={12}>
+                <Row>
+                  <section>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Form.Group className="mb-3">
+                          <Form.Label>Type</Form.Label>
+                          <Form.Select
+                            style={{ border: error ? "2px solid red" : "" }}
+                            onChange={handleFormData("type")}>
+                            <option >Select Type</option>
+                            <option value="University">University</option>
+                            <option value="College">College</option>
+                          </Form.Select>
+                          {error ? (
+                            <Form.Text style={{ color: "red" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
 
-          <Button className="float-end" type="submit">
-            Continue
-          </Button>
-        </div>
+                        <div className="row d-flex">
+                          <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                              <Form.Label>Name</Form.Label>
+                              <Form.Control
+                                style={{ border: error ? "2px solid red" : "" }}
+                                type="text"
+                                placeholder="Name"
+                                onChange={handleFormData("name")}
+                              />
+                              {error ? (
+                                <Form.Text style={{ color: "red" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                              <Form.Label>Short Name</Form.Label>
+                              <Form.Control
+                                style={{ border: error ? "2px solid red" : "" }}
+                                type="text"
+                                placeholder="Short Name"
+                                onChange={handleFormData("shortName")}
+                              />
+                              {error ? (
+                                <Form.Text style={{ color: "red" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                        </div>
+                        <Form.Group className="mb-3">
+                          <Form.Label>Est. Year</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="estyr"
+                            defaultValue={values.estyr}
+                            pattern="^(19|20)\d{2}$"
+                            type="number"
+                            placeholder="1900-2050"
+                            onChange={handleFormData("estyr")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label>Approved By</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="aprovedBy"
+                            defaultValue={values.aprovedBy}
+                            type="text"
+                            placeholder="aprovedBy"
+                            onChange={handleFormData("aprovedBy")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label>Affilated By</Form.Label>
+                          <Form.Control
+                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            name="affilatedBy"
+                            defaultValue={values.affilatedBy}
+                            type="text"
+                            placeholder="affilatedBy"
+                            onChange={handleFormData("affilatedBy")}
+                          />
+                          {error ? (
+                            <Form.Text style={{ color: "#ff0000" }}>
+                              This is a required field
+                            </Form.Text>
+                          ) : (
+                            ""
+                          )}
+                        </Form.Group>
+                        <div>
+                          <Button className="float-start mb-5" onClick={prevStep}>
+                            Previous
+                          </Button>
+
+                          <Button className="float-end mb-5" type="submit">
+                            Continue
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </Row>
+              </Col>
+            </Card>
+          </Col>
+        </Row>
+        {/* <h1 style={{ fontSize: "5 rem", fontWeight: "600" }}> Add Property Details</h1> */}
       </Form>
     </div>
   );
@@ -246,8 +290,8 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
       "short_name": values.shortName || "",
       "est_year": values.estyr || "",
       "approve_by": values.aprovedBy || "",
-      "affilite_by": values.affilatedBy||"",
-      "image":""
+      "affilite_by": values.affilatedBy || "",
+      "image": ""
     },
     onSubmit: values => {
       if (typeof values.image == 'object') {
@@ -277,39 +321,36 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
                 <Card.Title as="h3">Add Property Details</Card.Title>
               </Card.Header>
               <Col sm={12} lg={12} md={12} xl={12}>
-                <Card >
-                  <Row>
-                    <section>
-                      <div className="row">
-                        <div className="col-md-12">
-                          <Form.Group className="">
-                            <div className="control-group form-group mb-0 drop">
-                              <label className="form-label">Logo</label>
-                              <DropImg
-                                type="file" className="dropify" imgtype="image"
-                                formik={formik}
-                              />
-                            </div>
-                          </Form.Group>
-                          <div >
-                            <Button className="float-start" onClick={prevStep}>
-                              Previous
-                            </Button>
-
-                            <Button className="float-end" type="submit">
-                              Continue
-                            </Button>
-                            <NavLink
-                              to={`/property-list`}
-                              id="propertyList"
-                              disabled
-                            ></NavLink>
+                <Row>
+                  <section>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Form.Group className="">
+                          <div className="control-group form-group mb-0 drop">
+                            <label className="form-label">Logo</label>
+                            <DropImg
+                              type="file" className="dropify" imgtype="image"
+                              formik={formik}
+                            />
                           </div>
+                        </Form.Group>
+                        <div >
+                          <Button className="float-start mb-5" onClick={prevStep}>
+                            Previous
+                          </Button>
+                          <Button className="float-end" type="submit">
+                            Continue
+                          </Button>
+                          <NavLink
+                            to={`/property-list`}
+                            id="propertyList"
+                            disabled
+                          ></NavLink>
                         </div>
                       </div>
-                    </section>
-                  </Row>
-                </Card>
+                    </div>
+                  </section>
+                </Row>
               </Col>
             </Card>
           </Col>
