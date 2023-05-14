@@ -8,12 +8,15 @@ export function DropImg({imgtype,formik}) {
 
   const handleChangeStatus = ({ meta }, status,allFiles) => {
     console.log( meta,allFiles,imgtype,meta.height == 180 && meta.width==180,"image-aj");
-    if(imgtype == "logo" && meta.status == 'done'){
-      if(meta.height == 180 && meta.width==180){
-        formik.setFieldValue("logo",allFiles[0].file)
-      }else if(meta.height != 180 && meta.width!=180){
-        allFiles.forEach((f) => f.remove());
-      }
+    // if(imgtype == "logo" && meta.status == 'done'){
+    //   if(meta.height == 180 && meta.width==180){
+    //     formik.setFieldValue("logo",allFiles[0].file)
+    //   }else if(meta.height != 180 && meta.width!=180){
+    //     allFiles.forEach((f) => f.remove());
+    //   }
+    // }
+    if(imgtype == "logo"){
+      formik.setFieldValue("logo",allFiles[0].file)
     }
     if(imgtype == "featured"){
       const arr = [];

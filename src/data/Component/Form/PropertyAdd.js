@@ -5,7 +5,18 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, useNavigate, Routes, Route, NavLink } from "react-router-dom";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import { Form } from "react-bootstrap";
+import { useFormik } from "formik";
+
+import {
+  Col,
+  Row,
+  Card,
+  Breadcrumb
+} from "react-bootstrap";
 import validator from "validator";
+// import { DropImg } from "../../StepForm/component/DropImg";
+import { DropImg } from "../../../components/Pages/Property/StepForm/component/DropImg";
+
 
 //WizardForm
 function Name({ nextStep, handleFormData, values }) {
@@ -214,38 +225,131 @@ function StepTwo({ nextStep, handleFormData, prevStep, values }) {
           </Button>
 
           <Button className="float-end" type="submit">
-            Submit
+            Continue
           </Button>
         </div>
-        <NavLink
-          to={`/property-list`}
-          id="propertyList"
-          disabled
-        ></NavLink>
       </Form>
     </div>
   );
 };
-function Final({ values }) {
+function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
   const dispatch = useDispatch();
-  const { email, phonenumber, website, type, name, shortName, estyr, aprovedBy, affilatedBy } = values;
-  let data = {
-    "email": email,
-    "phone": phonenumber,
-    "website": website,
-    "edu_type": type,
-    "college_type": "Gov",
-    "name": name,
-    "short_name": shortName,
-    "est_year": estyr,
-    "approve_by": aprovedBy,
-    "affilite_by": affilatedBy
-  };
-  dispatch(createProperty(data));
-  dispatch(getCollegeList())
-  document.getElementById("propertyList").click();
-  window.location.reload(false);
-};
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      "email": values.email || "",
+      "phone": values.phonenumber || "",
+      "website": values.website || "",
+      "edu_type": values.type || "",
+      "college_type": "Gov",
+      "name": values.name || "",
+      "short_name": values.shortName || "",
+      "est_year": values.estyr || "",
+      "approve_by": values.aprovedBy || "",
+      "affilite_by": values.affilatedBy||"",
+      "image":""
+    },
+    onSubmit: values => {
+      if (typeof values.image == 'object') {
+        let formData = new FormData();
+        for (let value in values) {
+          formData.append(value, values[value]);
+        }
+        dispatch(createProperty(formData));
+        dispatch(getCollegeList())
+        document.getElementById("propertyList").click();
+        window.location.reload(false);
+      } else {
+        dispatch(createProperty(values));
+        dispatch(getCollegeList())
+        document.getElementById("propertyList").click();
+        window.location.reload(false);
+      }
+    },
+  });
+  return (
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+        <Row className=" row-sm">
+          <Col lg={12} xl={12} md={12} sm={12}>
+            <Card>
+              <Card.Header>
+                <Card.Title as="h3">Add Property Details</Card.Title>
+              </Card.Header>
+              <Col sm={12} lg={12} md={12} xl={12}>
+                <Card >
+                  <Row>
+                    <section>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <Form.Group className="">
+                            <div className="control-group form-group mb-0 drop">
+                              <label className="form-label">Logo</label>
+                              <DropImg
+                                type="file" className="dropify" imgtype="image"
+                                formik={formik}
+                              />
+                            </div>
+                          </Form.Group>
+                          <div >
+                            <Button className="float-start" onClick={prevStep}>
+                              Previous
+                            </Button>
+
+                            <Button className="float-end" type="submit">
+                              Continue
+                            </Button>
+                            <NavLink
+                              to={`/property-list`}
+                              id="propertyList"
+                              disabled
+                            ></NavLink>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </Row>
+                </Card>
+              </Col>
+            </Card>
+          </Col>
+        </Row>
+      </form>
+    </div>
+  );
+}
+// function Final({ values }) {
+//   const dispatch = useDispatch();
+//   // const { email, phonenumber, website, type, name, shortName, estyr, aprovedBy, affilatedBy, logo } = values;
+//   // let data = {
+//   //   "email": email,
+//   //   "phone": phonenumber,
+//   //   "website": website,
+//   //   "edu_type": type,
+//   //   "college_type": "Gov",
+//   //   "name": name,
+//   //   "short_name": shortName,
+//   //   "est_year": estyr,
+//   //   "approve_by": aprovedBy,
+//   //   "affilite_by": affilatedBy,
+//   //   "logo":logo
+//   // };
+//   if (typeof values.logo == 'object') {
+//     let formData = new FormData();
+//     for (let value in values) {
+//       formData.append(value, values[value]);
+//     }
+//     dispatch(createProperty(formData));
+//     dispatch(getCollegeList())
+//     document.getElementById("propertyList").click();
+//     window.location.reload(false);
+//   } else {
+//     dispatch(createProperty(values));
+//     dispatch(getCollegeList())
+//     document.getElementById("propertyList").click();
+//     window.location.reload(false);
+//   }
+// };
 
 export function PropertyAdd() {
   const [step, setstep] = useState(1);
@@ -279,23 +383,18 @@ export function PropertyAdd() {
           <Name nextStep={nextStep} handleFormData={handleInputData} values={formData} />
         </div>
       );
-
-    default:
+    case 2:
       return (
-
         <div className="custom-margin">
           <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
         </div>
       );
-
-    case 3:
+    default:
       return (
-        <div className="">
-          <div className="custom-margin">
-            <Final values={formData} />
-          </div>
+        <div className="custom-margin">
+          <ThirdStep nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
         </div>
-      );
+      )
   }
 }
 //End
