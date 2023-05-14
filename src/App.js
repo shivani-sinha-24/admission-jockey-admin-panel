@@ -42,7 +42,8 @@ import UniversityPropertyList from "./components/Pages/Property/UniversityProper
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
-import Category from "./components/Pages/College/Category";
+import CategoryList from "./components/Pages/Cotegory/CategoryList";
+import CreateCategory from "./components/Pages/Cotegory/Category_crud/CreateCategory";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
@@ -54,7 +55,6 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path={"/register"} element={<Register />} />
-
         <Route path={"/login"} element={<Login />} />
         <Route path={"/forgotPassword"} element={<ForgotPassword />} />
         <Route path={"/resetPassword"} element={<ResetPassword />} />
@@ -80,7 +80,8 @@ function App() {
               <Route path={"/status"} element={<Status />} />
               <Route path={"/property-list"} element={<PropertyList />} />
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
-              <Route path={"/category"} element={<Category />} />
+              <Route path={"/category-list"} element={<CategoryList />} />
+              <Route path={"/add-category"} element={<CreateCategory/>} />
 
               <Route
                 path={"/property-list/:id"}

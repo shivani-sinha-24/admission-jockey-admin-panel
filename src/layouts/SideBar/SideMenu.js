@@ -142,7 +142,7 @@ export const  MENUITEMS = [
         active: false,
         children: [
           {
-            path: `/category`,
+            path: `/category-list`,
             type: "link",
             title: "Category",
           }

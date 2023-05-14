@@ -11,7 +11,6 @@ import { CategoryModal } from "../../Modal/CategoryModal";
 
 export default function DataTables() {
   const dispatch = useDispatch();
-
   const { users } = useSelector(state => ({
     users: state?.userAuth?.users,
   }));
