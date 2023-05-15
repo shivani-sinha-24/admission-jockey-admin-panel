@@ -8,14 +8,10 @@ import '../../../../App.css'; import {
     Button,
 } from "react-bootstrap";
 import JoditEditor from 'jodit-react';
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCollegeList } from "../../../../redux/Action/PropertyTypeAction";
 import { createCategory } from "../../../../redux/Action/CategoryAction";
 import { DropImg } from "../../Property/StepForm/component/DropImg";
-import { collegeUpdate } from "../../../../redux/Action/PropertyAction";
-import { Chips } from 'primereact/chips';
-import { classNames } from 'primereact/utils';
 
 
 
@@ -44,16 +40,16 @@ export default function CreateCategory() {
         },
         onSubmit: values => {
             values = { ...values, "description": content }
-            if (typeof values.image == 'object') {
+            if (typeof values.image == 'object' || values.logo == 'object' || values.image == 'object' && values.logo == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
                 dispatch(createCategory(formData));
-                // setAddTeam(false)
+                navigate("/category-list");
             } else {
                 dispatch(createCategory(values));
-                // setAddTeam(false)
+                navigate("/category-list");
             }
         },
     });
@@ -101,7 +97,7 @@ export default function CreateCategory() {
                                                         ) : null}
                                                     </div>
                                                 </div>
-                                                <div className="row  d-flex">
+                                                <div className="row  d-flex mt-5">
                                                     <div className="col-md-6">
                                                         <div className="control-group form-group mb-0 drop">
                                                             <label className="form-label">Image</label>

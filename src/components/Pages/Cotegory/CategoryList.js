@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+// import * as datatable from "../../../data/Table/datatable/datatable";
 import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
+import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { CategoryModal } from "../../Modal/CategoryModal";
@@ -13,8 +15,11 @@ import { CategoryModal } from "../../Modal/CategoryModal";
 export default function DataTables() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-  const { users } = useSelector(state => ({
+  const { users,tab_status,category,college } = useSelector(state => ({
     users: state?.userAuth?.users,
+    tab_status: state?.propertyType?.tab_status,
+    college: state?.propertyType?.college.filter(item => item?.edu_type == "College")
+    
   }));
 
   const [show, setShow] = useState(false);
@@ -33,13 +38,18 @@ export default function DataTables() {
     dispatch(userUpdate(row?._id, row));
     dispatch(fetchUserByRole(row?.role))
   };
+  const propertyDeleteAction = (id) => {
+  }
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  // useEffect(() => {
+  //   dispatch(fetchUserByRole(1))
+  // }, [])
   useEffect(() => {
-    dispatch(fetchUserByRole(1))
+    dispatch(getCollegeList())
   }, [])
 
   const userDeleteAction = (id) => {
@@ -88,9 +98,15 @@ export default function DataTables() {
               <h3 className="card-title">Category List</h3>
             </Card.Header>
             <Card.Body>
-              {/* <div className="table-responsive">
-                <datatable.DataTables handleStatusUpdate={handleStatusUpdate} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
-              </div> */}
+              <div className="table-responsive">
+                <datatable.DataTablesForCategory 
+                 handleStatusUpdate={handleStatusUpdate} 
+                  handleShow={handleShow}
+                   propertyDeleteAction={propertyDeleteAction}
+                   handleClickOpen={handleClickOpen} 
+                   tab_status={tab_status}
+                   college={college} />
+              </div>
             </Card.Body>
           </Card>
         </Col>

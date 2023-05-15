@@ -10,7 +10,6 @@ import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import {propertyDelete} from "../../../redux/Action/PropertyAction";
 export default function Editors() {
   const dispatch = useDispatch();
-
   const { users,college,tab_status } = useSelector(state => ({
     users: state?.userAuth?.users,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
