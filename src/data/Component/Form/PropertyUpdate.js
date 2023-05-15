@@ -194,7 +194,7 @@ export default function PropertyUpdate() {
                                                 </div>
 
                                                 <div className="row  d-flex">
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-4">
 
                                                         <label className="form-label">Approved By</label>
                                                         <input
@@ -209,7 +209,7 @@ export default function PropertyUpdate() {
                                                             <div style={{ color: "red" }}>{formik.errors.approved_by}</div>
                                                         ) : null}
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-4">
 
                                                         <label className="form-label">Affliated By</label>
                                                         <input

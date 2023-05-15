@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
@@ -10,7 +11,8 @@ import { CategoryModal } from "../../Modal/CategoryModal";
 
 
 export default function DataTables() {
-  const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
   const { users } = useSelector(state => ({
     users: state?.userAuth?.users,
   }));
@@ -22,7 +24,7 @@ export default function DataTables() {
   const [deleteId, setDeleteId] = useState();
 
   const handleClickOpen = (scrollType, row) => () => {
-    setEditUser(row)
+    setEditUser(row);
     setOpen(true);
     setScroll(scrollType);
   };
@@ -65,7 +67,7 @@ export default function DataTables() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
+          <Link  to="/add-category" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>

@@ -125,7 +125,6 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                                                     formik={formik}
                                                 />
                                             </div>
-
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>
                                     </Row>

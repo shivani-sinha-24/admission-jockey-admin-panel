@@ -13,7 +13,7 @@ let initState = {
     admission_process: [],
     announcement: [],
     faqs: [],
-    qas: []
+    qas: [],
 }
 
 const propertyTypeReducer = (state = initState, action) => {
