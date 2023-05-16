@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
-import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
+import { getCategory } from "../../../redux/Action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { CategoryModal } from "../../Modal/CategoryModal";
@@ -18,10 +18,10 @@ export default function DataTables() {
   const { users,tab_status,category,college } = useSelector(state => ({
     users: state?.userAuth?.users,
     tab_status: state?.propertyType?.tab_status,
-    college: state?.propertyType?.college.filter(item => item?.edu_type == "College")
-    
+    college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
+    category: state?.category?.category,
   }));
-
+  
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -49,7 +49,7 @@ export default function DataTables() {
   //   dispatch(fetchUserByRole(1))
   // }, [])
   useEffect(() => {
-    dispatch(getCollegeList())
+    dispatch(getCategory());
   }, [])
 
   const userDeleteAction = (id) => {
@@ -105,7 +105,7 @@ export default function DataTables() {
                    propertyDeleteAction={propertyDeleteAction}
                    handleClickOpen={handleClickOpen} 
                    tab_status={tab_status}
-                   college={college} />
+                   category={category} />
               </div>
             </Card.Body>
           </Card>

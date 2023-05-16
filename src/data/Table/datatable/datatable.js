@@ -1479,6 +1479,7 @@ export const DataTablesForCategory = ({
   userDeleteAction,
   handleClickOpen,
   status,
+  category,
   role,
   hello,
 }) => {
@@ -1505,7 +1506,7 @@ export const DataTablesForCategory = ({
               width={50}
               height={50}
               style={{borderRadius:"360px"}}
-              src={`${process.env.REACT_APP_API_BASE_URL}${row?.logo}`}
+              src={`${process.env.REACT_APP_API_BASE_URL}/${row?.logo}`}
             />
           </span>
         ),
@@ -1603,7 +1604,7 @@ export const DataTablesForCategory = ({
     <DataTable
       title
       columns={columns}
-      data={status}
+      data={category}
       selectableRows
       contextActions={contextActions}
       onSelectedRowsChange={handleRowSelected}
