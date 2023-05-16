@@ -1,5 +1,5 @@
 import API from "../../service/API";
-import { CATEGORY_ADD_REQUEST, CATEGORY_ADD_FAILURE, CATEGORY_ADD_SUCCESS,CATEGORY_GET_REQUEST,CATEGORY_GET_SUCCESS,CATEGORY_GET_FAILURE } from "../Constants/Constants";
+import { CATEGORY_ADD_REQUEST, CATEGORY_ADD_FAILURE,CATEGORY_DELETE_REQUEST,CATEGORY_DELETE_SUCCESS,CATEGORY_DELETE_FAILURE, CATEGORY_ADD_SUCCESS,CATEGORY_GET_REQUEST,CATEGORY_GET_SUCCESS,CATEGORY_GET_FAILURE } from "../Constants/Constants";
 import { ToastContainer, toast } from 'react-toastify';
 
 //Add Status action
@@ -29,6 +29,21 @@ export const getCategory = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CATEGORY_GET_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
+
+export const categoryDelete = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CATEGORY_DELETE_REQUEST });
+    const { data } = await API.delete(`/deleteCategory?id=${id}`);
+    dispatch({ type: CATEGORY_DELETE_SUCCESS, payload:data?.id });
+    toast.success("Category deleted successfully.")
+
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_DELETE_FAILURE,
       // payload: error.message && error.message ? error.message : '',
     });
   }

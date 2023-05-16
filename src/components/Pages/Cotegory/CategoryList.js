@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
-import { getCategory } from "../../../redux/Action/CategoryAction";
+import { getCategory,categoryDelete } from "../../../redux/Action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { CategoryModal } from "../../Modal/CategoryModal";
@@ -21,7 +21,7 @@ export default function DataTables() {
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     category: state?.category?.category,
   }));
-  
+
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -39,6 +39,8 @@ export default function DataTables() {
     dispatch(fetchUserByRole(row?.role))
   };
   const propertyDeleteAction = (id) => {
+    dispatch(categoryDelete(deleteId))
+    dispatch(getCategory())
   }
 
   const handleClose = () => {
@@ -53,8 +55,7 @@ export default function DataTables() {
   }, [])
 
   const userDeleteAction = (id) => {
-    dispatch(userDelete(deleteId))
-    dispatch(fetchUserByRole(1))
+   
   }
 
   const handleShow = (id) => () => {
@@ -112,7 +113,7 @@ export default function DataTables() {
         </Col>
       </Row>
       < CategoryModal role={1} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal  setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      <WarningModal  setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

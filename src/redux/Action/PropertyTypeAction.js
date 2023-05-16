@@ -58,10 +58,8 @@ export const updatePropertyType = (id,property) => async (dispatch) => {
 
 export const deletePropertyType = (id) => async (dispatch) => {
   try {
-    console.log("delete",id);
     dispatch({ type: PROPERTY_TYPE_DELETE_REQUEST });
     const { data } = await API.delete(`/deletePropertyType?id=${id}`);
-console.log(data,"llllllooooo")
     dispatch({ type: PROPERTY_TYPE_DELETE_SUCCESS, payload:data });
 
     toast.success("PropertyType deleted successfully.")
