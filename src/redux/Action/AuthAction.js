@@ -198,14 +198,10 @@ export const changePassDone = (userInfo) => async (dispatch) => {
 
 //fetchUser pass action
 export const fetchUserByRole = (role) => async (dispatch) => {
-
   try {
     dispatch({ type: USER_FETCH_ROLE_REQUEST });
-    const { data } = await API.post("/getAllUser",{role:role});
-
+    const { data } = await API.post("/getAllUser",{"role":role});
     console.log("getAllUser", data, data?.data);
-
-
     dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
 
 
