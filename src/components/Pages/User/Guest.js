@@ -36,12 +36,12 @@ const handleClose = () => {
   setOpen(false);
 };
 useEffect(()=>{
-  dispatch(fetchUserByRole(0))
+  dispatch(fetchUserByRole(7))
 },[])
 
 const userDeleteAction = (id) =>{
   dispatch(userDelete(deleteId))
-  dispatch(fetchUserByRole(0))
+  dispatch(fetchUserByRole(7))
 }
 
 const handleShow = (id) => () => {

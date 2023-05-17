@@ -10,7 +10,7 @@ import '../../../../App.css'; import {
 import JoditEditor from 'jodit-react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createCategory } from "../../../../redux/Action/CategoryAction";
+import { createCategory, getCategory } from "../../../../redux/Action/CategoryAction";
 import { DropImg } from "../../Property/StepForm/component/DropImg";
 
 
@@ -21,13 +21,14 @@ export default function CreateCategory() {
     const params = useParams();
     const [content, setContent] = useState("");
     const navigate = useNavigate();
-    const { users, college, tab_status } = useSelector(state => ({
+    const { users, college, tab_status, category } = useSelector(state => ({
         users: state?.userAuth?.users,
         college: state?.propertyType?.college.filter(item => item?._id == params.id),
+        category: state?.category?.category,
         tab_status: state?.propertyType?.tab_status,
     }));
     useEffect(() => {
-        // dispatch(getCatergoryList())
+        dispatch(getCategory())
     }, []);
     // const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const formik = useFormik({
@@ -77,6 +78,7 @@ export default function CreateCategory() {
                                                             value={formik.values.name}
                                                             placeholder='Name'
                                                             className="form-control required"
+                                                            required
                                                         />
                                                         {formik.errors.name && formik.touched.name ? (
                                                             <div style={{ color: "red" }}>{formik.errors.name}</div>
@@ -84,14 +86,24 @@ export default function CreateCategory() {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <label className="fw-bold">Parent</label>
-                                                        <input
+                                                        {category.length < 0 ? <input
                                                             type="Text"
                                                             name="parent"
                                                             onChange={formik.handleChange}
                                                             value={formik.values.parent}
                                                             placeholder='Parent'
                                                             className="form-control"
-                                                        />
+                                                        /> : <select
+                                                            name="parent"
+                                                            onChange={formik.handleChange}
+                                                            className="form-control">
+                                                            <option value="">Please select your parent</option>
+                                                            {category?.map((item) => {
+                                                                return (
+                                                                    <option value={item?.name}>{item?.name}</option>
+                                                                )
+                                                            })}
+                                                        </select>}
                                                         {formik.errors.parent && formik.touched.parent ? (
                                                             <div style={{ color: "red" }}>{formik.errors.parent}</div>
                                                         ) : null}

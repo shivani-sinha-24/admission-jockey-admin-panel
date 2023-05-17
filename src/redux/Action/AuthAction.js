@@ -201,7 +201,7 @@ export const fetchUserByRole = (role) => async (dispatch) => {
 
   try {
     dispatch({ type: USER_FETCH_ROLE_REQUEST });
-    const { data } = await API.get(`/getAllUser?role=${role}`);
+    const { data } = await API.post("/getAllUser",{role:role});
 
     console.log("getAllUser", data, data?.data);
 

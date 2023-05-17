@@ -44,6 +44,7 @@ import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
 import CategoryList from "./components/Pages/Cotegory/CategoryList";
 import CreateCategory from "./components/Pages/Cotegory/Category_crud/CreateCategory";
+import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCategory";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
@@ -82,6 +83,7 @@ function App() {
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
               <Route path={"/add-category"} element={<CreateCategory/>} />
+              <Route path={"/update-category/:id"} element={<UpdateCategory/>} />
 
               <Route
                 path={"/property-list/:id"}

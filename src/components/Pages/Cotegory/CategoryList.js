@@ -30,8 +30,8 @@ export default function DataTables() {
 
   const handleClickOpen = (scrollType, row) => () => {
     setEditUser(row);
-    setOpen(true);
-    setScroll(scrollType);
+    // setOpen(true);
+    // setScroll(scrollType);
   };
 
   const handleStatusUpdate = (row) => () => {
