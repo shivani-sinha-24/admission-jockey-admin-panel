@@ -48,6 +48,7 @@ export default function CreateUniversityCourse() {
             values = {
                 "eligibilty": eligibilty,
                 "description": description,
+                "universityID":params.id,
                 ...values
             }
             dispatch(createUniversityCourse(values));
@@ -222,8 +223,8 @@ export default function CreateUniversityCourse() {
                                                         />
                                                     </div>
                                                 </div>
-
                                                 <Button type="submit" variant="primary" className="me-1 mt-3 mb-5" >Submit</Button>
+                                                <Button onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} variant="danger" className="me-1 mt-3 mb-5" >Cancle</Button>
                                             </div>
                                         </div>
                                     </section>

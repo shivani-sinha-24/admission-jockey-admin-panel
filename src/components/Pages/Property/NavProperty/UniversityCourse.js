@@ -1,15 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { NavLink,useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import * as datatable from "../../../../data/Table/datatable/datatable";
+import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
+import { WarningModal } from "../../../Modal/WarningModal";
+import {getUniversityCourses} from "../../../../redux/Action/PropertyTypeAction";
 
-
-
-
-const Course = () => {
-    const dispatch = useDispatch();
+const Course = () => {const dispatch = useDispatch();
+    const { users,college,tab_status,universityCourse} = useSelector(state => ({
+        users: state?.userAuth?.users,
+        // college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
+        universityCourse:state?.universityCourse?.universityCourse,
+    }));
+    console.log(universityCourse,"kartik");
     const params = useParams();
+    const [deleteId, setDeleteId] = useState();
+    const [show, setShow] = useState(false);
+    const handleShow = (id) => () => {
+        setDeleteId(id)
+        setShow(true)
+    };
+    useEffect(() => {
+        dispatch(getUniversityCourses());
+      }, [])
+
+    const handleStatusUpdate = (row) => () => {
+        // dispatch(userUpdate(row?._id, { ...row, type: "property" }));
+        // dispatch(getCollegeList())
+    };
+
+    const propertyDeleteAction = (id) => {
+        // dispatch(propertyDelete(deleteId))
+        // dispatch(getCollegeList())
+        // window.location.reload(false);
+      }
     return (
         <>
             <PropertyDetails>
@@ -29,10 +54,17 @@ const Course = () => {
                                     </NavLink>
                                 </div>
                             </Card.Header>
-
+                            <Card.Body>
+                                <datatable.UniversityCourseTable
+                                    handleStatusUpdate={handleStatusUpdate}
+                                    handleShow={handleShow}
+                                    propertyDeleteAction={propertyDeleteAction}
+                                    universityCourse={universityCourse} />
+                            </Card.Body>
                         </Card>
                     </Col>
                 </Row>
+                <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
             </PropertyDetails>
         </>
     )
