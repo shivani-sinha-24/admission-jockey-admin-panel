@@ -31,7 +31,8 @@ import PropertyDetails from "./components/Pages/Property/PropertyDetails";
 import Gallery from "./components/Pages/Property/NavProperty/Gallery";
 import Admission_process from "./components/Pages/Property/NavProperty/Admission_process";
 import Placement from "./components/Pages/Property/NavProperty/Placement";
-import Course from "./components/Pages/Property/NavProperty/Course";
+import UniversityCourse from "./components/Pages/Property/NavProperty/UniversityCourse";
+import AddUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_page";
 import Loan from "./components/Pages/Property/NavProperty/Loan";
 import Hostel from "./components/Pages/Property/NavProperty/Hostel";
 import Scholarship from "./components/Pages/Property/NavProperty/Scholarship";
@@ -86,7 +87,7 @@ function App() {
               <Route path={"/update-category/:id"} element={<UpdateCategory/>} />
 
               <Route
-                path={"/property-list/:id"}
+                path={"/property-list/:id/:edu_type"}
                 element={<PropertyDetails />}
               />
 
@@ -105,7 +106,8 @@ function App() {
                 path={"/property-list/:id/placement"}
                 element={<Placement />}
               />
-              <Route path={"/property-list/:id/course"} element={<Course />} />
+              <Route path={"/property-list/:id/universitycourse"} element={<UniversityCourse />} />
+              <Route path={"/property-list/:id/adduniversitycourse"} element={<AddUniversityCourse />} />
               <Route path={"/property-list/:id/loan"} element={<Loan />} />
               <Route path={"/property-list/:id/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:id/QA"} element={<QA />} />

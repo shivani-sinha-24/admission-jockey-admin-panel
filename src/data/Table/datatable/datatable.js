@@ -1068,7 +1068,7 @@ export const ProrpertyListTable = ({
         <span className="" style={{ width: "409px" }}>
           <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>}>
             <NavLink
-              to={`/property-list/${row._id}`}
+              to={`/property-list/${row._id}/${row.edu_type}`}
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i

@@ -10,9 +10,6 @@ export const register = (userInfo, forregister) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
     const { data } = await API.post(`/userCreate`, userInfo);
-    
-    console.log( "register",data)
-
     if (data.status_code) {
       if (forregister == "register") {
         sessionStorage.setItem("accessToken", data?.data?.token);

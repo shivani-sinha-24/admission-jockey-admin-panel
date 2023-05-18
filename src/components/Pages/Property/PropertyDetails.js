@@ -6,10 +6,10 @@ import Faqs from './NavProperty/Faqs';
 import Gallery from './NavProperty/Gallery';
 import TeamLead from './NavProperty/TeamLead';
 
-const PropertyDetails = ({children}) => {
+const PropertyDetails = ({ children }) => {
   const navigate = useNavigate();
   const params = useParams();
-  const [navState,setNavState] = useState();
+  const [navState, setNavState] = useState();
 
   return (
     <>
@@ -44,7 +44,7 @@ const PropertyDetails = ({children}) => {
                   role="tablist"
                   defaultActiveKey="videos"
                 >
-                  <Nav.Item onClick={()=>navigate(`/property-list`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab1"
@@ -57,7 +57,7 @@ const PropertyDetails = ({children}) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/admission-process`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/admission-process`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab2"
@@ -70,7 +70,7 @@ const PropertyDetails = ({children}) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/placement`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/placement`)} className="nav-item">
                     <Nav.Link
                       className="nav-link py-2 px-4  border show m-1"
                       id="tab3"
@@ -83,34 +83,21 @@ const PropertyDetails = ({children}) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/course`)} className="nav-item">
-                    <Nav.Link
-                      className="nav-link py-2 px-4  border show m-1"
-                      id="tab3"
-                      role="tab"
-                      aria-selected="true"
-                      eventKey="course"
-                    >
-                      <span className="nav-link-icon d-block">
-                        <i className="fe fe-play"></i> Course
-                      </span>
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/loan`)} className="nav-item">
-                    <Nav.Link
-                      className="nav-link border py-2 px-4 m-1"
-                      id="tab4"
-                      role="tab"
-                      aria-selected="false"
-                      eventKey="loan"
-                    >
-                      <span className="nav-link-icon d-block">
-                        <i className="fe fe-layers"></i> Loan
-                      </span>
-                    </Nav.Link>
-
-                  </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/hostel`)} className="nav-item">
+                  {params?.edu_type == "University" ?
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link py-2 px-4  border show m-1"
+                        id="tab3"
+                        role="tab"
+                        aria-selected="true"
+                        eventKey="course"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-play"></i> Course
+                        </span>
+                      </Nav.Link>
+                    </Nav.Item> : ""}
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/hostel`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab5"
@@ -124,7 +111,7 @@ const PropertyDetails = ({children}) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/scholarship`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/scholarship`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab6"
@@ -138,7 +125,7 @@ const PropertyDetails = ({children}) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/announcement`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/announcement`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab7"
@@ -152,7 +139,7 @@ const PropertyDetails = ({children}) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/faqs`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/faqs`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab8"
@@ -160,13 +147,13 @@ const PropertyDetails = ({children}) => {
                       aria-selected="false"
                       eventKey="faq"
                     >
-                      <span  className="nav-link-icon d-block">
+                      <span className="nav-link-icon d-block">
                         <i className="fe fe-layers"></i> Faq's
                       </span>
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/team-lead`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/team-lead`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab9"
@@ -180,7 +167,7 @@ const PropertyDetails = ({children}) => {
                     </Nav.Link>
                   </Nav.Item>
 
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/review`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/review`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab10"
@@ -194,7 +181,7 @@ const PropertyDetails = ({children}) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/gallery`)}  className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/gallery`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab11"
@@ -207,7 +194,7 @@ const PropertyDetails = ({children}) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/aminities`)}  className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/aminities`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab11"
@@ -220,7 +207,7 @@ const PropertyDetails = ({children}) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/property-list/${params?.id}/QA`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/QA`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab12"
@@ -236,9 +223,9 @@ const PropertyDetails = ({children}) => {
                 </Nav>
               </Card.Body>
             </Card>
-           
-           {/* NAVIGATION COMPONENT RENDER */}
-           {/* {
+
+            {/* NAVIGATION COMPONENT RENDER */}
+            {/* {
             navState == "gallery" &&  <Gallery />
            }
            {
@@ -251,7 +238,7 @@ const PropertyDetails = ({children}) => {
             navState == "teamLead"  && <TeamLead />
            } */}
 
-           {children}
+            {children}
           </Col>
         </Row>
 

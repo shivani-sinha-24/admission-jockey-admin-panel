@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink,useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 
@@ -9,7 +9,7 @@ import { Card, Col, Row } from "react-bootstrap";
 
 const Course = () => {
     const dispatch = useDispatch();
-
+    const params = useParams();
     return (
         <>
             <PropertyDetails>
@@ -21,7 +21,7 @@ const Course = () => {
                                     <h1 className="card-title">Course</h1>
                                 </Card.Title>
                                 <div className="ms-auto pageheader-btn">
-                                    <NavLink to="#" className="btn btn-primary btn-icon text-white me-3">
+                                    <NavLink to={`/property-list/${params?.id}/adduniversitycourse`} className="btn btn-primary btn-icon text-white me-3">
                                         <span>
                                             <i className="fe fe-plus"></i>&nbsp;
                                         </span>
