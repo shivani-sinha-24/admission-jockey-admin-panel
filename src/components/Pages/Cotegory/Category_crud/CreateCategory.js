@@ -86,7 +86,7 @@ export default function CreateCategory() {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <label className="fw-bold">Parent</label>
-                                                        {category.length < 0 ? <input
+                                                        {category.length <= 0 ? <input
                                                             type="Text"
                                                             name="parent"
                                                             onChange={formik.handleChange}

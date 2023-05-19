@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
+import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
@@ -13,10 +14,12 @@ export default function Editors() {
     users: state?.userAuth?.users,
   }));
   const [show, setShow] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [open, setOpen] = React.useState(false);  
+  const [userData, setUserData] = React.useState({});
   const [scroll, setScroll] = React.useState("paper");
-  const [editUser, setEditUser] = useState();
-  const [deleteId, setDeleteId] = useState();
+  const [editUser,setEditUser]= useState();
+  const [deleteId,setDeleteId] = useState();
 
   const handleClickOpen = (scrollType, row) => () => {
     setEditUser(row)
@@ -44,6 +47,16 @@ export default function Editors() {
   const handleShow = (id)  => {
     setDeleteId(id)
     setShow(true)
+  };
+
+  const handleOpen  = (id) => {
+    setShow(true);
+    setUserData(id);
+  };
+
+  const handleOpenUserModal  = (id) => {
+    setShowUserProfile(true);
+    setUserData(id);
   };
 
   return (
@@ -83,7 +96,7 @@ export default function Editors() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.EditorDataTables  handleStatusUpdate={handleStatusUpdate}  handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
+                <datatable.EditorDataTables  handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleShow={handleShow} userDeleteAction={userDeleteAction} handleOpen={handleOpen} handleClickOpen={handleClickOpen} users={users} />
               </div>
             </Card.Body>
           </Card>
@@ -91,6 +104,7 @@ export default function Editors() {
       </Row>
       {/* <SimpleModal role={2} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} /> */}
       <WarningModal setShow={setShow} propertyDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      <UserDetailModal setShow={setShowUserProfile} show={showUserProfile} userData={userData} />
     </div>
   );
 }

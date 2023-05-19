@@ -565,6 +565,7 @@ export const EditorDataTables = ({
   userDeleteAction,
   handleStatusUpdate,
   handleClickOpen,
+  handleOpenUserModal,
   handleOpen,
   users,
   role,
@@ -579,24 +580,9 @@ export const EditorDataTables = ({
   }, []);
 
   const handleOpenModal = (id) => {
-    handleOpen(id);
+    handleOpenUserModal(id);
   };
   const columns = [
-    // {
-    //   name: "AVATAR",
-    //   cell: (row) => (
-    //     <span >
-    //       <img
-    //         crossorigin="anonymous"
-    //         width={50}
-    //         height={50}
-    //         style={{borderRadius:"360px"}}
-    //         src={`${process.env.REACT_APP_API_BASE_URL}/images/${row?.image}`}
-    //       />
-    //     </span>
-    //   ),
-    //   sortable: true,
-    // },
     {
       name: "NAME",
       selector: (row) => [row.name],
@@ -653,94 +639,20 @@ export const EditorDataTables = ({
       selector: (row) => [row.action],
       sortable: true,
       cell: (row) => (
-        // <span className="">
-        //   <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
-        //     <Link
-        //       onClick={handleClickOpen("paper", row)}
-        //       className="btn btn-primary btn-sm rounded-11 me-2"
-        //     >
-        //       <i>
-        //         <svg
-        //           className="table-edit"
-        //           xmlns="http://www.w3.org/2000/svg"
-        //           height="20"
-        //           viewBox="0 0 24 24"
-        //           width="16"
-        //         >
-        //           <path d="M0 0h24v24H0V0z" fill="none" />
-        //           <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
-        //         </svg>
-        //       </i>
-        //     </Link>
-        //   </OverlayTrigger>
-        //   <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
-        //     <Link
-        //       onClick={
-        //         //userDeleteAction(row?._id)
-        //         handleShow(row?._id)
-        //       }
-        //       to="#"
-        //       className="btn btn-danger btn-sm rounded-11"
-        //     >
-        //       <i>
-        //         <svg
-        //           className="table-delete"
-        //           xmlns="http://www.w3.org/2000/svg"
-        //           height="20"
-        //           viewBox="0 0 24 24"
-        //           width="16"
-        //         >
-        //           <path d="M0 0h24v24H0V0z" fill="none" />
-        //           <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-        //         </svg>
-        //       </i>
-        //     </Link>
-        //   </OverlayTrigger>
-        //   <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
-        //     <NavLink
-        //       // to={`/property-list/${row._id}`}
-        //       className="btn btn-yellow btn-sm rounded-11 me-2"
-        //     >
-        //       <i
-        //         className="fa fa-eye"
-        //         style={{ fontSize: "1.3rem" }}
-        //         aria-hidden="true"
-        //         onClick={()=>handleOpenModal(row)}
-        //       ></i>
-        //     </NavLink>
-        //   </OverlayTrigger>
-        // </span>
         <span className="" style={{ width: "409px" }}>
           <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>}>
             <NavLink
-              to={`/property-list/${row._id}`}
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i
                 className="fa fa-eye"
                 style={{ fontSize: "1.3rem" }}
                 aria-hidden="true"
+                onClick={() => handleOpenUserModal(row)}
               ></i>
             </NavLink>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
-            {/* <Link
-              onClick={handleClickOpen("paper", row)}
-              className="btn btn-primary btn-sm rounded-11 me-2"
-            >
-              <i>
-                <svg
-                  className="table-edit"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  width="16"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
-                </svg>
-              </i>
-            </Link> */}
             <NavLink
               to={`/editor-update/${row._id}`}
               className="btn btn-primary btn-sm rounded-11 me-2"
@@ -787,11 +699,6 @@ export const EditorDataTables = ({
   ];
 
   const columnsCafe = [
-    // {
-    //   name: "S.NO",
-    //   selector: (row) => [row.SNO],
-    //   sortable: true,
-    // },
     {
       name: "NAME",
       selector: (row) => [row.name],
@@ -870,52 +777,8 @@ export const EditorDataTables = ({
       sortable: true,
       cell: (row) => (
         <span className="">
-          {/* <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
-            <Link
-              onClick={handleClickOpen("paper", row)}
-              to="#"
-              className="btn btn-primary btn-sm rounded-11 me-2"
-            >
-              <i>
-                <svg
-                  className="table-edit"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  width="16"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
-                </svg>
-              </i>
-            </Link>
-          </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
-            <Link
-              onClick={
-                //userDeleteAction(row?._id)
-                handleShow(row?._id)
-              }
-              to="#"
-              className="btn btn-danger btn-sm rounded-11"
-            >
-              <i>
-                <svg
-                  className="table-delete"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  width="16"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                </svg>
-              </i>
-            </Link>
-          </OverlayTrigger> */}
           <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>}>
             <NavLink
-              // to={`/property-list/${row._id}`}
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i
