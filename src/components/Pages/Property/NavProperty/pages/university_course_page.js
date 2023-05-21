@@ -8,7 +8,8 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {createUniversityCourse} from "../../../../../redux/Action/PropertyTypeAction";
+import { createUniversityCourse } from "../../../../../redux/Action/PropertyTypeAction";
+import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
 
@@ -19,14 +20,51 @@ export default function CreateUniversityCourse() {
     const editor = useRef(null);
     const deditor = useRef(null);
     const navigate = useNavigate();
-    const { users, college, tab_status } = useSelector(state => ({
+    const [categoryForSelectBox, setCategoryForSelectBox] = useState([]);
+    const [stream, setStream] = useState([]);
+    const [subcategory, setSubcategory] = useState([]);
+    const { users, college, tab_status, category } = useSelector(state => ({
         users: state?.userAuth?.users,
+        category: state?.category?.category,
         // college: state?.propertyType?.college.filter(item => item?._id == params.id),
         tab_status: state?.propertyType?.tab_status,
     }));
-    // useEffect(() => {
-    //     dispatch(getCollegeList())
-    // }, []);
+    useEffect(() => {
+        dispatch(getCategory());
+    }, []);
+
+    const setCategory = (cat) => {
+        let subCategory = [];
+        category?.map((sub_cat) => {
+            if (sub_cat?.branch?.length == 1) {
+                sub_cat?.branch?.map((sub) => {
+                    if (sub == cat) {
+                        subCategory.push(sub_cat);
+                    }
+                })
+            }
+        });
+        if (subCategory?.length > 0) {
+            setSubcategory(subCategory);
+        }
+    }
+
+    const setSubCategory = (sub_cat) => {
+        let streamArray = [];
+        category?.map((stream) => {
+            if (stream?.branch?.length > 1) {
+                stream?.branch?.map((sub) => {
+                    if (sub == sub_cat) {
+                        streamArray.push(stream);
+                    }
+                })
+            }
+        });
+        if (streamArray?.length > 0) {
+            setStream(streamArray);
+        }
+    }
+    console.log(stream,"stream");
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const [eligibilty, setEligibilty] = useState("");
     const [description, setDescription] = useState("");
@@ -48,7 +86,7 @@ export default function CreateUniversityCourse() {
             values = {
                 "eligibilty": eligibilty,
                 "description": description,
-                "universityID":params.id,
+                "universityID": params.id,
                 ...values
             }
             dispatch(createUniversityCourse(values));
@@ -162,16 +200,21 @@ export default function CreateUniversityCourse() {
                                                         ) : null}
                                                     </div>
                                                 </div>
-
                                                 <div className="row  d-flex">
                                                     <div className="col-md-4">
                                                         <label className="form-label">Category</label>
                                                         <select name="category"
-                                                            onChange={formik.handleChange}
+                                                            onChange={(e) => setCategory(e.target.value)}
+                                                            id="category"
                                                             className="form-control">
                                                             <option value="">Please Select Category</option>
-                                                            <option value="YES">YES</option>
-                                                            <option value="No">NO</option>
+                                                            {category?.length > 0 ? category.map((item) => {
+                                                                if (item?.parent?.length == "") {
+                                                                    return (
+                                                                        <option value={item?.name}>{item?.name}</option>
+                                                                    )
+                                                                }
+                                                            }) : ""}
                                                         </select>
                                                         {formik.errors.category && formik.touched.category ? (
                                                             <div style={{ color: "red" }}>{formik.errors.category}</div>
@@ -180,11 +223,14 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Sub Category</label>
                                                         <select name="sub_category"
-                                                            onChange={formik.handleChange}
+                                                            onChange={(e) => setSubCategory(e.target.value)}
                                                             className="form-control">
-                                                            <option value="">Please Select Sub Category</option>
-                                                            <option value="YES">YES</option>
-                                                            <option value="No">NO</option>
+                                                            {subcategory.length > 0 ? <option value="">Please Select Sub Category</option> : <option value="">Please Select Category First</option>}
+                                                            {subcategory?.length > 0 ? subcategory.map((item) => {
+                                                                return (
+                                                                    <option value={item?.name}>{item?.name}</option>
+                                                                )
+                                                            }) : ""}
                                                         </select>
                                                         {formik.errors.sub_category && formik.touched.sub_category ? (
                                                             <div style={{ color: "red" }}>{formik.errors.sub_category}</div>
@@ -196,9 +242,13 @@ export default function CreateUniversityCourse() {
                                                         <select name="stream"
                                                             onChange={formik.handleChange}
                                                             className="form-control">
-                                                            <option value="">Please Select Stream </option>
-                                                            <option value="YES">YES</option>
-                                                            <option value="No">NO</option>
+                                                            {stream.length > 0 ? <option value="">Please Select Stream </option> : <option value="">Please Select Sub Category First</option>}
+                                                            
+                                                            {stream?.length > 0 ? stream.map((item) => {
+                                                                return (
+                                                                    <option value={item?.name}>{item?.name}</option>
+                                                                )
+                                                            }) : ""}
                                                         </select>
                                                         {formik.errors.stream && formik.touched.stream ? (
                                                             <div style={{ color: "red" }}>{formik.errors.stream}</div>

@@ -5,15 +5,15 @@ import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import {getUniversityCourses} from "../../../../redux/Action/PropertyTypeAction";
+import { getUniversityCourses } from "../../../../redux/Action/PropertyTypeAction";
 
-const Course = () => {const dispatch = useDispatch();
-    const { users,college,tab_status,universityCourse} = useSelector(state => ({
+const Course = () => {
+    const dispatch = useDispatch();
+    const { users, college, tab_status, category, universityCourse } = useSelector(state => ({
         users: state?.userAuth?.users,
-        // college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
-        universityCourse:state?.universityCourse?.universityCourse,
+        category: state?.category?.category,
+        universityCourse: state?.universityCourse?.universityCourse,
     }));
-    console.log(universityCourse,"kartik");
     const params = useParams();
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
@@ -23,8 +23,7 @@ const Course = () => {const dispatch = useDispatch();
     };
     useEffect(() => {
         dispatch(getUniversityCourses());
-      }, [])
-
+    }, []);
     const handleStatusUpdate = (row) => () => {
         // dispatch(userUpdate(row?._id, { ...row, type: "property" }));
         // dispatch(getCollegeList())
@@ -34,7 +33,7 @@ const Course = () => {const dispatch = useDispatch();
         // dispatch(propertyDelete(deleteId))
         // dispatch(getCollegeList())
         // window.location.reload(false);
-      }
+    }
     return (
         <>
             <PropertyDetails>
