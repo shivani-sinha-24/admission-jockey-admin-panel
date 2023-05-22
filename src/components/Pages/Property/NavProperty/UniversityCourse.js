@@ -5,7 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import { getUniversityCourses } from "../../../../redux/Action/PropertyTypeAction";
+import { getUniversityCourses,universityCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
 
 const Course = () => {
     const dispatch = useDispatch();
@@ -29,10 +29,9 @@ const Course = () => {
         // dispatch(getCollegeList())
     };
 
-    const propertyDeleteAction = (id) => {
-        // dispatch(propertyDelete(deleteId))
-        // dispatch(getCollegeList())
-        // window.location.reload(false);
+    const courseDeleteAction = (id) => {
+    dispatch(universityCourseDelete(deleteId))
+    dispatch(getUniversityCourses())
     }
     return (
         <>
@@ -57,13 +56,12 @@ const Course = () => {
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
                                     handleShow={handleShow}
-                                    propertyDeleteAction={propertyDeleteAction}
                                     universityCourse={universityCourse} />
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-                <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
+                <WarningModal setShow={setShow} propertyDeleteAction={courseDeleteAction} show={show} handleShow={handleShow} />
             </PropertyDetails>
         </>
     )

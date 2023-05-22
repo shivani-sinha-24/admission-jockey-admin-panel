@@ -1431,7 +1431,6 @@ export const DataTablesForCategory = ({
 
 export const UniversityCourseTable = ({
   handleShow,
-  userDeleteAction,
   handleClickOpen,
   universityCourse,
   role,

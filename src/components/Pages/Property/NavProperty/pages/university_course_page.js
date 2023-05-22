@@ -8,7 +8,7 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUniversityCourse } from "../../../../../redux/Action/PropertyTypeAction";
+import { createUniversityCourse,getUniversityCourses } from "../../../../../redux/Action/PropertyTypeAction";
 import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
@@ -21,8 +21,11 @@ export default function CreateUniversityCourse() {
     const deditor = useRef(null);
     const navigate = useNavigate();
     const [categoryForSelectBox, setCategoryForSelectBox] = useState([]);
-    const [stream, setStream] = useState([]);
+    const [streamList, setStreamList] = useState([]);
     const [subcategory, setSubcategory] = useState([]);
+    const [categoryOnSelect, setCategoryOnSelect] = useState("");
+    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState("");
+    const [streamOnSelect, setStreamOnSelect] = useState("");
     const { users, college, tab_status, category } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
@@ -34,6 +37,7 @@ export default function CreateUniversityCourse() {
     }, []);
 
     const setCategory = (cat) => {
+        setCategoryOnSelect(cat);
         let subCategory = [];
         category?.map((sub_cat) => {
             if (sub_cat?.branch?.length == 1) {
@@ -49,7 +53,12 @@ export default function CreateUniversityCourse() {
         }
     }
 
+    const setStream = (stream) => {
+        setStreamOnSelect(stream);
+    }
+
     const setSubCategory = (sub_cat) => {
+        setSubCategoryOnSelect(sub_cat);
         let streamArray = [];
         category?.map((stream) => {
             if (stream?.branch?.length > 1) {
@@ -61,10 +70,9 @@ export default function CreateUniversityCourse() {
             }
         });
         if (streamArray?.length > 0) {
-            setStream(streamArray);
+            setStreamList(streamArray);
         }
     }
-    console.log(stream,"stream");
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const [eligibilty, setEligibilty] = useState("");
     const [description, setDescription] = useState("");
@@ -76,9 +84,8 @@ export default function CreateUniversityCourse() {
             "duration": "",
             "type": "",
             "fees": "",
-            "category": "",
-            "sub_category": "",
-            "stream": "",
+            // "category": "",
+            // "sub_category": ""
             "lateral_entry": ""
         },
         onSubmit: values => {
@@ -87,12 +94,14 @@ export default function CreateUniversityCourse() {
                 "eligibilty": eligibilty,
                 "description": description,
                 "universityID": params.id,
+                "category":categoryOnSelect,
+                "sub_category":subCategoryOnSelect,
+                "stream":streamOnSelect,
                 ...values
             }
             dispatch(createUniversityCourse(values));
-            // dispatch(getCollegeList());
             navigate(`/property-list/${params.id}/universitycourse`);
-            // window.location.reload(false);
+            // dispatch(getUniversityCourses());
         },
     });
     return (
@@ -240,11 +249,11 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Stream</label>
                                                         <select name="stream"
-                                                            onChange={formik.handleChange}
+                                                            onChange={(e)=>setStream(e.target.value)}
                                                             className="form-control">
-                                                            {stream.length > 0 ? <option value="">Please Select Stream </option> : <option value="">Please Select Sub Category First</option>}
+                                                            {streamList.length > 0 ? <option value="">Please Select Stream </option> : <option value="">Please Select Sub Category First</option>}
                                                             
-                                                            {stream?.length > 0 ? stream.map((item) => {
+                                                            {streamList?.length > 0 ? streamList.map((item) => {
                                                                 return (
                                                                     <option value={item?.name}>{item?.name}</option>
                                                                 )
