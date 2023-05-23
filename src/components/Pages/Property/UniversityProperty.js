@@ -41,11 +41,6 @@ export default function Editors() {
     setOpen(false);
   };
 
-  const userDeleteAction = (id) => {
-    dispatch(userDelete(deleteId))
-    dispatch(fetchUserByRole(2))
-  }
-
   const propertyDeleteAction = (id) => {
     dispatch(propertyDelete(deleteId))
     dispatch(getCollegeList())

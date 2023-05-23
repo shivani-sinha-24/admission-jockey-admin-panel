@@ -8,30 +8,38 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUniversityCourse,getUniversityCourses } from "../../../../../redux/Action/PropertyTypeAction";
+import { updateUniversityCourse, getUniversityCourses } from "../../../../../redux/Action/PropertyTypeAction";
 import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
 
 
-export default function CreateUniversityCourse() {
+export default function UpdateUniversityCourse() {
     const dispatch = useDispatch();
     const params = useParams();
     const editor = useRef(null);
     const deditor = useRef(null);
     const navigate = useNavigate();
+    const { universityCourse, category } = useSelector(state => ({
+        users: state?.userAuth?.users,
+        category: state?.category?.category,
+        universityCourse: state?.universityCourse?.universityCourse?.filter(item => item?._id == params?.id),
+        tab_status: state?.propertyType?.tab_status,
+    }));
     const [streamList, setStreamList] = useState([]);
     const [subcategory, setSubcategory] = useState([]);
-    const [categoryOnSelect, setCategoryOnSelect] = useState("");
-    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState("");
-    const [streamOnSelect, setStreamOnSelect] = useState("");
-    const {  category } = useSelector(state => ({
-        category: state?.category?.category
-    }));
+    const [categoryOnSelect, setCategoryOnSelect] = useState(universityCourse[0]?.category || "");
+    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(universityCourse[0]?.sub_category || "");
+    const [streamOnSelect, setStreamOnSelect] = useState(universityCourse[0]?.stream || "");
     useEffect(() => {
         dispatch(getCategory());
+        if (universityCourse[0]?.category) {
+            setCategory(universityCourse[0]?.category);
+        }
+        if (universityCourse[0]?.category && universityCourse[0]?.sub_category) {
+            setSubCategory(universityCourse[0]?.sub_category)
+        }
     }, []);
-
     const setCategory = (cat) => {
         setCategoryOnSelect(cat);
         let subCategory = [];
@@ -54,6 +62,7 @@ export default function CreateUniversityCourse() {
     }
 
     const setSubCategory = (sub_cat) => {
+        console.log(sub_cat, "sub");
         setSubCategoryOnSelect(sub_cat);
         let streamArray = [];
         category?.map((stream) => {
@@ -70,19 +79,19 @@ export default function CreateUniversityCourse() {
         }
     }
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    const [eligibilty, setEligibilty] = useState("");
-    const [description, setDescription] = useState("");
+    const [eligibilty, setEligibilty] = useState(universityCourse[0]?.eligibilty || "");
+    const [description, setDescription] = useState(universityCourse[0]?.description || "");
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            "name": "",
-            "full_name": "",
-            "duration": "",
-            "type": "",
-            "fees": "",
+            "name": universityCourse[0]?.name || "",
+            "full_name": universityCourse[0]?.full_name || "",
+            "duration": universityCourse[0]?.duration || "",
+            "type": universityCourse[0]?.type || "",
+            "fees": universityCourse[0]?.fees || "",
             // "category": "",
             // "sub_category": ""
-            "lateral_entry": ""
+            "lateral_entry": universityCourse[0]?.lateral_entry || ""
         },
         onSubmit: values => {
             // let _id = params?.id;
@@ -90,14 +99,15 @@ export default function CreateUniversityCourse() {
                 "eligibilty": eligibilty,
                 "description": description,
                 "universityID": params.id,
-                "category":categoryOnSelect,
-                "sub_category":subCategoryOnSelect,
-                "stream":streamOnSelect,
+                "category": categoryOnSelect,
+                "sub_category": subCategoryOnSelect,
+                "stream": streamOnSelect,
+                "id":params.id,
                 ...values
             }
-            dispatch(createUniversityCourse(values));
+            dispatch(updateUniversityCourse(values));
             navigate(`/property-list/${params.id}/universitycourse`);
-            // dispatch(getUniversityCourses());
+            dispatch(getUniversityCourses());
         },
     });
     return (
@@ -107,7 +117,7 @@ export default function CreateUniversityCourse() {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                < Card.Title as="h3">Add Course</Card.Title>
+                                < Card.Title as="h3">Update Course</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Row>
@@ -179,7 +189,7 @@ export default function CreateUniversityCourse() {
                                                         <label className="form-label">Type</label>
                                                         <select name="type"
                                                             onChange={formik.handleChange}
-                                                            className="form-control">
+                                                            className="form-control" value={formik.values.type}>
                                                             <option value="">Please Select Type</option>
                                                             <option value="UG">UG</option>
                                                             <option value="PG">PG</option>
@@ -195,7 +205,8 @@ export default function CreateUniversityCourse() {
                                                         <label className="form-label">Lateral Entry</label>
                                                         <select name="lateral_entry"
                                                             onChange={formik.handleChange}
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={formik.values.lateral_entry}>
                                                             <option value="">Please Select Lateral Entry</option>
                                                             <option value="YES">YES</option>
                                                             <option value="No">NO</option>
@@ -211,7 +222,8 @@ export default function CreateUniversityCourse() {
                                                         <select name="category"
                                                             onChange={(e) => setCategory(e.target.value)}
                                                             id="category"
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={categoryOnSelect}>
                                                             <option value="">Please Select Category</option>
                                                             {category?.length > 0 ? category.map((item) => {
                                                                 if (item?.parent?.length == "") {
@@ -229,7 +241,8 @@ export default function CreateUniversityCourse() {
                                                         <label className="form-label">Sub Category</label>
                                                         <select name="sub_category"
                                                             onChange={(e) => setSubCategory(e.target.value)}
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={subCategoryOnSelect}>
                                                             {subcategory.length > 0 ? <option value="">Please Select Sub Category</option> : <option value="">Please Select Category First</option>}
                                                             {subcategory?.length > 0 ? subcategory.map((item) => {
                                                                 return (
@@ -245,10 +258,11 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Stream</label>
                                                         <select name="stream"
-                                                            onChange={(e)=>setStream(e.target.value)}
-                                                            className="form-control">
+                                                            onChange={(e) => setStream(e.target.value)}
+                                                            className="form-control"
+                                                            value={streamOnSelect}>
                                                             {streamList.length > 0 ? <option value="">Please Select Stream </option> : <option value="">Please Select Sub Category First</option>}
-                                                            
+
                                                             {streamList?.length > 0 ? streamList.map((item) => {
                                                                 return (
                                                                     <option value={item?.name}>{item?.name}</option>

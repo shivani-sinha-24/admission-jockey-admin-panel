@@ -1,4 +1,4 @@
-import { UNIVERSITY_COURSE_ADD_SUCCESS, SUCCESS_UNIVERSITY_COURSE_LIST, CATEGORY_DELETE_SUCCESS, CATEGORY_UPDATE_SUCCESS,UNIVERSITY_COURSE_DELETE_SUCCESS } from '../Constants/Constants';
+import { UNIVERSITY_COURSE_UPDATE_SUCCESS,UNIVERSITY_COURSE_ADD_SUCCESS, SUCCESS_UNIVERSITY_COURSE_LIST, CATEGORY_DELETE_SUCCESS, CATEGORY_UPDATE_SUCCESS, UNIVERSITY_COURSE_DELETE_SUCCESS } from '../Constants/Constants';
 
 let initState = {
     universityCourse: [],
@@ -21,15 +21,10 @@ const universitycourseReducer = (state = initState, action) => {
                 ...state,
                 universityCourse: state?.universityCourse.filter(universityCourse => universityCourse?._id !== action.payload)
             });
-        case CATEGORY_DELETE_SUCCESS:
+        case UNIVERSITY_COURSE_UPDATE_SUCCESS:
             return ({
                 ...state,
-                category: state?.category.filter(category => category?._id !== action.payload)
-            });
-        case CATEGORY_UPDATE_SUCCESS:
-            return ({
-                ...state,
-                category: state.category.map((item) =>
+                universityCourse: state.universityCourse.map((item) =>
                     item?._id == action.payload?._id ? { ...action.payload } : item
                 )
             });

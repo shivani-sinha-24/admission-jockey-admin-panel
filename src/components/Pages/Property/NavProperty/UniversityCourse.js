@@ -55,6 +55,7 @@ const Course = () => {
                             <Card.Body>
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
+                                    universityId={params.id}
                                     handleShow={handleShow}
                                     universityCourse={universityCourse} />
                             </Card.Body>

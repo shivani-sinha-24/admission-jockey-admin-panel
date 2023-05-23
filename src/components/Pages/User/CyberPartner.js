@@ -22,7 +22,6 @@ export default function CyberPartner() {
   const [deleteId,setDeleteId] = useState();
 
   const handleClickOpen = (scrollType,row) => () => {
-    console.log(row,"handleClickOpen")
     setEditUser(row)
     setOpen(true);
     setScroll(scrollType);
