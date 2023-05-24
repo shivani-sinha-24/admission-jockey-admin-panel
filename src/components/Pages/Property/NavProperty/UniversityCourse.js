@@ -9,12 +9,12 @@ import { getUniversityCourses,universityCourseDelete } from "../../../../redux/A
 
 const Course = () => {
     const dispatch = useDispatch();
+    const params = useParams();
     const { users, college, tab_status, category, universityCourse } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
-        universityCourse: state?.universityCourse?.universityCourse,
+        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.id),
     }));
-    const params = useParams();
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
     const handleShow = (id) => () => {
