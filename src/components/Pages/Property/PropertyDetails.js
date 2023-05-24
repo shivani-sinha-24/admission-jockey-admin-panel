@@ -96,7 +96,20 @@ const PropertyDetails = ({ children }) => {
                           <i className="fe fe-play"></i> Course
                         </span>
                       </Nav.Link>
-                    </Nav.Item> : ""}
+                    </Nav.Item> :
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/collegecourse`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link py-2 px-4  border show m-1"
+                        id="tab3"
+                        role="tab"
+                        aria-selected="true"
+                        eventKey="course"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-play"></i> Course
+                        </span>
+                      </Nav.Link>
+                    </Nav.Item>}
                   <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/hostel`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"

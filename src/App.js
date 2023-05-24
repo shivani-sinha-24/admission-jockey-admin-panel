@@ -32,6 +32,7 @@ import Gallery from "./components/Pages/Property/NavProperty/Gallery";
 import Admission_process from "./components/Pages/Property/NavProperty/Admission_process";
 import Placement from "./components/Pages/Property/NavProperty/Placement";
 import UniversityCourse from "./components/Pages/Property/NavProperty/UniversityCourse";
+import CollegeUniversityView from "./components/Pages/Property/NavProperty/CollegeUniversityView";
 import AddUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_page";
 import UpdateUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_update_page";
 import Loan from "./components/Pages/Property/NavProperty/Loan";
@@ -108,6 +109,7 @@ function App() {
                 element={<Placement />}
               />
               <Route path={"/property-list/:id/universitycourse"} element={<UniversityCourse />} />
+              <Route path={"/property-list/:id/collegecourse"} element={<CollegeUniversityView />} />
               <Route path={"/property-list/:id/adduniversitycourse"} element={<AddUniversityCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
               <Route path={"/property-list/:id/loan"} element={<Loan />} />
