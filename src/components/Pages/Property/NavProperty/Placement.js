@@ -13,7 +13,7 @@ const Placement = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { placement } = useSelector((state) => ({
-    placement: state?.propertyType?.placement.filter(item => item?.property_id == params.id),
+    placement: state?.propertyType?.placement.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {

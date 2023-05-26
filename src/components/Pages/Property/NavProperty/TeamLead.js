@@ -19,7 +19,6 @@ const TeamLead = () => {
   useEffect(() => {
     dispatch(getTeamLead());
   }, []);
-  console.log(team_lead, "team");
   return (
     <>
       <PropertyDetails>

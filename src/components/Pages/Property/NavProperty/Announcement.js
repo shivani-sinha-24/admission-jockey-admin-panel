@@ -13,7 +13,7 @@ const Announcement = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { announcement } = useSelector((state) => ({
-    announcement: state?.propertyType?.announcement.filter(item => item?.property_id == params.id),
+    announcement: state?.propertyType?.announcement.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Announcement = () => {
                     </div>
                   </Card.Header>
                   {announcement?.map((item, i) => {
-                    if (item?.property_id == params.id) {
+                    if (item?.property_id == params.clgid) {
                       return (
                         <Card.Body>
                           <div className="example">

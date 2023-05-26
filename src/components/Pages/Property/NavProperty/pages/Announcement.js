@@ -40,7 +40,7 @@ export default function Announcement({ setAddTeam, editTeam }) {
         enableReinitialize: true,
         initialValues: {
             "id": editTeam?._id || "",
-            "property_id": params.id,
+            "property_id": params.clgid,
             "title": editTeam?.title || ""
         },
         validationSchema: TeamLeadvalSchema,

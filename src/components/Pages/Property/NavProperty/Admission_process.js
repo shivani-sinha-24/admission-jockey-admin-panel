@@ -13,7 +13,7 @@ const Admission_process = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { admission_process } = useSelector((state) => ({
-    admission_process: state?.propertyType?.admission_process.filter(item => item?.property_id == params.id),
+    admission_process: state?.propertyType?.admission_process.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Admission_process = () => {
                     </div>
                   </Card.Header>
                   {admission_process?.map((item, i) => {
-                    if (item?.property_id == params.id) {
+                    if (item?.property_id == params.clgid) {
                       return (
                         <Card.Body>
                           <>

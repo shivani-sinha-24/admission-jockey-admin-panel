@@ -95,7 +95,7 @@ export default function CreateUniversityCourse() {
                 ...values
             }
             dispatch(createUniversityCourse(values));
-            navigate(`/property-list/${params.clgid}/universitycourse`);
+            navigate(`/property-list/University/${params.clgid}/universitycourse`);
             // dispatch(getUniversityCourses());
         },
     });

@@ -107,7 +107,7 @@ export default function UpdateUniversityCourse() {
                 "id": params.id
             }
             dispatch(updateUniversityCourse(values));
-            navigate(`/property-list/${params.universityId}/universitycourse`);
+            navigate(`/property-list/University/${params.universityId}/universitycourse`);
             dispatch(getUniversityCourses());
         },
     });
