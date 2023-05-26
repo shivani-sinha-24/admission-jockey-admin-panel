@@ -12,12 +12,11 @@ const CollegeUniversityView = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const [universityList, setUniversityList] = useState([]);
-    const { users, college, tab_status, category, universityCourse, university } = useSelector(state => ({
+    const { users, college, tab_status, category, university } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
-        college: state?.propertyType?.college.filter(item => item?._id == params?.id),
-        university: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
-        universityCourse: state?.universityCourse?.universityCourse,
+        college: state?.propertyType?.college.filter(item => item?._id == params?.clgid),
+        university: state?.propertyType?.college.filter(item => item?.edu_type == "University")
     }));
     useEffect(() => {
         dispatch(getCollegeList());
@@ -45,8 +44,16 @@ const CollegeUniversityView = () => {
                         <Card className="Relatedpost nested-media ">
                             <Card.Header>
                                 <Card.Title>
-                                    <h1 className="card-title">College Course</h1>
+                                    <h1 className="card-title">Choose University</h1>
                                 </Card.Title>
+                                <div className="ms-auto pageheader-btn">
+                                    <NavLink to={`/property-list/${params?.clgid}/collegecourselist`} className="btn btn-primary btn-icon text-white me-3">
+                                        {/* <span>
+                                            <i className="fe fe-plus"></i>&nbsp;
+                                        </span> */}
+                                        Course List
+                                    </NavLink>
+                                </div>
                             </Card.Header>
                             <Card.Body>
                                 <Row>
@@ -56,32 +63,34 @@ const CollegeUniversityView = () => {
                                                 universityList.map((unv) => {
                                                     return (
                                                         <Col lg={6} md={12} sm={12} xl={4}>
-                                                            <Card className="card overflow-hidden">
-                                                                <Card.Body className="card-body" style={{ background: "#ADD8E6" }} >
-                                                                    <Row>
-                                                                        <div className="col col-auto">
-                                                                            <img
-                                                                                className="avatar avatar-xxl brround cover-image"
-                                                                                crossOrigin="annonymous"
-                                                                                src={`${process.env.REACT_APP_API_BASE_URL}/${unv?.image}`}
-                                                                                alt=""
-                                                                            />
-                                                                        </div>
-                                                                        <div className="col">
-                                                                            <h6 className="">{`${unv?.name}(${unv?.est_year})`}</h6>
-                                                                            <p className="number-font">
-                                                                                Contact no. : {unv?.phone}
-                                                                            </p>
-                                                                            <p className="text-muted mb-0">
-                                                                                Email :
-                                                                                <span className="text-success me-1">
-                                                                                    <span> {unv?.email}</span>
-                                                                                </span>
-                                                                            </p>
-                                                                        </div>
-                                                                    </Row>
-                                                                </Card.Body>
-                                                            </Card>
+                                                            <NavLink to={`/property-list/${params?.clgid}/${unv?._id}/collegeshowModule`}>
+                                                                <Card className="card overflow-hidden">
+                                                                    <Card.Body className="card-body" style={{ background: "#FFA500" }} >
+                                                                        <Row>
+                                                                            <div className="col col-auto">
+                                                                                <img
+                                                                                    className="avatar avatar-xxl brround cover-image"
+                                                                                    crossOrigin="annonymous"
+                                                                                    src={`${process.env.REACT_APP_API_BASE_URL}/${unv?.image}`}
+                                                                                    alt=""
+                                                                                />
+                                                                            </div>
+                                                                            <div className="col">
+                                                                                <h6 className="">{`${unv?.name}(${unv?.est_year})`}</h6>
+                                                                                <p className="number-font">
+                                                                                    Contact no. : {unv?.phone}
+                                                                                </p>
+                                                                                <p className="text-muted mb-0">
+                                                                                    Email :
+                                                                                    <span className="text-success me-1">
+                                                                                        <span> {unv?.email}</span>
+                                                                                    </span>
+                                                                                </p>
+                                                                            </div>
+                                                                        </Row>
+                                                                    </Card.Body>
+                                                                </Card>
+                                                            </NavLink>
                                                         </Col>
                                                     )
                                                 })

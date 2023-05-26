@@ -57,7 +57,7 @@ const PropertyDetails = ({ children }) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/admission-process`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/admission-process`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab2"
@@ -70,7 +70,7 @@ const PropertyDetails = ({ children }) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/placement`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/placement`)} className="nav-item">
                     <Nav.Link
                       className="nav-link py-2 px-4  border show m-1"
                       id="tab3"
@@ -84,7 +84,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
                   </Nav.Item>
                   {params?.edu_type == "University" ?
-                    <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} className="nav-item">
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/universitycourse`)} className="nav-item">
                       <Nav.Link
                         className="nav-link py-2 px-4  border show m-1"
                         id="tab3"
@@ -97,7 +97,7 @@ const PropertyDetails = ({ children }) => {
                         </span>
                       </Nav.Link>
                     </Nav.Item> :
-                    <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/collegecourse`)} className="nav-item">
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/collegecourse`)} className="nav-item">
                       <Nav.Link
                         className="nav-link py-2 px-4  border show m-1"
                         id="tab3"
@@ -110,7 +110,7 @@ const PropertyDetails = ({ children }) => {
                         </span>
                       </Nav.Link>
                     </Nav.Item>}
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/hostel`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/hostel`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab5"
@@ -124,7 +124,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/scholarship`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/scholarship`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab6"
@@ -138,7 +138,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/announcement`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/announcement`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab7"
@@ -152,7 +152,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/faqs`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/faqs`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab8"
@@ -166,7 +166,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/team-lead`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/team-lead`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab9"
@@ -180,7 +180,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
                   </Nav.Item>
 
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/review`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/review`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab10"
@@ -194,7 +194,7 @@ const PropertyDetails = ({ children }) => {
                     </Nav.Link>
 
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/gallery`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/gallery`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab11"
@@ -207,7 +207,7 @@ const PropertyDetails = ({ children }) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/aminities`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/aminities`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab11"
@@ -220,7 +220,7 @@ const PropertyDetails = ({ children }) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/QA`)} className="nav-item">
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/QA`)} className="nav-item">
                     <Nav.Link
                       className="nav-link border py-2 px-4 m-1"
                       id="tab12"

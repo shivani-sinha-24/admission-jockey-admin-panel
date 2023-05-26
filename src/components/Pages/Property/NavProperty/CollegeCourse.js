@@ -5,17 +5,18 @@ import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import { getUniversityCourses,universityCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
+import { getCollegeCourses,universityCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
 
 const Course = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    const { users, college, tab_status, category, universityCourse } = useSelector(state => ({
+    console.log(params?.clgid);
+    const { users, college, tab_status, category, universityCourse,collegeCourse } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
-        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.clgid),
+        collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?.CollegeID == params?.clgid),
     }));
-    console.log(universityCourse,"universityCourse");
+    console.log(collegeCourse,"collegeCourse");
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
     const handleShow = (id) => () => {
@@ -23,7 +24,7 @@ const Course = () => {
         setShow(true)
     };
     useEffect(() => {
-        dispatch(getUniversityCourses());
+        dispatch(getCollegeCourses());
     }, []);
     const handleStatusUpdate = (row) => () => {
         // dispatch(userUpdate(row?._id, { ...row, type: "property" }));
@@ -32,7 +33,7 @@ const Course = () => {
 
     const courseDeleteAction = (id) => {
     dispatch(universityCourseDelete(deleteId))
-    dispatch(getUniversityCourses())
+    dispatch(getCollegeCourses())
     }
     return (
         <>
@@ -42,23 +43,23 @@ const Course = () => {
                         <Card className="Relatedpost nested-media ">
                             <Card.Header>
                                 <Card.Title>
-                                    <h1 className="card-title">Course</h1>
+                                    <h1 className="card-title">Course List</h1>
                                 </Card.Title>
-                                <div className="ms-auto pageheader-btn">
-                                    <NavLink to={`/property-list/${params?.clgid}/adduniversitycourse`} className="btn btn-primary btn-icon text-white me-3">
+                                {/* <div className="ms-auto pageheader-btn">
+                                    <NavLink to={`/property-list/${params?.id}/adduniversitycourse`} className="btn btn-primary btn-icon text-white me-3">
                                         <span>
                                             <i className="fe fe-plus"></i>&nbsp;
                                         </span>
                                         Add Course
                                     </NavLink>
-                                </div>
+                                </div> */}
                             </Card.Header>
                             <Card.Body>
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
                                     universityId={params.id}
                                     handleShow={handleShow}
-                                    universityCourse={universityCourse} />
+                                    universityCourse={collegeCourse} />
                             </Card.Body>
                         </Card>
                     </Col>
