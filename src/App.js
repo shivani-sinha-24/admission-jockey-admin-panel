@@ -77,10 +77,10 @@ function App() {
               <Route path={"/dashboard"} element={<Dashboard />} />
               <Route path={"/profile"} element={<Profile />} />
               <Route path={"/property-manager"} element={<PropertyManager />} />
-              <Route path={"/cyber-partner"} element={<CyberPartner />}/>
+              <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
               <Route path={"/editorAdd"} element={<AddEditors />} />
-              <Route path={"/editor-update/:id"} element={<UpdateEditor />}/>
+              <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/agent"} element={<Agent />} />
               <Route path={"/guest"} element={<Guest />} />
               <Route path={"/caller"} element={<Caller />} />
@@ -88,8 +88,8 @@ function App() {
               <Route path={"/property-list"} element={<PropertyList />} />
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
-              <Route path={"/add-category"} element={<CreateCategory/>} />
-              <Route path={"/update-category/:id"} element={<UpdateCategory/>} />
+              <Route path={"/add-category"} element={<CreateCategory />} />
+              <Route path={"/update-category/:id"} element={<UpdateCategory />} />
 
               <Route
                 path={"/property-list/:clgid/:edu_type"}
@@ -102,16 +102,28 @@ function App() {
                 path={"/property-list/:clgid/gallery"}
                 element={<Gallery />}
               />
+              <Route
+                path={"/property-list/:edu_type/:clgid/gallery"}
+                element={<Gallery />}
+              />
 
+              <Route
+                path={"/property-list/:edu_type/:clgid/admission-process"}
+                element={<Admission_process />}
+              />
               <Route
                 path={"/property-list/:clgid/admission-process"}
                 element={<Admission_process />}
               />
               <Route
+                path={"/property-list/:edu_type/:clgid/placement"}
+                element={<Placement />}
+              />
+              <Route
                 path={"/property-list/:clgid/placement"}
                 element={<Placement />}
               />
-              <Route path={"/property-list/:clgid/universitycourse"} element={<UniversityCourse />} />
+              <Route path={"/property-list/:edu_type/:clgid/universitycourse"} element={<UniversityCourse />} />
               <Route path={"/property-list/:clgid/collegecourse"} element={<CollegeUniversityView />} />
               <Route path={"/property-list/:clgid/:unrid/collegeshowModule"} element={<CollegeShowModule />} />
               <Route path={"/property-list/:clgid/adduniversitycourse"} element={<AddUniversityCourse />} />
@@ -119,11 +131,22 @@ function App() {
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
+              <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:clgid/hostel"} element={<Hostel />} />
+              <Route path={"/property-list/:edu_type/:clgid/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:clgid/QA"} element={<QA />} />
+              <Route path={"/property-list/:edu_type/:clgid/QA"} element={<QA />} />
               <Route
                 path={"/property-list/:clgid/scholarship"}
                 element={<Scholarship />}
+              />
+              <Route
+                path={"/property-list/:edu_type/:clgid/scholarship"}
+                element={<Scholarship />}
+              />
+              <Route
+                path={"/property-list/:edu_type/:clgid/announcement"}
+                element={<Announcement />}
               />
               <Route
                 path={"/property-list/:clgid/announcement"}
@@ -137,12 +160,22 @@ function App() {
                 path={"/update-propertys/:id"}
                 element={< PropertyUpdate />}
               />
+              <Route path={"/property-list/:edu_type/:clgid/faqs"} element={<Faqs />} />
               <Route path={"/property-list/:clgid/faqs"} element={<Faqs />} />
               <Route
                 path={"/property-list/:clgid/team-lead"}
                 element={<TeamLead />}
               />
+              <Route
+                path={"/property-list/:edu_type/:clgid/team-lead"}
+                element={<TeamLead />}
+              />
               <Route path={"/property-list/:clgid/review"} element={<Review />} />
+              <Route path={"/property-list/:edu_type/:clgid/review"} element={<Review />} />
+              <Route
+                path={"/property-list/:edu_type/:clgid/aminities"}
+                element={<Aminities />}
+              />
               <Route
                 path={"/property-list/:clgid/aminities"}
                 element={<Aminities />}
