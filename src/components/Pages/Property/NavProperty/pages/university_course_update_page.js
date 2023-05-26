@@ -62,7 +62,6 @@ export default function UpdateUniversityCourse() {
     }
 
     const setSubCategory = (sub_cat) => {
-        console.log(sub_cat, "sub");
         setSubCategoryOnSelect(sub_cat);
         let streamArray = [];
         category?.map((stream) => {
@@ -81,32 +80,34 @@ export default function UpdateUniversityCourse() {
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const [eligibilty, setEligibilty] = useState(universityCourse[0]?.eligibilty || "");
     const [description, setDescription] = useState(universityCourse[0]?.description || "");
+    const [lateral_entry, setLateral_entry] = useState(universityCourse[0]?.lateral_entry || "");
+    const [duration, setDuration] = useState(universityCourse[0]?.duration || "");
+    const [name, setName] = useState(universityCourse[0]?.name || "");
+    const [full_name, setFull_name] = useState(universityCourse[0]?.full_name || "");
+    const [type, setType] = useState(universityCourse[0]?.type || "");
+    const [fees, setFees] = useState(universityCourse[0]?.fees || "");
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            "name": universityCourse[0]?.name || "",
-            "full_name": universityCourse[0]?.full_name || "",
-            "duration": universityCourse[0]?.duration || "",
-            "type": universityCourse[0]?.type || "",
-            "fees": universityCourse[0]?.fees || "",
-            // "category": "",
-            // "sub_category": ""
-            "lateral_entry": universityCourse[0]?.lateral_entry || ""
         },
         onSubmit: values => {
-            // let _id = params?.id;
             values = {
+                "name": name,
+                "full_name": full_name,
                 "eligibilty": eligibilty,
                 "description": description,
-                "universityID": params.id,
+                "type": type,
+                "fees":fees,
+                "universityID": params.universityId,
+                "duration": duration,
+                "lateral_entry": lateral_entry,
                 "category": categoryOnSelect,
                 "sub_category": subCategoryOnSelect,
                 "stream": streamOnSelect,
-                "id":params.id,
-                ...values
+                "id": params.id
             }
             dispatch(updateUniversityCourse(values));
-            navigate(`/property-list/${params.id}/universitycourse`);
+            navigate(`/property-list/${params.universityId}/universitycourse`);
             dispatch(getUniversityCourses());
         },
     });
@@ -117,7 +118,7 @@ export default function UpdateUniversityCourse() {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                < Card.Title as="h3">Update Course</Card.Title>
+                                <Card.Title as="h3">Update Course</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Row>
@@ -130,8 +131,9 @@ export default function UpdateUniversityCourse() {
                                                         <input
                                                             type="text"
                                                             name="name"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.name}
+                                                            onChange={(e) => setName(e.target.value)}
+                                                            value={name}
+                                                            disabled
                                                             placeholder='name'
                                                             className="form-control required"
                                                         />
@@ -144,8 +146,8 @@ export default function UpdateUniversityCourse() {
                                                         <input
                                                             type="text"
                                                             name="full_name"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.full_name}
+                                                            onChange={(e) => setFull_name(e.target.value)}
+                                                            value={full_name}
                                                             placeholder='Full Name'
                                                             className="form-control"
                                                         />
@@ -158,8 +160,8 @@ export default function UpdateUniversityCourse() {
                                                         <input
                                                             type="number"
                                                             name="duration"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.duration}
+                                                            onChange={(e) => setDuration(e.target.value)}
+                                                            value={duration}
                                                             placeholder='Duration'
                                                             className="form-control required"
                                                         />
@@ -174,9 +176,9 @@ export default function UpdateUniversityCourse() {
                                                         <label className="form-label">Fees</label>
                                                         <input
                                                             type="number"
+                                                            onChange={(e) => setFees(e.target.value)}
                                                             name="fees"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.fees}
+                                                            value={fees}
                                                             placeholder='Fees'
                                                             className="form-control required"
                                                         />
@@ -185,11 +187,10 @@ export default function UpdateUniversityCourse() {
                                                         ) : null}
                                                     </div>
                                                     <div className="col-md-4">
-
                                                         <label className="form-label">Type</label>
                                                         <select name="type"
-                                                            onChange={formik.handleChange}
-                                                            className="form-control" value={formik.values.type}>
+                                                            onChange={(e) => setType(e.target.value)}
+                                                            className="form-control" value={type}>
                                                             <option value="">Please Select Type</option>
                                                             <option value="UG">UG</option>
                                                             <option value="PG">PG</option>
@@ -204,9 +205,9 @@ export default function UpdateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Lateral Entry</label>
                                                         <select name="lateral_entry"
-                                                            onChange={formik.handleChange}
+                                                            onChange={(e) => setLateral_entry(e.target.value)}
                                                             className="form-control"
-                                                            value={formik.values.lateral_entry}>
+                                                            value={lateral_entry}>
                                                             <option value="">Please Select Lateral Entry</option>
                                                             <option value="YES">YES</option>
                                                             <option value="No">NO</option>

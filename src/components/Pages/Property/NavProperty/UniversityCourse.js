@@ -56,7 +56,7 @@ const Course = () => {
                             <Card.Body>
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
-                                    universityId={params.id}
+                                    universityId={params.clgid}
                                     handleShow={handleShow}
                                     universityCourse={universityCourse} />
                             </Card.Body>
