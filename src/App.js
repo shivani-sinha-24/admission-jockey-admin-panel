@@ -19,6 +19,7 @@ import PropertyManager from "./components/Pages/User/PropertyManager";
 import CyberPartner from "./components/Pages/User/CyberPartner";
 import Editors from "./components/Pages/User/Editors";
 import AddEditors from "./components/Pages/User_crud/add";
+import AddCaller from "./components/Pages/Caller/add";
 import Agent from "./components/Pages/User/Agent";
 import Guest from "./components/Pages/User/Guest";
 import Caller from "./components/Pages/User/Caller";
@@ -53,6 +54,7 @@ import CreateCategory from "./components/Pages/Cotegory/Category_crud/CreateCate
 import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCategory";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
+import UpdateCaller from "./components/Pages/Caller/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 
 function App() {
@@ -80,6 +82,8 @@ function App() {
               <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
               <Route path={"/editorAdd"} element={<AddEditors />} />
+              <Route path={"/callerAdd"} element={<AddCaller />} />
+              <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/agent"} element={<Agent />} />
               <Route path={"/guest"} element={<Guest />} />
