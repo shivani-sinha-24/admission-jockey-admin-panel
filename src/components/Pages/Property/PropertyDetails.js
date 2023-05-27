@@ -111,6 +111,20 @@ const PropertyDetails = ({ children }) => {
                       </Nav.Link>
 
                     </Nav.Item>
+                    <Nav.Item onClick={() => navigate(`/property-list/${params.edu_type}/${params?.clgid}/loan`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link border py-2 px-4 m-1"
+                        id="tab15"
+                        role="tab"
+                        aria-selected="false"
+                        eventKey="hostel"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-layers"></i> Loan
+                        </span>
+                      </Nav.Link>
+
+                    </Nav.Item>
                     <Nav.Item onClick={() => navigate(`/property-list/${params.edu_type}/${params?.clgid}/scholarship`)} className="nav-item">
                       <Nav.Link
                         className="nav-link border py-2 px-4 m-1"
@@ -277,6 +291,20 @@ const PropertyDetails = ({ children }) => {
                           <i className="fe fe-play"></i> College Course
                         </span>
                       </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/loan`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link border py-2 px-4 m-1"
+                        id="tab15"
+                        role="tab"
+                        aria-selected="false"
+                        eventKey="hostel"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-layers"></i> Loan
+                        </span>
+                      </Nav.Link>
+
                     </Nav.Item>
                     <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/hostel`)} className="nav-item">
                       <Nav.Link
