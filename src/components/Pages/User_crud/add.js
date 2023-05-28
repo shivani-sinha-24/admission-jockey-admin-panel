@@ -30,6 +30,7 @@ export default function EditorAdd() {
             "name": "",
             "email": "",
             "contact_no": "",
+            "tab_status":"",
             "image": "",
             "role": 2,
         },

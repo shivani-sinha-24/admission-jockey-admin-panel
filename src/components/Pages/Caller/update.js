@@ -32,6 +32,7 @@ export default function CallerUpdate() {
             "email": users[0].email||"",
             "contact_no": users[0].contact_no||"",
             "image": users[0].image||"",
+            "tab_status":"",
             "role":3,
             "type":"user"
         },

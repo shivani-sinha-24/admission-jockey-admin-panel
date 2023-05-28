@@ -28,9 +28,8 @@ export default function Caller() {
     setScroll(scrollType);
   };
 
-  const handleStatusUpdate = (row) => () => {
-    dispatch(userUpdate(row?._id, row));
-    dispatch(fetchUserByRole(row?.role))
+  const handleStatusUpdate = (row) => {
+    dispatch(userUpdate({ ...row, type: "user" }));
   };
   const handleOpenUserModal = (id) => {
     setShowUserProfile(true);
@@ -41,14 +40,13 @@ export default function Caller() {
   };
   useEffect(() => {
     dispatch(fetchUserByRole(3))
-  }, [])
+  }, [handleStatusUpdate,userDeleteAction])
 
   const userDeleteAction = (id) => {
-    dispatch(userDelete(deleteId))
-    dispatch(fetchUserByRole(3))
+    dispatch(userDelete(deleteId));
   }
 
-  const handleShow = (id)  => {
+  const handleShow = (id) => {
     setDeleteId(id)
     setShow(true)
   };
@@ -98,7 +96,7 @@ export default function Caller() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.CallerDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal}  handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
+                <datatable.CallerDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
               </div>
             </Card.Body>
           </Card>

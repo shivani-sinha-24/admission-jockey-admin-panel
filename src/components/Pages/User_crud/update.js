@@ -32,6 +32,7 @@ export default function EditorUpdate() {
             "email": users[0].email||"",
             "contact_no": users[0].contact_no||"",
             "image": users[0].image||"",
+            "tab_status":"",
             "role":2,
             "type":"user"
         },

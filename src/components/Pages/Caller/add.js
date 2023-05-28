@@ -30,6 +30,7 @@ export default function CallerAdd() {
             "name": "",
             "email": "",
             "contact_no": "",
+            "tab_status":"",
             "image": "",
             "role": 3,
         },

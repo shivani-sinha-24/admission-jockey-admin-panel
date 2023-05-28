@@ -13,6 +13,7 @@ import {
 import moment from "moment";
 import "react-data-table-component-extensions/dist/index.css";
 import { Link, NavLink } from "react-router-dom";
+import { borderRadius } from "@mui/system";
 
 export function Basicdatatable() {
   const columns = [
@@ -362,7 +363,7 @@ export const DataTables = ({
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i
-                className="fa fa-eye"
+                className="fe fe-user"
                 style={{ fontSize: "1.3rem" }}
                 aria-hidden="true"
                 onClick={() => handleOpenModal(row)}
@@ -507,7 +508,7 @@ export const DataTables = ({
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i
-                className="fa fa-eye"
+                className="fe fe-user"
                 style={{ fontSize: "1.3rem" }}
                 aria-hidden="true"
                 onClick={() => handleOpenModal(row)}
@@ -598,42 +599,22 @@ export const EditorDataTables = ({
       selector: (row) => [row.contact_no],
       sortable: true,
     },
-    // {
-    //   name: "DATE",
-    //   selector: (row) => [moment(row.created_at).format("MMM Do YY")],
-    //   sortable: true,
-    // },
-    // {
-    //   name: "STATUS",
-    //   selector: (row) => [row.status],
-    //   sortable: true,
-    //   cell: (row) => (
-    //     <DropdownButton
-    //       type="button"
-    //       className=" btn-default btn-pill "
-    //       variant=""
-    //       title={
-    //         users?.tab_status?.filter((item) => item?.name == row?.status)[0]
-    //           ?.name
-    //       }
-    //       style={{
-    //         background: users?.tab_status?.filter(
-    //           (item) => item?.name == row?.status
-    //         )[0]?.color_code,
-    //       }}
-    //     >
-    //       {users?.tab_status?.map((item, i) => {
-    //         return (
-    //           <Dropdown.Item
-    //             onClick={handleStatusUpdate({ ...row, status: item?.name })}
-    //           >
-    //             {item?.name}
-    //           </Dropdown.Item>
-    //         );
-    //       })}
-    //     </DropdownButton>
-    //   ),
-    // },
+    {
+      name: "DATE",
+      selector: (row) => [moment(row.created_at).format("MMM Do YY")],
+      sortable: true,
+    },
+    {
+      name: "USER STATUS",
+      selector: (row) => [row.tab_status],
+      sortable: true,
+      cell: (row) => (
+        <select type="button" onChange={(e) => handleStatusUpdate({ ...row, "tab_status": e.target.value })} value={row?.tab_status ? row.tab_status : ""} style={{ borderRadius: "12px" }} >
+          <option value="Active">Active</option>
+          <option value="Inactive">InActive</option>
+        </select>
+      ),
+    },
     {
       name: "ACTION",
       selector: (row) => [row.action],
@@ -644,12 +625,16 @@ export const EditorDataTables = ({
             <NavLink
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
-              <i
+              {/* <i
                 className="fa fa-eye"
                 style={{ fontSize: "1.3rem" }}
                 aria-hidden="true"
-                onClick={() => handleOpenUserModal(row)}
-              ></i>
+
+              ></i> */}
+              <i className="fe fe-user"
+                style={{ fontSize: "1.3rem" }}
+                aria-hidden="true"
+                onClick={() => handleOpenUserModal(row)}></i>
             </NavLink>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
@@ -873,6 +858,17 @@ export const CallerDataTables = ({
       selector: (row) => [row.contact_no],
       sortable: true,
     },
+    {
+      name: "USER STATUS",
+      selector: (row) => [row.tab_status],
+      sortable: true,
+      cell: (row) => (
+        <select type="button" onChange={(e) => handleStatusUpdate({ ...row, "tab_status": e.target.value })} value={row?.tab_status ? row.tab_status : ""} style={{ borderRadius: "12px" }} >
+          <option value="Active">Active</option>
+          <option value="Inactive">InActive</option>
+        </select>
+      ),
+    },
     // {
     //   name: "DATE",
     //   selector: (row) => [moment(row.created_at).format("MMM Do YY")],
@@ -920,7 +916,7 @@ export const CallerDataTables = ({
               className="btn btn-yellow btn-sm rounded-11 me-2"
             >
               <i
-                className="fa fa-eye"
+                className="fe fe-user"
                 style={{ fontSize: "1.3rem" }}
                 aria-hidden="true"
                 onClick={() => handleOpenUserModal(row)}
