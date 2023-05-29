@@ -20,7 +20,6 @@ export default function Faqs_pages({ setAddTeam, editTeam }) {
         faqs: state?.property?.faqs,
     }));
 
-    console.log(faqs, "faqs")
     useEffect(() => {
         dispatch(getFaqs())
     }, [])
@@ -36,13 +35,12 @@ export default function Faqs_pages({ setAddTeam, editTeam }) {
         enableReinitialize: true,
         initialValues: {
             "id": editTeam?._id || "",
-            "property_id": params.id,
+            "property_id": params.clgid,
             "ques": editTeam?.ques || "",
             "answer": editTeam?.answer || ""
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
-            console.log(values, "dfjhgjahgjdh")
             if (editTeam != undefined) {
                 dispatch(updateFaqs(values));
                     setAddTeam(false)

@@ -15,7 +15,8 @@ export default function Caller() {
   }));
 
   const [show, setShow] = useState(false);
-  const [open, setOpen] = React.useState(false);  
+  const [open, setOpen] = React.useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(false);
   const [userData, setUserData] = React.useState({});
   const [scroll, setScroll] = React.useState("paper");
   const [editUser, setEditUser] = useState();
@@ -27,29 +28,30 @@ export default function Caller() {
     setScroll(scrollType);
   };
 
-  const handleStatusUpdate = (row) => () => {
-    dispatch(userUpdate(row?._id, row));
-    dispatch(fetchUserByRole(row?.role))
+  const handleStatusUpdate = (row) => {
+    dispatch(userUpdate({ ...row, type: "user" }));
   };
-
+  const handleOpenUserModal = (id) => {
+    setShowUserProfile(true);
+    setUserData(id);
+  };
   const handleClose = () => {
     setOpen(false);
   };
   useEffect(() => {
     dispatch(fetchUserByRole(3))
-  }, [])
+  }, [handleStatusUpdate,userDeleteAction])
 
-  const userDeleteAction = (id) =>  {
-    dispatch(userDelete(deleteId))
-    dispatch(fetchUserByRole(3))
+  const userDeleteAction = (id) => {
+    dispatch(userDelete(deleteId));
   }
 
-  const handleShow = (id) => () => {
+  const handleShow = (id) => {
     setDeleteId(id)
     setShow(true)
   };
 
-  const handleOpen  = (id) => {
+  const handleOpen = (id) => {
     setShow(true);
     setUserData(id);
   };
@@ -69,12 +71,12 @@ export default function Caller() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          {/* <Link to="#" onClick={handleClickOpen("paper")} className="btn btn-primary btn-icon text-white me-3">
+          <Link to="/callerAdd" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
-            Add User
-          </Link> */}
+            Add Caller
+          </Link>
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;
@@ -94,16 +96,14 @@ export default function Caller() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTables  handleStatusUpdate={handleStatusUpdate} handleOpen={handleOpen}  handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
+                <datatable.CallerDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      {/* <SimpleModal role={3} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} /> */}
-      <UserDetailModal setShow={setShow} userDeleteAction={userDeleteAction} show={show} handleShow={handleShow} userData={userData} />
-
+      <WarningModal setShow={setShow} propertyDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
+      <UserDetailModal setShow={setShowUserProfile} show={showUserProfile} userData={userData} />
     </div>
   );
 }

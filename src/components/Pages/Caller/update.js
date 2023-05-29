@@ -14,37 +14,44 @@ import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/Aut
 
 
 
-
-export default function EditorAdd() {
+export default function CallerUpdate() {
     const dispatch = useDispatch();
     const params = useParams();
     const navigate = useNavigate();
     const { users, college, tab_status } = useSelector(state => ({
-        users: state?.userAuth?.users,
+        users: state?.userAuth?.users.users?.filter(item=>item?._id == params.id),
         college: state?.propertyType?.college.filter(item => item?._id == params.id),
         tab_status: state?.propertyType?.tab_status,
     }));
-
+    useEffect(() => {
+        dispatch(fetchUserByRole(3))
+    }, []);
     const formik = useFormik({
         initialValues: {
-            "name": "",
-            "email": "",
-            "contact_no": "",
+            "name": users[0].name||"",
+            "email": users[0].email||"",
+            "contact_no": users[0].contact_no||"",
+            "image": users[0].image||"",
             "tab_status":"",
-            "image": "",
-            "role": 2,
+            "role":3,
+            "type":"user"
         },
         onSubmit: values => {
+            let _id = params?.id;
+            values = {
+                "id": _id,
+                ...values
+            }
             if (typeof values.image == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
-                dispatch(register(formData));
-                navigate("/editor");
+                dispatch(userUpdate(formData));
+                navigate("/caller");
             } else {
-                dispatch(register(values));
-                navigate("/editor");
+                dispatch(userUpdate(values));
+                navigate("/caller");
             }
         },
     });
@@ -55,11 +62,12 @@ export default function EditorAdd() {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                < Card.Title as="h3">Add Editor</Card.Title>
+                                < Card.Title as="h3">Update Caller</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Card >
                                     <Row>
+                                        {}
                                         <section>
                                             <div className="row">
                                                 <div className="col-md-12">

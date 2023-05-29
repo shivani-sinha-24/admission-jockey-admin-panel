@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { createProperty } from "../../../redux/Action/PropertyAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, useNavigate, Routes, Route, NavLink } from "react-router-dom";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import { Form } from "react-bootstrap";
 import { useFormik } from "formik";
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
+
+
 
 import {
   Col,
@@ -118,17 +128,42 @@ function Name({ nextStep, handleFormData, values }) {
     </div>
   );
 }
-function StepTwo({ nextStep, handleFormData, prevStep, values }) {
+
+
+function StepTwo({ nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
+  // const ITEM_HEIGHT = 48;
+  // const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        // maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+  const theme = useTheme();
+
+
+
+  function getStyles(name, personName, theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
 
   const [error, setError] = useState(false);
   const submitFormData = (e) => {
     e.preventDefault();
-    if (validator.isEmpty(values.type) || validator.isEmpty(values.name) || validator.isEmpty(values.shortName) || validator.isEmpty(values.estyr) || validator.isEmpty(values.affilatedBy) || validator.isEmpty(values.aprovedBy)) {
+    if (validator.isEmpty(values.type) || validator.isEmpty(values.name) || validator.isEmpty(values.shortName) || validator.isEmpty(values.estyr) || validator.isEmpty(values.aprovedBy)) {
       setError(true);
     } else {
       nextStep();
     }
   };
+
   return (
     <div>
       <Form onSubmit={submitFormData}>
@@ -199,61 +234,89 @@ function StepTwo({ nextStep, handleFormData, prevStep, values }) {
                             </Form.Group>
                           </div>
                         </div>
-                        <Form.Group className="mb-3">
-                          <Form.Label>Est. Year</Form.Label>
-                          <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
-                            name="estyr"
-                            defaultValue={values.estyr}
-                            pattern="^(19|20)\d{2}$"
-                            type="number"
-                            placeholder="1900-2050"
-                            onChange={handleFormData("estyr")}
-                          />
-                          {error ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                          <Form.Label>Approved By</Form.Label>
-                          <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
-                            name="aprovedBy"
-                            defaultValue={values.aprovedBy}
-                            type="text"
-                            placeholder="aprovedBy"
-                            onChange={handleFormData("aprovedBy")}
-                          />
-                          {error ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                          <Form.Label>Affilated By</Form.Label>
-                          <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
-                            name="affilatedBy"
-                            defaultValue={values.affilatedBy}
-                            type="text"
-                            placeholder="affilatedBy"
-                            onChange={handleFormData("affilatedBy")}
-                          />
-                          {error ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
+                        <div className="row d-flex">
+                          <div className="col-md-4">
+                            <Form.Group className="mb-3">
+                              <Form.Label>Est. Year</Form.Label>
+                              <Form.Control
+                                style={{ border: error ? "2px solid #ff0000" : "" }}
+                                name="estyr"
+                                defaultValue={values.estyr}
+                                pattern="^(19|20)\d{2}$"
+                                type="number"
+                                placeholder="1900-2050"
+                                onChange={handleFormData("estyr")}
+                              />
+                              {error ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-4">
+                            <Form.Group className="mb-3">
+                              <Form.Label>Approved By</Form.Label>
+                              <Form.Control
+                                style={{ border: error ? "2px solid #ff0000" : "" }}
+                                name="aprovedBy"
+                                defaultValue={values.aprovedBy}
+                                type="text"
+                                placeholder="aprovedBy"
+                                onChange={handleFormData("aprovedBy")}
+                              />
+                              {error ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-4">
+                            <Form.Group className="mb-3">
+                              <Form.Label>Affilated By</Form.Label>
+                              <FormControl sx={{ width: 300 }} >
+                                <Select
+                                  labelId="demo-multiple-chip-label"
+                                  defaultValue={values.affilatedBy}
+                                  id="demo-multiple-chip"
+                                  multiple
+                                  onChange={handleChange}
+                                  renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                      {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                      ))}
+                                    </Box>
+                                  )}
+                                  MenuProps={MenuProps}
+                                >
+                                  {university.map((item) => (
+                                    (
+                                      <MenuItem
+                                        key={item?.name}
+                                        value={item?.name}
+                                        style={getStyles(item.name, personName, theme)}
+                                      >
+                                        {item?.name}
+                                      </MenuItem>)
+                                  ))}
+                                </Select>
+                              </FormControl>
+                              {error ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                        </div>
                         <div>
                           <Button className="float-start mb-5" onClick={prevStep}>
                             Previous
@@ -276,7 +339,7 @@ function StepTwo({ nextStep, handleFormData, prevStep, values }) {
     </div>
   );
 };
-function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
+function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
   const dispatch = useDispatch();
   const formik = useFormik({
     enableReinitialize: true,
@@ -290,10 +353,14 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
       "short_name": values.shortName || "",
       "est_year": values.estyr || "",
       "approve_by": values.aprovedBy || "",
-      "affilite_by": values.affilatedBy || "",
+      // "affilite_by": values.affilatedBy || [],
       "image": ""
     },
     onSubmit: values => {
+      values = {
+        ...values,
+        "affilite_by": personName
+      }
       if (typeof values.image == 'object') {
         let formData = new FormData();
         for (let value in values) {
@@ -359,41 +426,20 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values }) {
     </div>
   );
 }
-// function Final({ values }) {
-//   const dispatch = useDispatch();
-//   // const { email, phonenumber, website, type, name, shortName, estyr, aprovedBy, affilatedBy, logo } = values;
-//   // let data = {
-//   //   "email": email,
-//   //   "phone": phonenumber,
-//   //   "website": website,
-//   //   "edu_type": type,
-//   //   "college_type": "Gov",
-//   //   "name": name,
-//   //   "short_name": shortName,
-//   //   "est_year": estyr,
-//   //   "approve_by": aprovedBy,
-//   //   "affilite_by": affilatedBy,
-//   //   "logo":logo
-//   // };
-//   if (typeof values.logo == 'object') {
-//     let formData = new FormData();
-//     for (let value in values) {
-//       formData.append(value, values[value]);
-//     }
-//     dispatch(createProperty(formData));
-//     dispatch(getCollegeList())
-//     document.getElementById("propertyList").click();
-//     window.location.reload(false);
-//   } else {
-//     dispatch(createProperty(values));
-//     dispatch(getCollegeList())
-//     document.getElementById("propertyList").click();
-//     window.location.reload(false);
-//   }
-// };
 
 export function PropertyAdd() {
   const [step, setstep] = useState(1);
+  const [personName, setPersonName] = React.useState([]);
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
   const [formData, setFormData] = useState({
     email: "",
     phonenumber: "",
@@ -401,9 +447,14 @@ export function PropertyAdd() {
     name: "",
     shortName: "",
     estyr: "",
-    affilatedBy: "",
+    affilatedBy: [],
     aprovedBy: ""
-  })
+  });
+  const { users, college, tab_status } = useSelector(state => ({
+    users: state?.userAuth?.users,
+    college: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
+    tab_status: state?.propertyType?.tab_status,
+  }));
   const nextStep = () => {
     setstep(step + 1);
   };
@@ -427,13 +478,13 @@ export function PropertyAdd() {
     case 2:
       return (
         <div className="custom-margin">
-          <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+          <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} university={college} handleChange={handleChange} personName={personName} />
         </div>
       );
     default:
       return (
         <div className="custom-margin">
-          <ThirdStep nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+          <ThirdStep nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} personName={personName} />
         </div>
       )
   }

@@ -35,7 +35,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
         enableReinitialize: true,
         initialValues: {
             "id": editTeam?._id || "",
-            "property_id": params.id,
+            "property_id": params.clgid,
             "name": editTeam?.name || "",
             "designation": editTeam?.designation || "",
             "image": editTeam?.image || ""

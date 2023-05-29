@@ -14,7 +14,7 @@ const Scholarship = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { scholarship } = useSelector((state) => ({
-    scholarship: state?.propertyType?.scholarship.filter(item => item?.property_id == params.id),
+    scholarship: state?.propertyType?.scholarship.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Scholarship = () => {
                     </div>
                   </Card.Header>
                   {scholarship?.map((item, i) => {
-                    if (item?.property_id == params.id) {
+                    if (item?.property_id == params.clgid) {
                       return (
                         <Card.Body>
                           <div className="example">

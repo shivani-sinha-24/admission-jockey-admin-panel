@@ -253,7 +253,6 @@ export const userDelete = (id) => async (dispatch) => {
 export const userUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
-    console.log("APi",API);
     const { data } = await API.put(`/userUpdate`, user);
 
     console.log("userUpdate", data, data?.data);

@@ -5,6 +5,10 @@ import {GET_UNIVERSITY_COURSE_LIST,SUCCESS_UNIVERSITY_COURSE_LIST,FAILURE_UNIVER
   PROPERTY_OTHERS_ADD_REQUEST,PROPERTY_OTHERS_ADD_SUCCESS,PROPERTY_OTHERS_ADD_FAILURE,
   PROPERTY_OTHERS_UPDATE_REQUEST,PROPERTY_OTHERS_UPDATE_SUCCESS,PROPERTY_OTHERS_UPDATE_FAILURE,
   PROPERTY_OTHERS_GET_REQUEST,PROPERTY_OTHERS_GET_SUCCESS,PROPERTY_OTHERS_GET_FAILURE,
+import {
+  GET_UNIVERSITY_COURSE_LIST, SUCCESS_UNIVERSITY_COURSE_LIST, FAILURE_UNIVERSITY_COURSE_LIST, UNIVERSITY_COURSE_ADD_FAILURE, UNIVERSITY_COURSE_ADD_SUCCESS, UNIVERSITY_COURSE_ADD_REQUEST, GET_QAS_LIST, SUCCESS_QAS_LIST, FAILURE_QAS_LIST, FAILURE_ADMISSION_PROCESS_LIST, FAILURE_AFFILIATE_APPROVE, FAILURE_ANNOUNCEMENT_LIST, FAILURE_COLLEGE_LIST, FAILURE_FAQS_LIST, FAILURE_GALLERY_LIST, FAILURE_LOAN_LIST, FAILURE_PLACEMENT_LIST, FAILURE_SCHOLARSHIP_LIST, FAILURE_TEAM_LIST, GET_ADMISSION_PROCESS_LIST, GET_AFFILIATE_APPROVE, GET_ANNOUNCEMENT_LIST, GET_COLLEGE_LIST, GET_FAQS_LIST, GET_GALLERY_LIST, GET_LOAN_LIST, GET_PLACEMENT_LIST, GET_SCHOLARSHIP_LIST, GET_TEAM_LIST, PROPERTY_ADMISSION_PROCESS_ADD_FAILURE, PROPERTY_ADMISSION_PROCESS_ADD_REQUEST, PROPERTY_ADMISSION_PROCESS_ADD_SUCCESS, PROPERTY_ADMISSION_PROCESS_UPDATE_FAILURE, PROPERTY_ADMISSION_PROCESS_UPDATE_REQUEST, PROPERTY_ADMISSION_PROCESS_UPDATE_SUCCESS, PROPERTY_ANNOUNCEMENT_ADD_FAILURE, PROPERTY_ANNOUNCEMENT_ADD_REQUEST, PROPERTY_ANNOUNCEMENT_ADD_SUCCESS, PROPERTY_ANNOUNCEMENT_UPDATE_FAILURE, PROPERTY_ANNOUNCEMENT_UPDATE_REQUEST, PROPERTY_ANNOUNCEMENT_UPDATE_SUCCESS, PROPERTY_FAQS_ADD_FAILURE, PROPERTY_FAQS_ADD_REQUEST, PROPERTY_FAQS_ADD_SUCCESS, PROPERTY_FAQS_UPDATE_FAILURE, PROPERTY_FAQS_UPDATE_REQUEST, PROPERTY_FAQS_UPDATE_SUCCESS, PROPERTY_FORM_FAILURE, PROPERTY_FORM_REQUEST, PROPERTY_FORM_SUCCESS, PROPERTY_GALLERY_ADD_FAILURE, PROPERTY_GALLERY_ADD_REQUEST, PROPERTY_GALLERY_ADD_SUCCESS, PROPERTY_LOAN_ADD_FAILURE, PROPERTY_LOAN_ADD_REQUEST, PROPERTY_LOAN_ADD_SUCCESS, PROPERTY_LOAN_UPDATE_FAILURE, PROPERTY_LOAN_UPDATE_REQUEST, PROPERTY_LOAN_UPDATE_SUCCESS, PROPERTY_PLACEMENT_ADD_FAILURE, PROPERTY_PLACEMENT_ADD_REQUEST, PROPERTY_PLACEMENT_ADD_SUCCESS, PROPERTY_PLACEMENT_UPDATE_FAILURE, PROPERTY_PLACEMENT_UPDATE_REQUEST, PROPERTY_PLACEMENT_UPDATE_SUCCESS, PROPERTY_SCHOLARSHIP_ADD_FAILURE, PROPERTY_SCHOLARSHIP_ADD_REQUEST, PROPERTY_SCHOLARSHIP_ADD_SUCCESS, PROPERTY_SCHOLARSHIP_UPDATE_FAILURE, PROPERTY_SCHOLARSHIP_UPDATE_REQUEST, PROPERTY_SCHOLARSHIP_UPDATE_SUCCESS, PROPERTY_TEAM_ADD_FAILURE, PROPERTY_TEAM_ADD_REQUEST, PROPERTY_TEAM_ADD_SUCCESS, PROPERTY_TEAM_UPDATE_FAILURE, PROPERTY_TEAM_UPDATE_REQUEST, PROPERTY_TEAM_UPDATE_SUCCESS, PROPERTY_TYPE_ADD_FAILURE, PROPERTY_TYPE_ADD_REQUEST, PROPERTY_TYPE_ADD_SUCCESS, PROPERTY_TYPE_GET_FAILURE, PROPERTY_TYPE_GET_REQUEST, PROPERTY_TYPE_GET_SUCCESS, PROPERTY_TYPE_UPDATE_REQUEST,
+  PROPERTY_TYPE_UPDATE_SUCCESS, FAILURE_COLLEGE_COURSE_LIST, SUCCESS_COLLEGE_COURSE_LIST, GET_COLLEGE_COURSE_LIST, COLLEGE_COURSE_ADD_FAILURE, COLLEGE_COURSE_ADD_SUCCESS, COLLEGE_COURSE_ADD_REQUEST, PROPERTY_TYPE_UPDATE_FAILURE, PROPERTY_TYPE_DELETE_REQUEST, PROPERTY_TYPE_DELETE_SUCCESS, PROPERTY_TYPE_DELETE_FAILURE, SUCCESS_ADMISSION_PROCESS_LIST, SUCCESS_AFFILIATE_APPROVE, SUCCESS_ANNOUNCEMENT_LIST, SUCCESS_COLLEGE_LIST, SUCCESS_FAQS_LIST, SUCCESS_GALLERY_LIST, SUCCESS_LOAN_LIST, SUCCESS_PLACEMENT_LIST, SUCCESS_SCHOLARSHIP_LIST, SUCCESS_TEAM_LIST, UNIVERSITY_COURSE_DELETE_FAILURE, UNIVERSITY_COURSE_DELETE_SUCCESS, UNIVERSITY_COURSE_DELETE_REQUEST, UNIVERSITY_COURSE_UPDATE_FAILURE, UNIVERSITY_COURSE_UPDATE_SUCCESS, UNIVERSITY_COURSE_UPDATE_REQUEST,
+
 } from "../Constants/Constants";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -13,7 +17,7 @@ export const createPropertyType = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TYPE_ADD_REQUEST });
     const { data } = await API.post(`/createPropertyType`, property);
-    console.log("PROPERTY_TYPE_ADD_REQUEST",data)
+    console.log("PROPERTY_TYPE_ADD_REQUEST", data)
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_TYPE_ADD_SUCCESS, payload: data?.propertyCreated });
@@ -44,14 +48,14 @@ export const getPropertyType = () => async (dispatch) => {
   }
 };
 
-export const updatePropertyType = (id,property) => async (dispatch) => {
+export const updatePropertyType = (id, property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TYPE_UPDATE_REQUEST });
     const { data } = await API.put(`/updatePropertyType?id=${id}`, property);
-    console.log("data",data);
-    dispatch({ type: PROPERTY_TYPE_UPDATE_SUCCESS, payload:data });
+    console.log("data", data);
+    dispatch({ type: PROPERTY_TYPE_UPDATE_SUCCESS, payload: data });
 
-        toast.success("Property updated successfully.")
+    toast.success("Property updated successfully.")
 
   } catch (error) {
     dispatch({
@@ -65,7 +69,7 @@ export const deletePropertyType = (id) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TYPE_DELETE_REQUEST });
     const { data } = await API.delete(`/deletePropertyType?id=${id}`);
-    dispatch({ type: PROPERTY_TYPE_DELETE_SUCCESS, payload:data });
+    dispatch({ type: PROPERTY_TYPE_DELETE_SUCCESS, payload: data });
 
     toast.success("PropertyType deleted successfully.")
 
@@ -84,7 +88,7 @@ export const preopertyForm = (property, navigate) => async (dispatch) => {
     dispatch({ type: PROPERTY_FORM_REQUEST });
     const { data } = await API.post(`/collegeCreate`, property);
 
-    console.log("PROPERTY_FORM_REQUEST",data);
+    console.log("PROPERTY_FORM_REQUEST", data);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_FORM_SUCCESS, payload: data?.college });
@@ -110,7 +114,7 @@ export const getCollegeAffliateApprove = () => async (dispatch) => {
     dispatch({ type: GET_AFFILIATE_APPROVE });
     const { data } = await API.get(`/getCollegeAffliateApprove`);
 
-    console.log("getCollegeAffliateApprove",data);
+    console.log("getCollegeAffliateApprove", data);
 
     dispatch({ type: SUCCESS_AFFILIATE_APPROVE, payload: data });
 
@@ -701,6 +705,7 @@ export const getQas = () => async (dispatch) => {
 
 //Add createLoan action
 
+//Add Create Univesrity Course action
 export const createUniversityCourse = (universityCourse) => async (dispatch) => {
   try {
     dispatch({ type: UNIVERSITY_COURSE_ADD_REQUEST });
@@ -737,7 +742,7 @@ export const universityCourseDelete = (id) => async (dispatch) => {
   try {
     dispatch({ type: UNIVERSITY_COURSE_DELETE_REQUEST });
     const { data } = await API.delete(`/deleteUniversityCourse?id=${id}`);
-    dispatch({ type: UNIVERSITY_COURSE_DELETE_SUCCESS, payload:data?.id });
+    dispatch({ type: UNIVERSITY_COURSE_DELETE_SUCCESS, payload: data?.id });
     toast.success("Course deleted successfully.")
 
   } catch (error) {
@@ -822,3 +827,36 @@ export const getOthers = (values)=> async (dispatch) =>{
 
     }
 }
+//Add Create Univesrity Course action
+export const createCollegeCourse = (collegeCourse) => async (dispatch) => {
+  try {
+    dispatch({ type: COLLEGE_COURSE_ADD_REQUEST });
+    const { data } = await API.post(`/createCollegeCourse`, collegeCourse);
+    if (data.status_code == 200) {
+      dispatch({ type: COLLEGE_COURSE_ADD_SUCCESS, payload: data?.collegeCourse });
+      toast.success(data?.message)
+    } else {
+      toast.error(data?.message)
+    }
+  } catch (error) {
+    console.log(error, "error")
+    dispatch({
+      type: COLLEGE_COURSE_ADD_FAILURE
+    });
+    toast.error(error?.message)
+  }
+};
+
+
+export const getCollegeCourses = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_COLLEGE_COURSE_LIST });
+    const { data } = await API.get(`/getCollegeCourse`);
+    dispatch({ type: SUCCESS_COLLEGE_COURSE_LIST, payload: data });
+  } catch (error) {
+    dispatch({
+      type: FAILURE_COLLEGE_COURSE_LIST
+    });
+    toast.error(error?.message)
+  }
+};

@@ -26,23 +26,18 @@ export default function Editors() {
     setOpen(true);
     setScroll(scrollType);
   };
-  const handleStatusUpdate = (row) => () => {
-    dispatch(userUpdate(row?._id, {...row,type:"user"}));
-    dispatch(fetchUserByRole(row?.role))
+  const handleStatusUpdate = (row) => {
+    dispatch(userUpdate({...row,type:"user"}));
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const userDeleteAction = () => {
     dispatch(userDelete(deleteId));
-    dispatch(fetchUserByRole(2));
   }
 
   useEffect(() => {
     dispatch(fetchUserByRole(2))
-  }, [])
+  }, [handleStatusUpdate,userDeleteAction])
 
   const handleShow = (id)  => {
     setDeleteId(id)

@@ -8,28 +8,37 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUniversityCourse,getUniversityCourses } from "../../../../../redux/Action/PropertyTypeAction";
+import { createCollegeCourse, getCollegeCourses } from "../../../../../redux/Action/PropertyTypeAction";
 import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
 
 
-export default function CreateUniversityCourse() {
+export default function UpdateCollegeCourse() {
     const dispatch = useDispatch();
     const params = useParams();
     const editor = useRef(null);
     const deditor = useRef(null);
     const navigate = useNavigate();
+    const { universityCourse, category } = useSelector(state => ({
+        users: state?.userAuth?.users,
+        category: state?.category?.category,
+        universityCourse: state?.universityCourse?.universityCourse?.filter(item => item?._id == params?.unicorsid),
+        tab_status: state?.propertyType?.tab_status,
+    }));
     const [streamList, setStreamList] = useState([]);
     const [subcategory, setSubcategory] = useState([]);
-    const [categoryOnSelect, setCategoryOnSelect] = useState("");
-    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState("");
-    const [streamOnSelect, setStreamOnSelect] = useState("");
-    const {  category } = useSelector(state => ({
-        category: state?.category?.category
-    }));
+    const [categoryOnSelect, setCategoryOnSelect] = useState(universityCourse[0]?.category || "");
+    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(universityCourse[0]?.sub_category || "");
+    const [streamOnSelect, setStreamOnSelect] = useState(universityCourse[0]?.stream || "");
     useEffect(() => {
         dispatch(getCategory());
+        if (universityCourse[0]?.category) {
+            setCategory(universityCourse[0]?.category);
+        }
+        if (universityCourse[0]?.category && universityCourse[0]?.sub_category) {
+            setSubCategory(universityCourse[0]?.sub_category)
+        }
     }, []);
     const setCategory = (cat) => {
         setCategoryOnSelect(cat);
@@ -69,34 +78,31 @@ export default function CreateUniversityCourse() {
         }
     }
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    const [eligibilty, setEligibilty] = useState("");
-    const [description, setDescription] = useState("");
+    const [eligibilty, setEligibilty] = useState(universityCourse[0]?.eligibilty || "");
+    const [description, setDescription] = useState(universityCourse[0]?.description || "");
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            "name": "",
-            "full_name": "",
-            "duration": "",
-            "type": "",
+            "name": universityCourse[0]?.name || "",
+            "full_name": universityCourse[0]?.full_name || "",
+            "duration": universityCourse[0]?.duration || "",
+            "type": universityCourse[0]?.type || "",
             "fees": "",
-            // "category": "",
-            // "sub_category": ""
-            "lateral_entry": ""
+            "lateral_entry": universityCourse[0]?.lateral_entry || ""
         },
         onSubmit: values => {
-            // let _id = params?.id;
             values = {
                 "eligibilty": eligibilty,
                 "description": description,
-                "universityID": params.clgid,
-                "category":categoryOnSelect,
-                "sub_category":subCategoryOnSelect,
-                "stream":streamOnSelect,
+                "CollegeID": params.clgid,
+                "category": categoryOnSelect,
+                "sub_category": subCategoryOnSelect,
+                "stream": streamOnSelect,
                 ...values
             }
-            dispatch(createUniversityCourse(values));
-            navigate(`/property-list/University/${params.clgid}/universitycourse`);
-            // dispatch(getUniversityCourses());
+            dispatch(createCollegeCourse(values));
+            navigate(`/property-list/${params.clgid}/collegecourselist`);
+            dispatch(getCollegeCourses());
         },
     });
     return (
@@ -122,6 +128,7 @@ export default function CreateUniversityCourse() {
                                                             onChange={formik.handleChange}
                                                             value={formik.values.name}
                                                             placeholder='name'
+                                                            disabled
                                                             className="form-control required"
                                                         />
                                                         {formik.errors.name && formik.touched.name ? (
@@ -137,6 +144,7 @@ export default function CreateUniversityCourse() {
                                                             value={formik.values.full_name}
                                                             placeholder='Full Name'
                                                             className="form-control"
+                                                            disabled
                                                         />
                                                         {formik.errors.full_name && formik.touched.full_name ? (
                                                             <div style={{ color: "red" }}>{formik.errors.full_name}</div>
@@ -151,6 +159,7 @@ export default function CreateUniversityCourse() {
                                                             value={formik.values.duration}
                                                             placeholder='Duration'
                                                             className="form-control required"
+                                                            disabled
                                                         />
                                                         {formik.errors.duration && formik.touched.duration ? (
                                                             <div style={{ color: "red" }}>{formik.errors.duration}</div>
@@ -177,8 +186,9 @@ export default function CreateUniversityCourse() {
 
                                                         <label className="form-label">Type</label>
                                                         <select name="type"
+                                                            disabled
                                                             onChange={formik.handleChange}
-                                                            className="form-control">
+                                                            className="form-control" value={formik.values.type}>
                                                             <option value="">Please Select Type</option>
                                                             <option value="UG">UG</option>
                                                             <option value="PG">PG</option>
@@ -193,8 +203,10 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Lateral Entry</label>
                                                         <select name="lateral_entry"
+                                                            disabled
                                                             onChange={formik.handleChange}
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={formik.values.lateral_entry}>
                                                             <option value="">Please Select Lateral Entry</option>
                                                             <option value="YES">YES</option>
                                                             <option value="No">NO</option>
@@ -208,9 +220,11 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Category</label>
                                                         <select name="category"
+                                                            disabled
                                                             onChange={(e) => setCategory(e.target.value)}
                                                             id="category"
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={categoryOnSelect}>
                                                             <option value="">Please Select Category</option>
                                                             {category?.length > 0 ? category.map((item) => {
                                                                 if (item?.parent?.length == "") {
@@ -227,8 +241,10 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Sub Category</label>
                                                         <select name="sub_category"
+                                                            disabled
                                                             onChange={(e) => setSubCategory(e.target.value)}
-                                                            className="form-control">
+                                                            className="form-control"
+                                                            value={subCategoryOnSelect}>
                                                             {subcategory.length > 0 ? <option value="">Please Select Sub Category</option> : <option value="">Please Select Category First</option>}
                                                             {subcategory?.length > 0 ? subcategory.map((item) => {
                                                                 return (
@@ -244,10 +260,12 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Stream</label>
                                                         <select name="stream"
-                                                            onChange={(e)=>setStream(e.target.value)}
-                                                            className="form-control">
+                                                            disabled
+                                                            onChange={(e) => setStream(e.target.value)}
+                                                            className="form-control"
+                                                            value={streamOnSelect}>
                                                             {streamList.length > 0 ? <option value="">Please Select Stream </option> : <option value="">Please Select Sub Category First</option>}
-                                                            
+
                                                             {streamList?.length > 0 ? streamList.map((item) => {
                                                                 return (
                                                                     <option value={item?.name}>{item?.name}</option>
@@ -259,10 +277,11 @@ export default function CreateUniversityCourse() {
                                                         ) : null}
                                                     </div>
                                                 </div>
-                                                <div className="row  d-flex">
+                                                {/* <div className="row  d-flex">
                                                     <div className="col-md-6">
                                                         <label className="form-label">Eligibilty</label>
                                                         <JoditEditor
+                                                            disabled
                                                             ref={editor}
                                                             value={eligibilty}
                                                             onChange={newContent => setEligibilty(newContent)}
@@ -271,14 +290,15 @@ export default function CreateUniversityCourse() {
                                                     <div className="col-md-6">
                                                         <label className="form-label">Description</label>
                                                         <JoditEditor
+                                                            disabled
                                                             ref={deditor}
                                                             value={description}
                                                             onChange={newContent => setDescription(newContent)}
                                                         />
                                                     </div>
-                                                </div>
+                                                </div> */}
                                                 <Button type="submit" variant="primary" className="me-1 mt-3 mb-5" >Submit</Button>
-                                                <Button onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} variant="danger" className="me-1 mt-3 mb-5" >Cancle</Button>
+                                                {/* <Button onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} variant="danger" className="me-1 mt-3 mb-5" >Cancle</Button> */}
                                             </div>
                                         </div>
                                     </section>

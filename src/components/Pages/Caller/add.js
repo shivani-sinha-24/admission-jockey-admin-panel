@@ -15,7 +15,7 @@ import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/Aut
 
 
 
-export default function EditorAdd() {
+export default function CallerAdd() {
     const dispatch = useDispatch();
     const params = useParams();
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function EditorAdd() {
             "contact_no": "",
             "tab_status":"",
             "image": "",
-            "role": 2,
+            "role": 3,
         },
         onSubmit: values => {
             if (typeof values.image == 'object') {
@@ -41,10 +41,10 @@ export default function EditorAdd() {
                     formData.append(value, values[value]);
                 }
                 dispatch(register(formData));
-                navigate("/editor");
+                navigate("/caller");
             } else {
                 dispatch(register(values));
-                navigate("/editor");
+                navigate("/caller");
             }
         },
     });
@@ -55,7 +55,7 @@ export default function EditorAdd() {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                < Card.Title as="h3">Add Editor</Card.Title>
+                                < Card.Title as="h3">Add Caller</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Card >

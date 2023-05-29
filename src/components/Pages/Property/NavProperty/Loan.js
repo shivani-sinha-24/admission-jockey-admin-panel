@@ -13,7 +13,7 @@ const Loan = () => {
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { loan } = useSelector((state) => ({
-    loan: state?.propertyType?.loan.filter(item => item?.property_id == params.id),
+    loan: state?.propertyType?.loan.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Loan = () => {
                     </div>
                   </Card.Header>
                   {loan?.map((item, i) => {
-                    if (item?.property_id == params.id) {
+                    if (item?.property_id == params.clgid) {
                       return (
                         <Card.Body>
                           <div className="example">

@@ -1,5 +1,5 @@
 import API from "../../service/API";
-import { CATEGORY_ADD_REQUEST,CATEGORY_UPDATE_FAILURE,CATEGORY_UPDATE_SUCCESS,CATEGORY_UPDATE_REQUEST, CATEGORY_ADD_FAILURE,CATEGORY_DELETE_REQUEST,CATEGORY_DELETE_SUCCESS,CATEGORY_DELETE_FAILURE, CATEGORY_ADD_SUCCESS,CATEGORY_GET_REQUEST,CATEGORY_GET_SUCCESS,CATEGORY_GET_FAILURE } from "../Constants/Constants";
+import { CATEGORY_SOFT_DELETE_FAILURE,CATEGORY_SOFT_DELETE_SUCCESS,CATEGORY_SOFT_DELETE_REQUEST,CATEGORY_ADD_REQUEST,CATEGORY_UPDATE_FAILURE,CATEGORY_UPDATE_SUCCESS,CATEGORY_UPDATE_REQUEST, CATEGORY_ADD_FAILURE,CATEGORY_DELETE_REQUEST,CATEGORY_DELETE_SUCCESS,CATEGORY_DELETE_FAILURE, CATEGORY_ADD_SUCCESS,CATEGORY_GET_REQUEST,CATEGORY_GET_SUCCESS,CATEGORY_GET_FAILURE } from "../Constants/Constants";
 import { ToastContainer, toast } from 'react-toastify';
 
 //Add Status action
@@ -30,6 +30,19 @@ export const getCategory = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CATEGORY_GET_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
+
+export const categorySoftDelete = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CATEGORY_SOFT_DELETE_REQUEST });
+    const { data } = await API.post('/softDeleteCategory',{"id":id});
+    toast.success("Category soft deleted successfully.")
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_SOFT_DELETE_FAILURE,
       // payload: error.message && error.message ? error.message : '',
     });
   }
