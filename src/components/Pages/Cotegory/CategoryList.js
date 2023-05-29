@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
-import { getCategory,categoryDelete } from "../../../redux/Action/CategoryAction";
+import { getCategory,categoryDelete,categorySoftDelete } from "../../../redux/Action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { CategoryModal } from "../../Modal/CategoryModal";
@@ -38,9 +38,10 @@ export default function DataTables() {
     dispatch(userUpdate(row?._id, row));
     dispatch(fetchUserByRole(row?.role))
   };
-  const propertyDeleteAction = (id) => {
-    dispatch(categoryDelete(deleteId))
-    dispatch(getCategory())
+  const propertyDeleteAction = () => {
+    dispatch(categorySoftDelete(deleteId));
+    // dispatch(categoryDelete(deleteId))
+    dispatch(getCategory());
   }
 
   const handleClose = () => {
