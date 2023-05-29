@@ -1,6 +1,6 @@
 import API from "../../service/API";
 //import axios from "axios";
-import { USER_CHANGE_PASS_FAILURE, USER_CHANGE_PASS_REQUEST, USER_CHANGE_PASS_SUCCESS, USER_DELETE_FAILURE, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_FETCH_ROLE_FAILURE, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_FAILURE, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_MAIL_FAILURE, USER_MAIL_REQUEST, USER_MAIL_SUCCESS, USER_REGISTER_FAILURE, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_RESET_FAILURE, USER_RESET_REQUEST, USER_RESET_SUCCESS, USER_UPDATE_FAILURE, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "../Constants/Constants";
+import { USER_CHANGE_PASS_FAILURE, USER_CHANGE_PASS_REQUEST, USER_CHANGE_PASS_SUCCESS, USER_DELETE_FAILURE, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_FETCH_ID_FAILURE, USER_FETCH_ID_REQUEST, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAILURE, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_FAILURE, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_MAIL_FAILURE, USER_MAIL_REQUEST, USER_MAIL_SUCCESS, USER_REGISTER_FAILURE, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_RESET_FAILURE, USER_RESET_REQUEST, USER_RESET_SUCCESS, USER_UPDATE_FAILURE, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "../Constants/Constants";
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -215,14 +215,14 @@ export const fetchUserByRole = (role) => async (dispatch) => {
 //
 export const fetchUserById = (id) => async (dispatch) => {
   try {
-    dispatch({ type: USER_FETCH_ROLE_REQUEST });
+    dispatch({ type: USER_FETCH_ID_REQUEST });
     const { data } = await API.post(`/getUserById`,{id:id});
-    dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
+    dispatch({ type: USER_FETCH_ID_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")
     toast.error(error)
     dispatch({
-      type: USER_FETCH_ROLE_FAILURE,
+      type: USER_FETCH_ID_FAILURE,
       // payload: error.message && error.message ? error.message : '',
     });
   }
@@ -260,6 +260,10 @@ export const userUpdate = (user) => async (dispatch) => {
 
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
     toast.success("User updated successfully.")
+    if(data){
+      window.location.href = `/profile`;
+
+    }
     return data
   } catch (error) {
     console.log(error, "error")

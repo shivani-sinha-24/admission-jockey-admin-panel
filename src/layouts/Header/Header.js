@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dropdown, Navbar, Container,Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changePass } from "../../redux/Action/AuthAction";
+import { changePass, fetchUserById } from "../../redux/Action/AuthAction";
 
 export function Header() {
   const dispatch = useDispatch();
+
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.users,
+  })); 
+
+  useEffect(() => {
+    dispatch(fetchUserById(sessionStorage.getItem("userId")))
+  }, [])
+
+  const profileData = users?.user
+
   //full screen
   function Fullscreen() {
     if (
@@ -355,9 +366,9 @@ export function Header() {
                         
                           {
                         sessionStorage.getItem("image") != "undefined" ?
-                        <img className="profileImgSmall" crossorigin="anonymous" src={`${process.env.REACT_APP_IMG_URL}${sessionStorage.getItem("image")}`} alt="img" /> :
+                        <img className="profileImgSmall" crossorigin="anonymous" src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:"https://i.imgur.com/0eg0aG0.jpg"} alt="img" /> :
                         <img
-                          src={require("../../assets/images/profile__.png")}
+                          // src={require("../../assets/images/profile__.png")}
                           alt="profile-user"
                           className="avatar  profile-user brround cover-image"
                         />
