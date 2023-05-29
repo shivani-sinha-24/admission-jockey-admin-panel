@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Editors() {
@@ -27,7 +27,7 @@ export default function Editors() {
     setScroll(scrollType);
   };
   const handleStatusUpdate = (row) => {
-    dispatch(userUpdate({...row,type:"user"}));
+    dispatch(userListUpdate({...row,type:"user"}));
   };
 
 
@@ -37,7 +37,7 @@ export default function Editors() {
 
   useEffect(() => {
     dispatch(fetchUserByRole(2))
-  }, [handleStatusUpdate,userDeleteAction])
+  }, [])
 
   const handleShow = (id)  => {
     setDeleteId(id)

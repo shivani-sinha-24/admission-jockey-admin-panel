@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
-import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Caller() {
@@ -29,7 +29,7 @@ export default function Caller() {
   };
 
   const handleStatusUpdate = (row) => {
-    dispatch(userUpdate({ ...row, type: "user" }));
+    dispatch(userListUpdate({ ...row, type: "user" }));
   };
   const handleOpenUserModal = (id) => {
     setShowUserProfile(true);

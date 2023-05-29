@@ -10,7 +10,7 @@ import '../../../App.css'; import {
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../Property/StepForm/component/DropImg";
-import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, register, userListUpdate } from "../../../redux/Action/AuthAction";
 
 
 
@@ -39,7 +39,7 @@ export default function CallerUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
-                "id": _id,
+                "_id": _id,
                 ...values
             }
             if (typeof values.image == 'object') {
@@ -47,10 +47,10 @@ export default function CallerUpdate() {
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
-                dispatch(userUpdate(formData));
+                dispatch(userListUpdate(formData));
                 navigate("/caller");
             } else {
-                dispatch(userUpdate(values));
+                dispatch(userListUpdate(values));
                 navigate("/caller");
             }
         },
