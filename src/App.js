@@ -137,9 +137,6 @@ function App() {
               <Route path={"/property-list/:clgid/collegecourselist"} element={<CollegeCourseList />} />
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
-              <Route path={"/property-list/:id/loan"} element={<Loan />} />
-              <Route path={"/property-list/:id/hostel"} element={<Hostel />} />
-              <Route path={"/property-list/:id/QA"} element={<QA />} />
               <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
@@ -155,6 +152,7 @@ function App() {
                 path={"/property-list/:edu_type/:clgid/scholarship"}
                 element={<Scholarship />}
               />
+              <Route path={"/property-list/:edu_type/:clgid/others"} element={<Others />} />
               <Route
                 path={"/property-list/:edu_type/:clgid/announcement"}
                 element={<Announcement />}

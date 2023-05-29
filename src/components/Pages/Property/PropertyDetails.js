@@ -148,6 +148,19 @@ const PropertyDetails = ({ children }) => {
                       </Nav.Link>
 
                     </Nav.Item>
+                    <Nav.Item onClick={() => navigate(`/property-list/${params.edu_type}/${params?.clgid}/others`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link border py-2 px-4 m-1"
+                        id="tab17"
+                        role="tab"
+                        aria-selected="false"
+                        eventKey="lock"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-unlock"></i> Others
+                        </span>
+                      </Nav.Link>
+                    </Nav.Item>
                     <Nav.Item onClick={() => navigate(`/property-list/${params.edu_type}/${params?.clgid}/team-lead`)} className="nav-item">
                       <Nav.Link
                         className="nav-link border py-2 px-4 m-1"
@@ -394,6 +407,19 @@ const PropertyDetails = ({ children }) => {
                       >
                         <span className="nav-link-icon d-block">
                           <i className="fe fe-layers"></i> Q&A
+                        </span>
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item onClick={() => navigate(`/property-list/${params?.clgid}/others`)} className="nav-item">
+                      <Nav.Link
+                        className="nav-link border py-2 px-4 m-1"
+                        id="tab17"
+                        role="tab"
+                        aria-selected="false"
+                        eventKey="QA"
+                      >
+                        <span className="nav-link-icon d-block">
+                          <i className="fe fe-layers"></i>Others
                         </span>
                       </Nav.Link>
                     </Nav.Item>
