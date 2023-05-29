@@ -1,6 +1,6 @@
 import axios from "axios";
 const API = axios.create({
-  baseURL: " http://localhost:4500",
+  baseURL: " https://api.admissionjockey.in",
   // baseURL: `${process.env.REACT_APP_API_BASE_URL}`,
   timeout: 2000,
   headers: {
