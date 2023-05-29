@@ -50,6 +50,8 @@ import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCate
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
+import EditProfile from "./components/Pages/profileEdit/EditProfile";
+import Others from "./components/Pages/Property/NavProperty/Others";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -72,6 +74,7 @@ function App() {
 
               <Route path={"/dashboard"} element={<Dashboard />} />
               <Route path={"/profile"} element={<Profile />} />
+              <Route path={"/pages/editProfile/:id"} element={<EditProfile />} />
               <Route path={"/property-manager"} element={<PropertyManager />} />
               <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
@@ -113,6 +116,7 @@ function App() {
               <Route path={"/property-list/:id/loan"} element={<Loan />} />
               <Route path={"/property-list/:id/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:id/QA"} element={<QA />} />
+              <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route
                 path={"/property-list/:id/scholarship"}
                 element={<Scholarship />}

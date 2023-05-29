@@ -46,6 +46,9 @@ export function DropImg({imgtype,formik}) {
      if(imgtype == "announcement_img"){
       formik.setFieldValue("announcement_img",allFiles[0].file)
      }
+     if(imgtype == "profile"){
+      formik.setFieldValue("profile",allFiles[0].file)
+     }
    // allFiles.forEach((f) => f.remove());
   };
 

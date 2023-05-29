@@ -5,8 +5,10 @@ import { Tabs, Tab, Breadcrumb, Card, Row, Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { SimpleModal } from "../../Modal/SimpleModal";
-import { fetchUserByRole, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserById, userUpdate } from "../../../redux/Action/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
+import { UserDetailModal } from "../../Modal/UserDetailModal";
+import { EditProfileModal } from "../../Modal/EditProfileModal";
 
 export default function Profile() {
 
@@ -17,11 +19,8 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   const { users } = useSelector(state => ({
-    users: state?.userAuth?.users,
-  }));
-
-  console.log("Users",users);
-  //console.log("UserName",users.users[0].name);
+      users: state?.userAuth?.users,
+    })); 
 
   const handleClickOpen = (scrollType, row) => () => {
     setEditUser({
@@ -44,14 +43,14 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    dispatch(fetchUserByRole(sessionStorage.getItem("role")))
+    dispatch(fetchUserById(sessionStorage.getItem("userId")))
   }, [])
 
-console.log("pro",users?.users);
-  const profileData = users?.users?.filter((item, i) => item?._id );
+  // const profileData = users?.users?.filter((item, i) => console.log("profiledata: ",item?._id) );
 // const profileData = users?.users?.filter((item, i) => item?._id == sessionStorage.getItem("userId"))
 
-  console.log("profileData",profileData);
+const profileData = users?.user
+
 
   const handleUpdateProfile = (profileData) =>{
     let formData = new FormData();
@@ -69,7 +68,7 @@ console.log("pro",users?.users);
 
         sessionStorage.setItem("image",data?.image)
         window.location.reload()
-        dispatch(fetchUserByRole(profileData?.role))
+        dispatch(fetchUserById(profileData?.role))
       }
     });
    
@@ -112,10 +111,14 @@ console.log("pro",users?.users);
                       name="image"
                       />
                       {
-                        profileData && profileData[0]?.image != undefined ?
-                        <img className="profileImgMain" crossorigin="anonymous" src="http://localhost:5500/images/1682767874495-JSS_Logo.png" alt="img" /> :
-                        <img className="" src={user8} alt="img" />
-                        // <img className="profileImgMain" crossorigin="anonymous" src={`${process.env.REACT_APP_IMG_URL}${profileData[0]?.image}`} alt="img" /> :
+                        // profileData && profileData[0]?.image != undefined ?
+                        // <img className="profileImgMain" crossorigin="anonymous" src="http://localhost:5500/images/1682767874495-JSS_Logo.png" alt="img" /> :
+                        // <img className="" src={user8} alt="img" />
+                        <img className="profileImgMain" crossorigin="anonymous" src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:{user8}} alt="img" /> 
+                        // :
+                        // <img className="" src={user8} alt="img" />
+
+                        // <img className="profileImgMain" crossorigin="anonymous" src={profileData?.image?`${process.env.BASE_URL}/images/${profileData?.image}`:`http://localhost:5500/images/1682767874495-JSS_Logo.png`} alt="img" /> :
                         // <img className="" src={user8} alt="img" />
                       }
                        
@@ -123,7 +126,8 @@ console.log("pro",users?.users);
                       <div className="user-wrap">
                         <h4>{profileData && profileData[0]?.name}</h4>
                         <h6 className="text-muted mb-3">
-                          Member Since: {moment(profileData && profileData[0]?.createdAt).format("MMM Do YY")}
+                          {/* Member Since: {moment(profileData && profileData[0]?.createdAt).format("MMM Do YY")} */}
+                          Member Since: {moment(profileData?.created_at).format("MMM Do YY")}
                         </h6>
 
                       </div>
@@ -138,10 +142,13 @@ console.log("pro",users?.users);
                         Message
                       </Link> */}
                       <Link
-                        onClick={handleClickOpen("paper", profileData && profileData[0])}
+                        // onClick={handleClickOpen("paper", profileData && profileData[0])}
                         // to={`${process.env.PUBLIC_URL}/pages/editProfile/`}
+                        
+                        // onClick={handleClickOpen("paper", profileData)}
+                        to={`${process.env.PUBLIC_URL}/pages/editProfile/${profileData?._id}`}
                         className="btn btn-primary me-1"
-                      >
+                        >
                         Edit Profile
                       </Link>
                     </div>
@@ -175,8 +182,9 @@ console.log("pro",users?.users);
                                     <tbody className="col-lg-12 col-xl-6 p-0">
                                       <tr>
                                         <td>
-                                          <strong>Full Name :</strong>
-                                          {profileData && profileData[0]?.name}
+                                          <strong>{`Full Name : `}</strong>
+                                          {/* {profileData && profileData[0]?.name} */}
+                                          {profileData?.name}
                                         </td>
                                       </tr>
                                       <tr>
@@ -190,13 +198,17 @@ console.log("pro",users?.users);
 
                                       <tr>
                                         <td>
-                                          <strong>Email :</strong>
-                                          {profileData && profileData[0]?.email}
+                                          <strong>{`Email : `}</strong>
+                                          {/* {profileData && profileData[0]?.email} */}
+                                          {profileData?.email}
+
                                         </td>
                                       </tr>
                                       <tr>
                                         <td>
-                                          <strong>Phone :</strong> {profileData && profileData[0]?.contact_no}
+                                          <strong>Phone :</strong> 
+                                          {/* {profileData && profileData[0]?.contact_no} */}
+                                          {profileData?.contact_no}
                                         </td>
                                       </tr>
                                     </tbody>
@@ -210,7 +222,8 @@ console.log("pro",users?.users);
                                       </h5>
                                     </div>
                                     <p>
-                                    {profileData && profileData[0]?.description}
+                                    {/* {profileData && profileData[0]?.description} */}
+                                    {profileData?.description}
                                     </p>
                                  
                                   </Col>
@@ -229,7 +242,8 @@ console.log("pro",users?.users);
           </Card>
         </Col>
       </Row>
-      <SimpleModal profile="profile" role={sessionStorage.getItem("role")} editUser={profileData && profileData[0]} open={open} scroll={scroll} handleClose={handleClose} />
+      <EditProfileModal profile="profile" role={sessionStorage.getItem("role")} editUser={profileData} open={open} scroll={scroll} handleClose={handleClose} />
+      {/* <UserDetailModal/> */}
     </div>
   );
 }

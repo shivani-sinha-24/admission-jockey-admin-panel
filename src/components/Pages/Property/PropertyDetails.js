@@ -220,6 +220,19 @@ const PropertyDetails = ({ children }) => {
                       </span>
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item onClick={() => navigate(`/property-list/${params?.id}/others`)} className="nav-item">
+                    <Nav.Link
+                      className="nav-link border py-2 px-4 m-1"
+                      id="tab13"
+                      role="tab"
+                      aria-selected="false"
+                      eventKey="Others"
+                    >
+                      <span className="nav-link-icon d-block">
+                        <i className="fe fe-layers"></i> Others
+                      </span>
+                    </Nav.Link>
+                  </Nav.Item>
                 </Nav>
               </Card.Body>
             </Card>
