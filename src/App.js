@@ -50,6 +50,7 @@ import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
 import CategoryList from "./components/Pages/Cotegory/CategoryList";
+import DeleteCategoryList from "./components/Pages/Cotegory/DeleteCategoryList";
 import CreateCategory from "./components/Pages/Cotegory/Category_crud/CreateCategory";
 import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCategory";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
@@ -96,6 +97,7 @@ function App() {
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
               <Route path={"/add-category"} element={<CreateCategory />} />
+              <Route path={"/delete-category"} element={<DeleteCategoryList />} />
               <Route path={"/update-category/:id"} element={<UpdateCategory />} />
 
               <Route

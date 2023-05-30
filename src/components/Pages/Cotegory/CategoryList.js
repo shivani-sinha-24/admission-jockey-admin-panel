@@ -6,20 +6,20 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 //import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
-import { getCategory,categoryDelete,categorySoftDelete } from "../../../redux/Action/CategoryAction";
+import { getCategory, categoryDelete, categorySoftDelete } from "../../../redux/Action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
-import { WarningModal } from "../../Modal/WarningModal";
+import { SoftDeleteModal } from "../../Modal/SoftDeleteModal";
 import { CategoryModal } from "../../Modal/CategoryModal";
 
 
 export default function DataTables() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-  const { users,tab_status,category,college } = useSelector(state => ({
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { users, tab_status, category, college } = useSelector(state => ({
     users: state?.userAuth?.users,
     tab_status: state?.propertyType?.tab_status,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
-    category: state?.category?.category,
+    category: state?.category?.category.filter(item => item?.softDelete !== true),
   }));
 
   const [show, setShow] = useState(false);
@@ -40,7 +40,6 @@ export default function DataTables() {
   };
   const propertyDeleteAction = () => {
     dispatch(categorySoftDelete(deleteId));
-    // dispatch(categoryDelete(deleteId))
     dispatch(getCategory());
   }
 
@@ -53,11 +52,7 @@ export default function DataTables() {
   // }, [])
   useEffect(() => {
     dispatch(getCategory());
-  }, [])
-
-  const userDeleteAction = (id) => {
-   
-  }
+  }, [propertyDeleteAction])
 
   const handleShow = (id) => () => {
     setDeleteId(id)
@@ -79,11 +74,17 @@ export default function DataTables() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link  to="/add-category" className="btn btn-primary btn-icon text-white me-3">
+          <Link to="/add-category" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Add Category
+          </Link>
+          <Link to="/delete-category" className="btn btn-primary btn-icon text-white me-3">
+            <span>
+              <i className="fe fe-plus"></i>&nbsp;
+            </span>
+            Restore Category
           </Link>
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
@@ -101,20 +102,20 @@ export default function DataTables() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTablesForCategory 
-                 handleStatusUpdate={handleStatusUpdate} 
+                <datatable.DataTablesForCategory
+                  handleStatusUpdate={handleStatusUpdate}
                   handleShow={handleShow}
-                   propertyDeleteAction={propertyDeleteAction}
-                   handleClickOpen={handleClickOpen} 
-                   tab_status={tab_status}
-                   category={category} />
+                  propertyDeleteAction={propertyDeleteAction}
+                  handleClickOpen={handleClickOpen}
+                  tab_status={tab_status}
+                  category={category} />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
       < CategoryModal role={1} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal  setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
+      <SoftDeleteModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

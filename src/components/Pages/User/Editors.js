@@ -37,7 +37,7 @@ export default function Editors() {
 
   useEffect(() => {
     dispatch(fetchUserByRole(2))
-  }, [])
+  }, [handleStatusUpdate])
 
   const handleShow = (id)  => {
     setDeleteId(id)
