@@ -47,9 +47,6 @@ export default function DataTables() {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchUserByRole(1))
-  // }, [])
   useEffect(() => {
     dispatch(getCategory());
   }, [propertyDeleteAction])

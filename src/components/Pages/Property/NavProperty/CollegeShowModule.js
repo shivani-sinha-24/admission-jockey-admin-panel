@@ -11,16 +11,14 @@ import { getCollegeList, getUniversityCourses } from "../../../../redux/Action/P
 const CollegeShowModule = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params?.id);
     const [universityList, setUniversityList] = useState([]);
     const { users, college, tab_status, category, universityCourse, university } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
         college: state?.propertyType?.college,
         university: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
-        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.unrid),
+        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.unrid && item.collegeList.some(clgList => clgList !== params?.clgid)),
     }));
-    console.log(params?.unrid,universityCourse,"universityCourse")
     useEffect(() => {
         dispatch(getCollegeList());
         dispatch(getUniversityCourses());
