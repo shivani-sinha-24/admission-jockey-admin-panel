@@ -1,8 +1,12 @@
 import React from "react";
 import { Dropdown, Navbar, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchLoginUserById } from "../../redux/Action/AuthAction";
 
  function Header2() {
+
+  
   //full screen
   function Fullscreen() {
     if (

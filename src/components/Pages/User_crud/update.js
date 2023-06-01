@@ -11,6 +11,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../Property/StepForm/component/DropImg";
 import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/AuthAction";
+import { ImagePreviewCard } from "../../Card/ImagePreviewCard";
 
 
 
@@ -26,6 +27,9 @@ export default function EditorUpdate() {
     useEffect(() => {
         dispatch(fetchUserByRole(2))
     }, []);
+    
+    const [editEditorPic,setEditEditorPic] = useState(users[0].image?true:false)
+
     const formik = useFormik({
         initialValues: {
             "name": users[0].name||"",
@@ -107,14 +111,24 @@ export default function EditorUpdate() {
                                                     {formik.errors.contact_no && formik.touched.contact_no ? (
                                                         <div style={{ color: "red" }}>{formik.errors.contact_no}</div>
                                                     ) : null}
-                                                    <label className='fw-bold mt-5 '>Profile Photo</label>
-                                                    <div className="control-group form-group mb-0 drop">
-                                                        <label className="form-label">Team Leader Image</label>
-                                                        <DropImg
-                                                            type="file" className="dropify" imgtype="image"
-                                                            formik={formik}
-                                                        />
-                                                    </div>
+                                                    {editEditorPic
+                                                        ? 
+                                                            <ImagePreviewCard
+                                                            image={users[0].image}   
+                                                            setEditProfilePic={setEditEditorPic}/>
+                                                            
+                                                        : 
+                                                            <>
+                                                            <label className='fw-bold mt-5 '>Profile Photo</label>
+                                                            <div className="control-group form-group mb-0 drop">
+                                                                <label className="form-label">Team Leader Image</label>
+                                                                <DropImg
+                                                                    type="file" className="dropify" imgtype="image"
+                                                                    formik={formik}
+                                                                />
+                                                            </div>
+                                                            </>
+                                                    }
                                                     <Button type="submit" variant="primary" className="me-1 mt-5" >Submit</Button>
                                                 </div>
                                             </div>

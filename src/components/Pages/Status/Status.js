@@ -61,8 +61,8 @@ export default function Status() {
         </div>
         <div className="ms-auto pageheader-btn">
           <Link
-            onClick={handleClickOpen("paper")}
-            to="#"
+            // onClick={handleClickOpen("paper")}
+            to={`${process.env.PUBLIC_URL}/add-status`}
             className="btn btn-primary btn-icon text-white me-3"
           >
             <span>

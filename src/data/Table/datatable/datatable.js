@@ -14,6 +14,8 @@ import moment from "moment";
 import "react-data-table-component-extensions/dist/index.css";
 import { Link, NavLink } from "react-router-dom";
 import { borderRadius } from "@mui/system";
+import parse from 'html-react-parser';
+
 
 export function Basicdatatable() {
   const columns = [
@@ -1287,7 +1289,7 @@ export const DataTablesForProperty = ({
     },
     {
       name: "PROPERTY DESC",
-      selector: (row) => [row.property_desc],
+      selector: (row) => [parse(row.property_desc)],
       sortable: true,
     },
 
@@ -1312,7 +1314,8 @@ export const DataTablesForProperty = ({
         <span className="">
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <Link
-              onClick={handleClickOpen("paper", row)}
+              // onClick={handleClickOpen("paper", row)}
+              to={`${process.env.PUBLIC_URL}/update-property-type/${row._id}`}  
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>
@@ -1427,7 +1430,7 @@ export const DataTablesForStatus = ({
     },
     {
       name: "DESCRIPTION",
-      selector: (row) => [row.description],
+      selector: (row) => [parse(row.description)],
       sortable: true,
     },
     {
@@ -1464,7 +1467,8 @@ export const DataTablesForStatus = ({
         <span className="">
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <Link
-              onClick={handleClickOpen("paper", row)}
+              // onClick={handleClickOpen("paper", row)}
+              to={`${process.env.PUBLIC_URL}/update-status/${row._id}`} 
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>

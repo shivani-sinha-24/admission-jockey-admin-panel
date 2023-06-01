@@ -6,25 +6,22 @@ import * as Yup from "yup";
 import moment from 'moment'
 import { ImagePreviewCard } from '../../Card/ImagePreviewCard'
 import JoditEditor from 'jodit-react';
-import { fetchUserById, userUpdate } from '../../../redux/Action/AuthAction';
+import { fetchLoginUserById, fetchUserById, userProfileUpdate, userUpdate } from '../../../redux/Action/AuthAction';
 import { DropImg } from '../Property/StepForm/component/DropImg';
 
 const EditProfile = () => {
-  
+  const dispatch = useDispatch()    
   const {users} = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser,
   })); 
 
-  const profileData = users?.user
   const {id} = useParams() 
-  console.log("params: ",id);
-  console.log(sessionStorage.getItem("userId"));
-
+  
   useEffect(() => {
-    dispatch(fetchUserById(id))
+    dispatch(fetchLoginUserById(sessionStorage.getItem("userId")))
   }, [])
   
-  const dispatch = useDispatch()  
+  const profileData = users?.user
   const editor = useRef(null);
   const [content, setContent] = useState(profileData?.description || "");
 
@@ -32,11 +29,14 @@ const EditProfile = () => {
 
   const [file, setFile] = useState("");
   const [preview,setPreview] = useState(null)
+  const [fileDataURL, setFileDataURL] = useState(null);
+
+  const [editProfilePic,setEditProfilePic] = useState(profileData?.image?true:false)
 
   const formik = useFormik({
     initialValues:{
       "name":profileData?.name || '',
-      // "description": profileData?.description || '',
+      "description": profileData?.description || '',
       "image": profileData?.image || ""
     },
     onSubmit:(values)=>{
@@ -46,38 +46,14 @@ const EditProfile = () => {
       for (let value in values) {
           formData.append(value, values[value]);
       }
-      dispatch(userUpdate(formData));
+      dispatch(userProfileUpdate(formData));
     }
   })
-
-  const changeHandler = (e) => {
-    const {name} = e.target;
-    setFile( e.target.files[0]);  
-    console.log(file);
-    // setPost({ ...post, [name]:  e.target.files[0] });
-    let fileReader = new FileReader()
-    fileReader.onload = e =>{
-      if(fileReader.readyState==2){
-        setPreview(fileReader.result)
-        formik.setFieldValue('image',fileReader.result)
-        
-      }
-    }
-    fileReader.readAsDataURL(e.target.files[0])
-  };
 
   return (
     <div className="container bg-white p-3 mt-5">
         <div className="row ">
-            <div className="col-md-3 border-right">
-                <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                  <img className="rounded-circle mt-5" src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:"https://i.imgur.com/0eg0aG0.jpg"} width="90"/>
-                  <span className="font-weight-bold">{profileData?.name}</span>
-                  <span className="text-black-50">{profileData?.email}</span>
-                  <span className="text-black-50">Member Since: {moment(profileData?.created_at).format("MMM Do YY")}</span>
-                </div>
-            </div>
-            <div className="col-md-8">
+            <div className="col">
                 <div className="p-3 py-5">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                         <Link 
@@ -104,40 +80,21 @@ const EditProfile = () => {
                        <div className="row mt-3">
                           <div className="col-lg-12">
                             <label htmlFor="description" className="form-label">Biography</label>
-                            {/* <textarea rows="3" 
-                            className="form-control" 
-                            id='description' 
-                            placeholder='Start writing...'
-                            value={values?.description}
-                            onChange={handleChange}
-                            ></textarea> */}
                             <JoditEditor
                               ref={editor}
-                              value={content}
-                              onChange={newContent => {console.log(content,newContent);setContent(newContent)}}
+                              value={formik.values.description}
+                              onChange={newContent => {setContent(newContent)}}
                             />
                           </div>
                       </div> 
                       
                       <div className='row mt-3"'>
-                      {preview
+                      {editProfilePic
                        ? 
-                        <ImagePreviewCard preview={preview} setPreview={setPreview} setFile={setFile} />
+                        <ImagePreviewCard preview={preview} image={profileData?.image} fileDataURL={fileDataURL} setPreview={setPreview} setFile={setFile} setFileDataURL={setFileDataURL} setEditProfilePic={setEditProfilePic} />
                        : 
-                        // <div className="row mt-3">
-                        //   <label htmlFor="image" className="form-label">Profile Picture</label>
-                        //   <div className="col-lg-12">
-                        //     <input type="file" 
-                        //     id='image' 
-                        //     name='image'
-                        //     accept='image/*'
-                        //     className="form-control"
-                        //     // value={values?.image}
-                        //     onChange={changeHandler}
-                        //     />
-                        //   </div>
-                        // </div>
                         <div className="row mt-3 ml-0" style={{margin:"initial"}}>
+                        <label htmlFor="image" className="form-label">Profile Picture</label>
                         <DropImg
                             type="file" className="dropify" imgtype="image"
                             formik ={formik}

@@ -2,17 +2,20 @@ import React, { useEffect } from "react";
 import { Dropdown, Navbar, Container,Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changePass, fetchUserById } from "../../redux/Action/AuthAction";
+import { changePass, fetchLoginUserById, fetchUserById } from "../../redux/Action/AuthAction";
+// import user8 from "../../../assets/images/profile__.png";
+import user8 from '../../assets/images/profile__.png'
+
 
 export function Header() {
   const dispatch = useDispatch();
 
   const { users } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser,
   })); 
 
   useEffect(() => {
-    dispatch(fetchUserById(sessionStorage.getItem("userId")))
+    dispatch(fetchLoginUserById(sessionStorage.getItem("userId")))
   }, [])
 
   const profileData = users?.user
@@ -366,7 +369,7 @@ export function Header() {
                         
                           {
                         sessionStorage.getItem("image") != "undefined" ?
-                        <img className="profileImgSmall" crossorigin="anonymous" src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:"https://i.imgur.com/0eg0aG0.jpg"} alt="img" /> :
+                        <img className="profileImgSmall" crossorigin="anonymous" src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:{user8}} alt="img" /> :
                         <img
                           // src={require("../../assets/images/profile__.png")}
                           alt="profile-user"
@@ -381,7 +384,7 @@ export function Header() {
                     >
                       <div className="drop-heading">
                         <div className="text-center">
-                          <h5 className="text-dark mb-0">{sessionStorage.getItem("name")}</h5>
+                          <h5 className="text-dark mb-0">{profileData?.name}</h5>
                           <small className="text-muted">{
                             sessionStorage.getItem("role") == '0' ? 'User' :
                             sessionStorage.getItem("role") == '1' ? 'Admin' :

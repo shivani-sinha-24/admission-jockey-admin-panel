@@ -5,10 +5,12 @@ import { Tabs, Tab, Breadcrumb, Card, Row, Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { SimpleModal } from "../../Modal/SimpleModal";
-import { fetchUserById, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchLoginUserById, fetchUserById, userUpdate } from "../../../redux/Action/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { EditProfileModal } from "../../Modal/EditProfileModal";
+import parse from 'html-react-parser';
+
 
 export default function Profile() {
 
@@ -19,7 +21,7 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   const { users } = useSelector(state => ({
-      users: state?.userAuth?.users,
+      users: state?.userAuth?.loginUser,
     })); 
 
   const handleClickOpen = (scrollType, row) => () => {
@@ -43,7 +45,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    dispatch(fetchUserById(sessionStorage.getItem("userId")))
+    dispatch(fetchLoginUserById(sessionStorage.getItem("userId")))
   }, [])
 
   // const profileData = users?.users?.filter((item, i) => console.log("profiledata: ",item?._id) );
@@ -146,7 +148,7 @@ const profileData = users?.user
                         // to={`${process.env.PUBLIC_URL}/pages/editProfile/`}
                         
                         // onClick={handleClickOpen("paper", profileData)}
-                        to={`${process.env.PUBLIC_URL}/pages/editProfile/${profileData?._id}`}
+                        to={`${process.env.PUBLIC_URL}/editProfile/${profileData?._id}`}
                         className="btn btn-primary me-1"
                         >
                         Edit Profile
@@ -223,7 +225,7 @@ const profileData = users?.user
                                     </div>
                                     <p>
                                     {/* {profileData && profileData[0]?.description} */}
-                                    {profileData?.description}
+                                    {profileData?.description?parse(profileData?.description):''}
                                     </p>
                                  
                                   </Col>

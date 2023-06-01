@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../../StepForm/component/DropImg";
 import * as Yup from 'yup';
 import { createTeamLeader, getTeamLead, updateTeamLeader } from "../../../../../redux/Action/PropertyTypeAction";
+import { ImagePreviewCard } from "../../../../Card/ImagePreviewCard";
+import { TeamLeadImgPreviewCard } from "../../../../Card/TeamLeadImgPreviewCard";
 
 export default function Team_lead({ setAddTeam, editTeam }) {
     const dispatch = useDispatch();
@@ -23,13 +25,19 @@ export default function Team_lead({ setAddTeam, editTeam }) {
     useEffect(() => {
         dispatch(getTeamLead())
     }, [])
-
-
+    
+    // const [file, setFile] = useState("");
+    // const [preview,setPreview] = useState(null)
+    // const [fileDataURL, setFileDataURL] = useState(null);
+    
+    // console.log(team_lead);
+    
     const TeamLeadvalSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         designation: Yup.string().required('Designation is required'),
     });
-
+    
+    const [editTeamLeadPic,setEditTeamLeadPic] = useState(editTeam?.image?true:false)
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -118,13 +126,22 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                                                     <div style={{ color: "red" }}>{formik.errors.designation}</div>
                                                 ) : null}
                                             </div>
-                                            <div className="control-group form-group mb-0 drop">
-                                                <label className="form-label">Team Leader Image</label>
-                                                <DropImg
-                                                    type="file" className="dropify" imgtype="image"
-                                                    formik={formik}
-                                                />
-                                            </div>
+                                            
+                                            {editTeamLeadPic
+                                                ? 
+                                                    <TeamLeadImgPreviewCard 
+                                                    mage={editTeam?.image}   
+                                                    setEditTeamLeadPic={setEditTeamLeadPic}/>
+                                                    
+                                                : 
+                                                    <div className="control-group form-group mb-0 drop">
+                                                        <label className="form-label">Team Leader Image</label>
+                                                        <DropImg
+                                                            type="file" className="dropify" imgtype="image"
+                                                            formik={formik}
+                                                        />
+                                                    </div>
+                                            }
                                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                                         </section>
                                     </Row>
