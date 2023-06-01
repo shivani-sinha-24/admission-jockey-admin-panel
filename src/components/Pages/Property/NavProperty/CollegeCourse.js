@@ -16,7 +16,6 @@ const Course = () => {
         category: state?.category?.category,
         collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?.CollegeID == params?.clgid),
     }));
-    console.log(collegeCourse,"collegeCourse");
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
     const handleShow = (id) => () => {
@@ -58,6 +57,7 @@ const Course = () => {
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
                                     universityId={params.id}
+                                    clgid={params.clgid}
                                     handleShow={handleShow}
                                     universityCourse={collegeCourse} />
                             </Card.Body>

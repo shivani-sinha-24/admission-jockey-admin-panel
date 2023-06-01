@@ -8,36 +8,36 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createCollegeCourse, getCollegeCourses } from "../../../../../redux/Action/PropertyTypeAction";
+import { updateCollegeCourse,getCollegeCourses } from "../../../../../redux/Action/PropertyTypeAction";
 import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
 
 
-export default function UpdateCollegeCourse() {
+export default function UpdatecollegeCourse() {
     const dispatch = useDispatch();
     const params = useParams();
     const editor = useRef(null);
     const deditor = useRef(null);
     const navigate = useNavigate();
-    const { universityCourse, category } = useSelector(state => ({
+    const { collegeCourse, category } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
-        universityCourse: state?.universityCourse?.universityCourse?.filter(item => item?._id == params?.unicorsid),
+        collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?.CollegeID == params?.clgid),
         tab_status: state?.propertyType?.tab_status,
     }));
     const [streamList, setStreamList] = useState([]);
     const [subcategory, setSubcategory] = useState([]);
-    const [categoryOnSelect, setCategoryOnSelect] = useState(universityCourse[0]?.category || "");
-    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(universityCourse[0]?.sub_category || "");
-    const [streamOnSelect, setStreamOnSelect] = useState(universityCourse[0]?.stream || "");
+    const [categoryOnSelect, setCategoryOnSelect] = useState(collegeCourse[0]?.category || "");
+    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(collegeCourse[0]?.sub_category || "");
+    const [streamOnSelect, setStreamOnSelect] = useState(collegeCourse[0]?.stream || "");
     useEffect(() => {
         dispatch(getCategory());
-        if (universityCourse[0]?.category) {
-            setCategory(universityCourse[0]?.category);
+        if (collegeCourse[0]?.category) {
+            setCategory(collegeCourse[0]?.category);
         }
-        if (universityCourse[0]?.category && universityCourse[0]?.sub_category) {
-            setSubCategory(universityCourse[0]?.sub_category)
+        if (collegeCourse[0]?.category && collegeCourse[0]?.sub_category) {
+            setSubCategory(collegeCourse[0]?.sub_category)
         }
     }, []);
     const setCategory = (cat) => {
@@ -78,31 +78,36 @@ export default function UpdateCollegeCourse() {
         }
     }
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    const [eligibilty, setEligibilty] = useState(universityCourse[0]?.eligibilty || "");
-    const [description, setDescription] = useState(universityCourse[0]?.description || "");
+    const [eligibilty, setEligibilty] = useState(collegeCourse[0]?.eligibilty || "");
+    const [description, setDescription] = useState(collegeCourse[0]?.description || "");
+    const [lateral_entry, setLateral_entry] = useState(collegeCourse[0]?.lateral_entry || "");
+    const [duration, setDuration] = useState(collegeCourse[0]?.duration || "");
+    const [name, setName] = useState(collegeCourse[0]?.name || "");
+    const [full_name, setFull_name] = useState(collegeCourse[0]?.full_name || "");
+    const [type, setType] = useState(collegeCourse[0]?.type || "");
+    const [fees, setFees] = useState(collegeCourse[0]?.fees || "");
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            "name": universityCourse[0]?.name || "",
-            "full_name": universityCourse[0]?.full_name || "",
-            "duration": universityCourse[0]?.duration || "",
-            "type": universityCourse[0]?.type || "",
-            "fees": "",
-            "lateral_entry": universityCourse[0]?.lateral_entry || ""
         },
         onSubmit: values => {
             values = {
+                "name": name,
+                "full_name": full_name,
                 "eligibilty": eligibilty,
                 "description": description,
-                "CollegeID": params.clgid,
-                "UniversityID":params.unicorsid,
+                "type": type,
+                "fees":fees,
+                "universityID": params.universityId,
+                "duration": duration,
+                "lateral_entry": lateral_entry,
                 "category": categoryOnSelect,
                 "sub_category": subCategoryOnSelect,
                 "stream": streamOnSelect,
-                ...values
+                "id": params.id
             }
-            dispatch(createCollegeCourse(values));
-            navigate(`/property-list`);
+            dispatch(updateCollegeCourse(values));
+            navigate(`/property-list/${params.clgid}/collegecourselist`);
             dispatch(getCollegeCourses());
         },
     });
@@ -113,7 +118,7 @@ export default function UpdateCollegeCourse() {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                < Card.Title as="h3">Add Course</Card.Title>
+                                <Card.Title as="h3">Update Course</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Row>
@@ -126,10 +131,10 @@ export default function UpdateCollegeCourse() {
                                                         <input
                                                             type="text"
                                                             name="name"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.name}
-                                                            placeholder='name'
+                                                            onChange={(e) => setName(e.target.value)}
+                                                            value={name}
                                                             disabled
+                                                            placeholder='name'
                                                             className="form-control required"
                                                         />
                                                         {formik.errors.name && formik.touched.name ? (
@@ -141,11 +146,11 @@ export default function UpdateCollegeCourse() {
                                                         <input
                                                             type="text"
                                                             name="full_name"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.full_name}
+                                                            onChange={(e) => setFull_name(e.target.value)}
+                                                            value={full_name}
+                                                            disabled
                                                             placeholder='Full Name'
                                                             className="form-control"
-                                                            disabled
                                                         />
                                                         {formik.errors.full_name && formik.touched.full_name ? (
                                                             <div style={{ color: "red" }}>{formik.errors.full_name}</div>
@@ -156,11 +161,11 @@ export default function UpdateCollegeCourse() {
                                                         <input
                                                             type="number"
                                                             name="duration"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.duration}
+                                                            onChange={(e) => setDuration(e.target.value)}
+                                                            value={duration}
+                                                            disabled
                                                             placeholder='Duration'
                                                             className="form-control required"
-                                                            disabled
                                                         />
                                                         {formik.errors.duration && formik.touched.duration ? (
                                                             <div style={{ color: "red" }}>{formik.errors.duration}</div>
@@ -173,9 +178,9 @@ export default function UpdateCollegeCourse() {
                                                         <label className="form-label">Fees</label>
                                                         <input
                                                             type="number"
+                                                            onChange={(e) => setFees(e.target.value)}
                                                             name="fees"
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.fees}
+                                                            value={fees}
                                                             placeholder='Fees'
                                                             className="form-control required"
                                                         />
@@ -184,12 +189,11 @@ export default function UpdateCollegeCourse() {
                                                         ) : null}
                                                     </div>
                                                     <div className="col-md-4">
-
                                                         <label className="form-label">Type</label>
                                                         <select name="type"
-                                                            disabled
-                                                            onChange={formik.handleChange}
-                                                            className="form-control" value={formik.values.type}>
+                                                        disabled
+                                                            onChange={(e) => setType(e.target.value)}
+                                                            className="form-control" value={type}>
                                                             <option value="">Please Select Type</option>
                                                             <option value="UG">UG</option>
                                                             <option value="PG">PG</option>
@@ -204,10 +208,10 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Lateral Entry</label>
                                                         <select name="lateral_entry"
-                                                            disabled
-                                                            onChange={formik.handleChange}
+                                                        disabled
+                                                            onChange={(e) => setLateral_entry(e.target.value)}
                                                             className="form-control"
-                                                            value={formik.values.lateral_entry}>
+                                                            value={lateral_entry}>
                                                             <option value="">Please Select Lateral Entry</option>
                                                             <option value="YES">YES</option>
                                                             <option value="No">NO</option>
@@ -221,7 +225,7 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Category</label>
                                                         <select name="category"
-                                                            disabled
+                                                        disabled
                                                             onChange={(e) => setCategory(e.target.value)}
                                                             id="category"
                                                             className="form-control"
@@ -242,7 +246,7 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Sub Category</label>
                                                         <select name="sub_category"
-                                                            disabled
+                                                        disabled
                                                             onChange={(e) => setSubCategory(e.target.value)}
                                                             className="form-control"
                                                             value={subCategoryOnSelect}>
@@ -261,7 +265,7 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-4">
                                                         <label className="form-label">Stream</label>
                                                         <select name="stream"
-                                                            disabled
+                                                        disabled
                                                             onChange={(e) => setStream(e.target.value)}
                                                             className="form-control"
                                                             value={streamOnSelect}>
@@ -282,7 +286,6 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-6">
                                                         <label className="form-label">Eligibilty</label>
                                                         <JoditEditor
-                                                            disabled
                                                             ref={editor}
                                                             value={eligibilty}
                                                             onChange={newContent => setEligibilty(newContent)}
@@ -291,7 +294,6 @@ export default function UpdateCollegeCourse() {
                                                     <div className="col-md-6">
                                                         <label className="form-label">Description</label>
                                                         <JoditEditor
-                                                            disabled
                                                             ref={deditor}
                                                             value={description}
                                                             onChange={newContent => setDescription(newContent)}
@@ -299,7 +301,7 @@ export default function UpdateCollegeCourse() {
                                                     </div>
                                                 </div> */}
                                                 <Button type="submit" variant="primary" className="me-1 mt-3 mb-5" >Submit</Button>
-                                                {/* <Button onClick={() => navigate(`/property-list/${params?.id}/universitycourse`)} variant="danger" className="me-1 mt-3 mb-5" >Cancle</Button> */}
+                                                <Button onClick={() => navigate(`/property-list/${params?.clgid}/collegeCourse`)} variant="danger" className="me-1 mt-3 mb-5" >Cancle</Button>
                                             </div>
                                         </div>
                                     </section>

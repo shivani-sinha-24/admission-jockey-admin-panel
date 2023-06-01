@@ -11,15 +11,32 @@ import { getCollegeList, getUniversityCourses } from "../../../../redux/Action/P
 const CollegeShowModule = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    const [universityList, setUniversityList] = useState([]);
+    const [universityCourseList, setUniversityCourseList] = useState([]);
     const { users, college, tab_status, category, universityCourse, university } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
         college: state?.propertyType?.college,
         university: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
-        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.unrid && item.collegeList.some(clgList => clgList !== params?.clgid)),
+        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.unrid),
     }));
     useEffect(() => {
+        let filterlist = [];
+        universityCourse.map((uncrs) => {
+            console.log(uncrs);
+            if (uncrs?.collegeList == 0) {
+                filterlist.push(uncrs);
+            }
+            uncrs?.collegeList.map((clgList) => {
+                if (clgList !== params?.clgid) {
+                    console.log(filterlist, 'filterlist');
+                    console.log(uncrs, 'firstuncrs');
+                    filterlist.push(uncrs);
+                }
+            });
+        });
+        if (filterlist.length > 0) {
+            setUniversityCourseList(filterlist);
+        }
         dispatch(getCollegeList());
         dispatch(getUniversityCourses());
     }, []);
@@ -39,8 +56,8 @@ const CollegeShowModule = () => {
                                 <Row>
                                     <Col lg={12} md={12} sm={12} xl={12}>
                                         <Row>
-                                            {universityCourse?.length > 0 ?
-                                                universityCourse.map((cors) => {
+                                            {universityCourseList?.length > 0 ?
+                                                universityCourseList.map((cors) => {
                                                     return (
                                                         <Col lg={6} md={12} sm={12} xl={4}>
                                                             <Card className="card overflow-hidden">

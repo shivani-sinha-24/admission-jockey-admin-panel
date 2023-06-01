@@ -39,6 +39,7 @@ import CollegeShowModule from "./components/Pages/Property/NavProperty/CollegeSh
 import AddUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_page";
 import AddCollegeCourse from "./components/Pages/Property/NavProperty/pages/college_course_page";
 import UpdateUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_update_page";
+import UpdateCollegeCourse from "./components/Pages/Property/NavProperty/pages/college_course_update_page";
 import Loan from "./components/Pages/Property/NavProperty/Loan";
 import Hostel from "./components/Pages/Property/NavProperty/Hostel";
 import Scholarship from "./components/Pages/Property/NavProperty/Scholarship";
@@ -139,6 +140,7 @@ function App() {
               <Route path={"/property-list/:clgid/collegecourselist"} element={<CollegeCourseList />} />
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
+              <Route path={"/property-list/:clgid/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
               <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
