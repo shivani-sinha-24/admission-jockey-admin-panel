@@ -60,9 +60,16 @@ import UpdateCaller from "./components/Pages/Caller/update";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 import EditProfile from "./components/Pages/profileEdit/EditProfile";
 import Others from "./components/Pages/Property/NavProperty/Others";
+// import AddPropertyType from "./components/Pages/AddPropertyType/AddPropertyType";
+// import AddStatus from "./components/Pages/AddStatus/AddStatus";
+import AddStatus from "./components/Pages/Status_Crud/AddStatus";
+import AddPropertyType from "./components/Pages/PropertyType_Crud/AddPropertyType";
+import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePropertyType";
+import UpdateStatus from "./components/Pages/Status_Crud/UpdateStatus";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
+  
   return (
     <>
       <ToastContainer />
@@ -82,7 +89,7 @@ function App() {
 
               <Route path={"/dashboard"} element={<Dashboard />} />
               <Route path={"/profile"} element={<Profile />} />
-              <Route path={"/pages/editProfile/:id"} element={<EditProfile />} />
+              <Route path={"/editProfile/:id"} element={<EditProfile />} />
               <Route path={"/property-manager"} element={<PropertyManager />} />
               <Route path={"/cyber-partner"} element={<CyberPartner />} />
               <Route path={"/editor"} element={<Editors />} />
@@ -100,6 +107,9 @@ function App() {
               <Route path={"/add-category"} element={<CreateCategory />} />
               <Route path={"/delete-category"} element={<DeleteCategoryList />} />
               <Route path={"/update-category/:id"} element={<UpdateCategory />} />
+              <Route path={"/add-status"} element={<AddStatus />} />
+              <Route path={"/update-status/:id"} element={<UpdateStatus/>} />
+
 
               <Route
                 path={"/property-list/:clgid/:edu_type"}
@@ -194,7 +204,9 @@ function App() {
                 element={<Aminities />}
               />
               {/* PROPERTY NAVIGATION ROUTES END */}
-              <Route path={"/add-property"} element={<AddProperty />} />
+              {/* <Route path={"/add-property"} element={<AddProperty />} /> */}
+              <Route path={"/add-property-type"} element={<AddPropertyType />} />
+              <Route path={"/update-property-type/:id"} element={<UpdatePropertyType />} />
               <Route path={"/property-type"} element={<PropertyType />} />
               <Route path={"/form-property/:form"} element={<FormProperty />} />
             </Route>

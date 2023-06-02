@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import face6 from "../../assets/images/profile__.png";
@@ -12,7 +12,23 @@ import face2 from "../../assets/images/faces/2.jpg";
 import face13 from "../../assets/images/faces/13.jpg";
 import face14 from "../../assets/images/faces/14.jpg";
 import face15 from "../../assets/images/faces/15.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLoginUserById } from "../../redux/Action/AuthAction";
 export function RightSidebar() {
+
+  
+  const dispatch = useDispatch();
+
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser,
+  })); 
+
+  useEffect(() => {
+    dispatch(fetchLoginUserById(sessionStorage.getItem("userId")))
+  }, [])
+
+  const profileData = users?.user
+
   const [rightsidebartoogle, setSidebartoogleright] = useState(true);
   function Outhover(toggle) {
     setSidebartoogleright(!toggle);
@@ -49,16 +65,23 @@ export function RightSidebar() {
                       <img
                         alt="user-img"
                         className="avatar avatar-xl brround mx-auto text-center"
-                        src={face6}
+                        src={profileData?.image?`${process.env.REACT_APP_IMG_URL}images/${profileData?.image}`:{face6}}
                       />
                       <span className="avatar-status profile-status bg-green"></span>
                     </div>
                     <div className="user-info mg-t-20">
                       <h6 className="fw-semibold  mt-2 mb-0">
-                       {sessionStorage.getItem("name")}
+                       {profileData?.name}
                       </h6>
                       <span className="mb-0 text-muted fs-12">
-                        {sessionStorage.getItem("role")}
+                        {
+                            profileData?.role == '0' ? 'User' :
+                            profileData?.role == '1' ? 'Admin' :
+                            profileData?.role == '2' ? 'Editor' :
+                            profileData?.role == '3' ? 'Caller' :
+                            profileData?.role == '4' ? 'Cyber Partner' :
+                             'Superadmin' 
+                            }
                       </span>
                     </div>
                   </div>

@@ -73,12 +73,13 @@ console.log(window.location.pathname.split("/")[2],"window.location.pathname")
                       className="input100"
                       type="password"
                       name="new_password"
-                      placeholder="New Password"
+                      placeholder="New Password"                      
+                      onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                       value={formik.values.new_password}
                     />
                       {formik.errors.new_password && formik.touched.new_password ? (
-                      <div>{formik.errors.new_password}</div>
+                      <div className="red_color">{formik.errors.new_password}</div>
                     ) : null}
                       </div>
                       <div className="form-group">

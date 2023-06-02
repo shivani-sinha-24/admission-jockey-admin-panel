@@ -71,7 +71,7 @@ export function PropertyTypeModal({ open, scroll, handleClose,editProperty }) {
         aria-describedby="scroll-dialog-description"
       >
         <form onSubmit={formik.handleSubmit}>
-          <DialogTitle id="scroll-dialog-title">Add Property Type</DialogTitle>
+          <DialogTitle id="scroll-dialog-title">{editProperty!= undefined?`Add Property Type`:`Update Property Type`}</DialogTitle>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText
               ref={descriptionElementRef}
@@ -140,30 +140,29 @@ export function PropertyTypeModal({ open, scroll, handleClose,editProperty }) {
                 />
               </div>
               <div className="input-group mb-5 file-browser">
-             
-             <input
-               type="text"
-               className="form-control browse-file"
-               placeholder="Choose"
-               readOnly
-              // onClick={() => sweetalerts.Infoalertbutton()}
-             />
-             <Form.Label className="input-group-text btn btn-primary mt-0">
-               Browse
-               <input
-                 type="file"
-                 className="file-browserinput"
-                 style={{ display: "none" }}
-                 multiple
-               />
-             </Form.Label>
-           </div>
+                <input
+                  type="text"
+                  className="form-control browse-file"
+                  placeholder="Choose"
+                  readOnly
+                  // onClick={() => sweetalerts.Infoalertbutton()}
+                />
+                <Form.Label className="input-group-text btn btn-primary mt-0">
+                  Browse
+                  <input
+                    type="file"
+                    className="file-browserinput"
+                    style={{ display: "none" }}
+                    multiple
+                  />
+                </Form.Label>
+              </div>
 
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button variant="secondary" className="me-1" onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant="primary" className="me-1" >Submit</Button>
+            <Button type="submit" variant="primary" className="me-1" onClick={formik.handleSubmit} >Submit</Button>
           </DialogActions>
         </form>
       </Dialog>

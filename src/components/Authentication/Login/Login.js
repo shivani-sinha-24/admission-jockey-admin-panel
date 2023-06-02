@@ -9,6 +9,7 @@ import { login } from "../../../redux/Action/AuthAction";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Your email is invalid!').required('Email field is required!'),
+  password: Yup.string().required('Password field is required!')
 });
 
 export default function Login() {
@@ -22,6 +23,7 @@ export default function Login() {
     },
     validationSchema: SignupSchema,
     onSubmit: values => {
+      // console.log('values: ', formik.values);
       dispatch(login(values));
       //alert(JSON.stringify(values, null, 2));
     },
@@ -52,7 +54,8 @@ export default function Login() {
                       autocomplete="off"
                       type="text"
                       name="email"
-                      placeholder="Email"
+                      placeholder="Email"                      
+                      onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                       value={formik.values.email}
                     />
@@ -71,6 +74,7 @@ export default function Login() {
                       className="input100"
                       type="password"
                       name="password"
+                      onBlur={formik.handleBlur}
                       password="true"
                       onChange={formik.handleChange}
                       value={formik.values.password}
@@ -85,7 +89,7 @@ export default function Login() {
               
                   </div>
                   {formik.errors.password && formik.touched.password ? (
-                      <div>{formik.errors.password}</div>
+                      <div className="red_color">{formik.errors.password}</div>
                     ) : null}
                   <div className="text-end pt-1">
                     <p className="mb-0">
@@ -101,11 +105,12 @@ export default function Login() {
                     <button
                      // to={`${process.env.PUBLIC_URL}/dashboard/`}
                       className="login100-form-btn btn-primary"
+                      onClick={formik.handleSubmit}
                     >
                       Login
                     </button>
                   </div>
-                  <div className="text-center pt-3">
+                  {/* <div className="text-center pt-3">
                     <p className="text-dark mb-0">
                       Not a member?
                       <Link
@@ -115,7 +120,7 @@ export default function Login() {
                         Create an Account
                       </Link>
                     </p>
-                  </div>
+                  </div> */}
                 </form>
               </Card.Body>
               <Card.Footer>

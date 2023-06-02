@@ -49,6 +49,9 @@ export function DropImg({imgtype,formik}) {
      if(imgtype == "profile"){
       formik.setFieldValue("profile",allFiles[0].file)
      }
+     if(imgtype == 'property_img'){
+      formik.setFieldValue("property_img",allFiles[0].file)
+     }
    // allFiles.forEach((f) => f.remove());
   };
 
@@ -56,6 +59,7 @@ export function DropImg({imgtype,formik}) {
     console.log(files.map((f) => f.meta),"img drop");
     allFiles.forEach((f) => f.remove());
   };
+  
   return (
     <Dropzone
       getUploadParams={getUploadParams}
@@ -67,6 +71,7 @@ export function DropImg({imgtype,formik}) {
        || imgtype == "loan_img"
        || imgtype == "admission_process_img"
        || imgtype == "scholarship_img"
+       || imgtype == "property_img"
        || imgtype == "announcement_img") ? 1 : 20}
     />
   );

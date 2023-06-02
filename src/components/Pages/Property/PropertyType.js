@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { StatusModal } from "../../Modal/StatusModal";
 import { useEffect } from "react";
@@ -8,13 +8,19 @@ import { updatePropertyType,deletePropertyType,getPropertyType} from "../../../r
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { PropertyTypeModal } from "../../Modal/PropertyTypeModal";
+
+
+
 export default function PropertyType() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { property } = useSelector(state =>({
     property: state?.propertyType?.property
 
   }));
+
+  console.log(property);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
   const [editProperty, setEditProperty] = useState();
@@ -22,12 +28,13 @@ export default function PropertyType() {
   const [show, setShow] = useState(false);
 
   const handleClickOpen = (scrollType, row) => () => {
+    console.log(row);
     setEditProperty(row)
-    setOpen(true);
+    // setOpen(true);
     setScroll(scrollType);
     //window.location.reload(false);
   };
-
+  
   const handlePropertyUpdate = (row) => () => {
     dispatch(updatePropertyType(row?._id, {...row,type:"property"}));
     dispatch(getPropertyType());
@@ -65,7 +72,10 @@ export default function PropertyType() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
+          <Link 
+          onClick={handleClickOpen("paper")} 
+          to={`${process.env.PUBLIC_URL}/add-property-type`} 
+          className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
@@ -86,7 +96,7 @@ export default function PropertyType() {
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">Status</h3>
+              <h3 className="card-title">Property Type</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
@@ -99,8 +109,8 @@ export default function PropertyType() {
           </Card>
         </Col>
       </Row>
-      <PropertyTypeModal editProperty={editProperty} open={open} scroll={scroll} handleClose={handleClose} />
-      <WarningModal setShow={setShow} userDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
+      {/* <PropertyTypeModal editProperty={editProperty} open={open} scroll={scroll} handleClose={handleClose} /> */}
+      <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
 }

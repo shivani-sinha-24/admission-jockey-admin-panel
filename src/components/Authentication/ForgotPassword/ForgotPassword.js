@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendEmail } from "../../../redux/Action/AuthAction";
 
 const SignupSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
+  email: Yup.string().email('Invalid email').required('Email is required field'),
 });
 
 export default function ForgotPassword() {
@@ -71,11 +71,12 @@ export default function ForgotPassword() {
                       type="text"
                       name="email"
                       placeholder="Email"
+                      onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                       value={formik.values.email}
                     />
                       {formik.errors.email && formik.touched.email ? (
-                      <div>{formik.errors.email}</div>
+                      <div className="red_color">{formik.errors.email}</div>
                     ) : null}
                       </div>
                       {/* <div className="text-end pt-1">

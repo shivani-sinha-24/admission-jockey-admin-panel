@@ -1,4 +1,4 @@
-import { USER_DELETE_SUCCESS, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAIL, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_SUCCESS, USER_REGISTER_SUCCESS, USER_UPDATE_SUCCESS } from '../Constants/Constants';
+import { LOGIN_USER_FETCH_ID_SUCCESS, USER_DELETE_SUCCESS, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAIL, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_SUCCESS, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_SUCCESS, USER_UPDATE_SUCCESS } from '../Constants/Constants';
 
 let initState = {
     users: {}
@@ -36,16 +36,33 @@ const userAuthReducer = (state = initState, action) => {
         // console.log(action.payload, "action.payload")
             return ({ 
                 ...state,
-                users: action.payload
+                user_by_id: action.payload
             });
 
         case USER_LOGIN_SUCCESS:
             console.log('USER_LOGIN_SUCCESS actiion.payload: ',action.payload);
-
-        case USER_UPDATE_SUCCESS:
             return({
                 ...state,
-                users: action.payload
+                profile_user: action.payload
+            })
+
+        // case USER_UPDATE_SUCCESS:
+        //     return({
+        //         ...state,
+        //         users: action.payload
+        //     })
+        
+        case USER_PROFILEUPDATE_SUCCESS:
+            console.log(action.payload);
+            return({
+                ...state,
+                profileUsers: action.payload
+            })
+
+        case LOGIN_USER_FETCH_ID_SUCCESS:
+            return({
+                ...state,
+                loginUser: action.payload
             })
             
         default:
