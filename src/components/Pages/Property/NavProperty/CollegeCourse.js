@@ -5,7 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import { getCollegeCourses,universityCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
+import { getCollegeCourses,collegeCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
 
 const Course = () => {
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Course = () => {
     };
 
     const courseDeleteAction = (id) => {
-    dispatch(universityCourseDelete(deleteId))
+    dispatch(collegeCourseDelete(deleteId));
     dispatch(getCollegeCourses())
     }
     return (
