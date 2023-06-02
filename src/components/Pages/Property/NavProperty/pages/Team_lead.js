@@ -130,7 +130,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                                             {editTeamLeadPic
                                                 ? 
                                                     <TeamLeadImgPreviewCard 
-                                                    mage={editTeam?.image}   
+                                                    image={editTeam?.image}   
                                                     setEditTeamLeadPic={setEditTeamLeadPic}/>
                                                     
                                                 : 

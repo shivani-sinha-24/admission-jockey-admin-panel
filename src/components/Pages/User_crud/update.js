@@ -44,14 +44,15 @@ export default function EditorUpdate() {
             let _id = params?.id;
             values = {
                 "id": _id,
-                ...values
+                ...values,
+                type:"user"
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
-                dispatch(userUpdate(formData));
+                dispatch(userUpdate(formData))
                 navigate("/editor");
             } else {
                 dispatch(userUpdate(values));

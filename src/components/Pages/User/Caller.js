@@ -29,7 +29,8 @@ export default function Caller() {
   };
 
   const handleStatusUpdate = (row) => {
-    dispatch(userUpdate({ ...row, type: "user" }));
+    dispatch(userUpdate({ ...row, type: "user" }))
+    .then(()=>dispatch(fetchUserByRole(3)))
   };
   const handleOpenUserModal = (id) => {
     setShowUserProfile(true);
@@ -40,7 +41,7 @@ export default function Caller() {
   };
   useEffect(() => {
     dispatch(fetchUserByRole(3))
-  }, [handleStatusUpdate,userDeleteAction])
+  }, [])
 
   const userDeleteAction = (id) => {
     dispatch(userDelete(deleteId));

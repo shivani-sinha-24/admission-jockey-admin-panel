@@ -45,7 +45,8 @@ export default function CallerUpdate() {
             let _id = params?.id;
             values = {
                 "id": _id,
-                ...values
+                ...values,
+                type:"user"
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();

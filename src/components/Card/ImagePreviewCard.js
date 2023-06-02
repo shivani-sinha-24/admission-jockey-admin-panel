@@ -32,7 +32,7 @@ export function ImagePreviewCard({image,setEditProfilePic}) {
                         alt="preview"
                         style={{
                           width: "120%",
-                          maxHeight: "100px",
+                          height: "object-fit",
                           border:"none",
                           objectFit:"cover"
                         }}

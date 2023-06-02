@@ -33,7 +33,7 @@ export function TeamLeadImgPreviewCard({image,setEditTeamLeadPic}) {
                         alt="preview"
                         style={{
                           width: "120%",
-                          maxHeight: "100px",
+                          height: "object-fit",
                           border:"none",
                           objectFit:"cover"
                         }}

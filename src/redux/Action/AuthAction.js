@@ -268,18 +268,14 @@ export const userDelete = (id) => async (dispatch) => {
 export const  userUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
-    console.log("APi",API);
+    // console.log("APi",API);
     const { data } = await API.put(`/userUpdate`, user);
 
-    console.log("userUpdate", data, data?.data);
-    console.log("data", data);
+    // console.log("userUpdate", data, data?.data);
+    // console.log("data", data);
 
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
     toast.success("User updated successfully.")
-    // if(data){
-    //   window.location.href = `/profile`;
-
-    // }
     return data
   } catch (error) {
     console.log(error, "error")
