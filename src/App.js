@@ -39,6 +39,7 @@ import CollegeShowModule from "./components/Pages/Property/NavProperty/CollegeSh
 import AddUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_page";
 import AddCollegeCourse from "./components/Pages/Property/NavProperty/pages/college_course_page";
 import UpdateUniversityCourse from "./components/Pages/Property/NavProperty/pages/university_course_update_page";
+import UpdateCollegeCourse from "./components/Pages/Property/NavProperty/pages/college_course_update_page";
 import Loan from "./components/Pages/Property/NavProperty/Loan";
 import Hostel from "./components/Pages/Property/NavProperty/Hostel";
 import Scholarship from "./components/Pages/Property/NavProperty/Scholarship";
@@ -50,6 +51,7 @@ import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
 import CategoryList from "./components/Pages/Cotegory/CategoryList";
+import DeleteCategoryList from "./components/Pages/Cotegory/DeleteCategoryList";
 import CreateCategory from "./components/Pages/Cotegory/Category_crud/CreateCategory";
 import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCategory";
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
@@ -103,6 +105,7 @@ function App() {
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
               <Route path={"/add-category"} element={<CreateCategory />} />
+              <Route path={"/delete-category"} element={<DeleteCategoryList />} />
               <Route path={"/update-category/:id"} element={<UpdateCategory />} />
               <Route path={"/add-status"} element={<AddStatus />} />
               <Route path={"/update-status/:id"} element={<UpdateStatus/>} />
@@ -147,6 +150,7 @@ function App() {
               <Route path={"/property-list/:clgid/collegecourselist"} element={<CollegeCourseList />} />
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
+              <Route path={"/property-list/:clgid/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
               <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />

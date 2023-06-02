@@ -43,7 +43,7 @@ export default function EditorUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
-                "id": _id,
+                "_id": _id,
                 ...values
             }
             if (typeof values.image == 'object') {
@@ -51,10 +51,10 @@ export default function EditorUpdate() {
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
-                dispatch(userUpdate(formData));
+                dispatch(userListUpdate(formData));
                 navigate("/editor");
             } else {
-                dispatch(userUpdate(values));
+                dispatch(userListUpdate(values));
                 navigate("/editor");
             }
         },

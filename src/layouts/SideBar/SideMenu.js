@@ -85,7 +85,7 @@ export const MENUITEMS = [
           {
             path: `/property-list`,
             type: "link",
-            title: "College properties",
+            title: "College Properties",
           },
           {
             path: `/property-list`,

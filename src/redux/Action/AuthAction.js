@@ -200,8 +200,6 @@ export const fetchUserByRole = (role) => async (dispatch) => {
     const { data } = await API.post("/getAllUser",{"role":role});
     console.log("getAllUser", data, data?.data);
     dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
-
-
   } catch (error) {
     console.log(error, "error")
     toast.error(error)
@@ -270,10 +268,6 @@ export const  userUpdate = (user) => async (dispatch) => {
     dispatch({ type: USER_UPDATE_REQUEST });
     console.log("APi",API);
     const { data } = await API.put(`/userUpdate`, user);
-
-    console.log("userUpdate", data, data?.data);
-    console.log("data", data);
-
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
     toast.success("User updated successfully.")
     // if(data){
@@ -306,7 +300,6 @@ export const  userProfileUpdate = (user) => async (dispatch) => {
     toast.success("User updated successfully.")
     if(data){
       window.location.href = `/profile`;
-
     }
     return data
   } catch (error) {
@@ -318,4 +311,17 @@ export const  userProfileUpdate = (user) => async (dispatch) => {
     });
   }
 };
-
+export const userListUpdate = (user) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_UPDATE_REQUEST });
+    const { data } = await API.put(`/userListUpdate`, user);
+    // dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+    toast.success("User updated successfully.");
+  } catch (error) {
+    toast.error(error)
+    dispatch({
+      type: USER_UPDATE_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
