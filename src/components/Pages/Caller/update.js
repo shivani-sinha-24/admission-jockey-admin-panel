@@ -10,7 +10,7 @@ import '../../../App.css'; import {
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../Property/StepForm/component/DropImg";
-import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, register, userUpdate,userListUpdate} from "../../../redux/Action/AuthAction";
 import { ImagePreviewCard } from "../../Card/ImagePreviewCard";
 
 
