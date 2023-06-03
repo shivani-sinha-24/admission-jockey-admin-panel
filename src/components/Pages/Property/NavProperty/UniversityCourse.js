@@ -15,7 +15,6 @@ const Course = () => {
         category: state?.category?.category,
         universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.clgid),
     }));
-    console.log(universityCourse,"universityCourse");
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
     const handleShow = (id) => () => {

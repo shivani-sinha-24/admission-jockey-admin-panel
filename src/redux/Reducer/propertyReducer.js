@@ -215,7 +215,6 @@ const propertyTypeReducer = (state = initState, action) => {
                 qas: action.payload
             });
         
-        
         case PROPERTY_OTHERS_ADD_SUCCESS:
             return({
                 ...state,
