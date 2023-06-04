@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import * as datatable from "../../../data/Table/datatable/datatable";
+import * as datatable from "../../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { UserDetailModal } from "../../Modal/UserDetailModal";
-import { fetchUserByRole, userDelete, userListUpdate } from "../../../redux/Action/AuthAction";
-import { SimpleModal } from "../../Modal/SimpleModal";
-import { WarningModal } from "../../Modal/WarningModal";
+import { UserDetailModal } from "../../../Modal/UserDetailModal";
+import { fetchUserByRole, userDelete, userListUpdate } from "../../../../redux/Action/AuthAction";
+import { SimpleModal } from "../../../Modal/SimpleModal";
+import { WarningModal } from "../../../Modal/WarningModal";
 export default function Caller() {
   const dispatch = useDispatch();
 
@@ -60,7 +60,7 @@ export default function Caller() {
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title">Caller</h1>
+          <h1 className="page-title">Caller Team Lead</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
               Users
@@ -71,18 +71,18 @@ export default function Caller() {
           </Breadcrumb>
         </div>
         <div className="ms-auto pageheader-btn">
-          <Link to="/callerAdd" className="btn btn-primary btn-icon text-white me-3">
+          <Link to="/add_callerTeamList" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
-            Add Caller
+            Add Team Leader
           </Link>
-          <Link to="/callerTeamList" className="btn btn-primary btn-icon text-white me-3">
+          {/* <Link to="/callerAdd" className="btn btn-primary btn-icon text-white me-3">
             <span>
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Team Leader
-          </Link>
+          </Link> */}
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;

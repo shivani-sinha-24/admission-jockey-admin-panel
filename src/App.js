@@ -24,6 +24,8 @@ import Agent from "./components/Pages/User/Agent";
 import Guest from "./components/Pages/User/Guest";
 import Caller from "./components/Pages/User/Caller";
 import Status from "./components/Pages/Status/Status";
+import CallerTeamLeaderList from "./components/Pages/TeamLeader/Caller/Caller_teamlead";
+import AddCallerTeamLeader from "./components/Pages/TeamLeader/Caller/Add_Caller_Team_Lead";
 import PropertyList from "./components/Pages/Property/PropertyList";
 import AddProperty from "./components/Pages/Property/AddProperty";
 import PropertyType from "./components/Pages/Property/PropertyType";
@@ -95,6 +97,8 @@ function App() {
               <Route path={"/editor"} element={<Editors />} />
               <Route path={"/editorAdd"} element={<AddEditors />} />
               <Route path={"/callerAdd"} element={<AddCaller />} />
+              <Route path={"/callerTeamList"} element={<CallerTeamLeaderList />} />
+              <Route path={"/add_callerTeamList"} element={<AddCallerTeamLeader />} />
               <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/agent"} element={<Agent />} />
