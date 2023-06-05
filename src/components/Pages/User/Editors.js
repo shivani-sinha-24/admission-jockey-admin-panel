@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Editors() {
@@ -32,7 +32,6 @@ const navigate = useNavigate()
       dispatch(fetchUserByRole(2))
     })
     .catch(err=>console.log(err))
-
   };
 
 

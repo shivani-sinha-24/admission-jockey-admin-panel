@@ -5,7 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import { getCollegeCourses,universityCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
+import { getCollegeCourses,collegeCourseDelete } from "../../../../redux/Action/PropertyTypeAction";
 
 const Course = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,6 @@ const Course = () => {
         category: state?.category?.category,
         collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?.CollegeID == params?.clgid),
     }));
-    console.log(collegeCourse,"collegeCourse");
     const [deleteId, setDeleteId] = useState();
     const [show, setShow] = useState(false);
     const handleShow = (id) => () => {
@@ -32,7 +31,7 @@ const Course = () => {
     };
 
     const courseDeleteAction = (id) => {
-    dispatch(universityCourseDelete(deleteId))
+    dispatch(collegeCourseDelete(deleteId));
     dispatch(getCollegeCourses())
     }
     return (
@@ -58,6 +57,7 @@ const Course = () => {
                                 <datatable.UniversityCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
                                     universityId={params.id}
+                                    clgid={params.clgid}
                                     handleShow={handleShow}
                                     universityCourse={collegeCourse} />
                             </Card.Body>

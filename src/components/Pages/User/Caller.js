@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
-import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Caller() {

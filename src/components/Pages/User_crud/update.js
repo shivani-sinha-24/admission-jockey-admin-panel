@@ -10,7 +10,7 @@ import '../../../App.css'; import {
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../Property/StepForm/component/DropImg";
-import { fetchUserByRole, register, userUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, register, userUpdate,userListUpdate } from "../../../redux/Action/AuthAction";
 import { ImagePreviewCard } from "../../Card/ImagePreviewCard";
 
 
@@ -43,9 +43,14 @@ export default function EditorUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
+// <<<<<<< HEAD
                 "id": _id,
                 ...values,
                 type:"user"
+// =======
+                // "_id": _id,
+                // ...values
+// >>>>>>> dc68e36912cf53deded7705d81afbb93f9d36acb
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();
@@ -55,7 +60,7 @@ export default function EditorUpdate() {
                 dispatch(userUpdate(formData))
                 navigate("/editor");
             } else {
-                dispatch(userUpdate(values));
+                dispatch(userListUpdate(values));
                 navigate("/editor");
             }
         },

@@ -48,6 +48,19 @@ export const categorySoftDelete = (id) => async (dispatch) => {
   }
 };
 
+export const categoryRestore= (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CATEGORY_SOFT_DELETE_REQUEST });
+    const { data } = await API.post('/restoreCategory',{"id":id});
+    toast.success("Category restore successfully.")
+  } catch (error) {
+    dispatch({
+      type: CATEGORY_SOFT_DELETE_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
+
 export const categoryDelete = (id) => async (dispatch) => {
   try {
     dispatch({ type: CATEGORY_DELETE_REQUEST });
