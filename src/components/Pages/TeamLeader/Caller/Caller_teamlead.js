@@ -3,17 +3,17 @@ import * as datatable from "../../../../data/Table/datatable/datatable";
 import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { UserDetailModal } from "../../../Modal/UserDetailModal";
-import { fetchUserByRole, userDelete, userListUpdate } from "../../../../redux/Action/AuthAction";
+import { TeamLeaderModal } from "../../../Modal/TeamLeaderModal";
+import { fetchUserByRole, userDelete, userListUpdate,getTeamLeader } from "../../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../../Modal/SimpleModal";
 import { WarningModal } from "../../../Modal/WarningModal";
 export default function Caller() {
   const dispatch = useDispatch();
 
-  const { users } = useSelector(state => ({
+  const { users,teamLeaders } = useSelector(state => ({
     users: state?.userAuth?.users,
+    teamLeaders: state?.userAuth?.teamLeader,
   }));
-
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
@@ -39,7 +39,8 @@ export default function Caller() {
     setOpen(false);
   };
   useEffect(() => {
-    dispatch(fetchUserByRole(3))
+    dispatch(fetchUserByRole(3));
+    dispatch(getTeamLeader());
   }, [])
 
   const userDeleteAction = (id) => {
@@ -77,18 +78,6 @@ export default function Caller() {
             </span>
             Add Team Leader
           </Link>
-          {/* <Link to="/callerAdd" className="btn btn-primary btn-icon text-white me-3">
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Team Leader
-          </Link> */}
-          {/* <Link to="#" className="btn btn-success btn-icon text-white">
-            <span>
-              <i className="fe fe-log-in"></i>&nbsp;
-            </span>
-            Export
-          </Link> */}
         </div>
       </div>
 
@@ -98,18 +87,18 @@ export default function Caller() {
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">Caller</h3>
+              <h3 className="card-title">Caller Team Leader</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.CallerDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} users={users} />
+                <datatable.CallerTeamLeaderDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} teamLeaders={teamLeaders} />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
       <WarningModal setShow={setShow} propertyDeleteAction={userDeleteAction} show={show} handleShow={handleShow} />
-      <UserDetailModal setShow={setShowUserProfile} show={showUserProfile} userData={userData} />
+      <TeamLeaderModal setShow={setShowUserProfile} show={showUserProfile} userData={userData} />
     </div>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByRole, userDelete, userListUpdate,createTeamLeader } from "../../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate, createTeamLeader } from "../../../../redux/Action/AuthAction";
 import {
   Stack,
   OutlinedInput,
@@ -30,17 +30,24 @@ export default function AddTeamLeader() {
   const params = useParams();
   const navigate = useNavigate();
   const [teamLeader, setTeamleader] = React.useState("");
+  const [teamName, setTeamName] = React.useState("");
   const [team, setTeam] = React.useState([]);
   const [teamList, setTeamList] = React.useState([]);
   const { users, college, tab_status } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.users?.users,
   }));
   useEffect(() => {
     dispatch(fetchUserByRole(3));
-    if (users?.users?.length > 0) {
-      setTeamList(users?.users?.map((usr) => {
-        return usr.name;
-      }));
+    if (users?.length > 0) {
+      let filterList=[];
+      users?.map((usr) => {
+        if (usr.isTeamLeader == undefined && usr.underTeam == undefined) {
+          filterList.push(usr.name);
+        }
+      });
+      if(filterList.length>0){
+        setTeamList(filterList);
+      }
     }
   }, []);
   const formik = useFormik({
@@ -48,10 +55,11 @@ export default function AddTeamLeader() {
       values = {
         "teamLeader": teamLeader,
         "type": "Caller",
-        "team": team
+        "team": team,
+        "teamName": teamName
       }
       dispatch(createTeamLeader(values));
-      navigate("/caller/");
+      navigate("/caller");
     },
   });
   return (
@@ -69,22 +77,40 @@ export default function AddTeamLeader() {
                     <section>
                       <div className="row">
                         <div className="col-md-12">
-                          <label className="form-label">Team Leader</label>
-                          <select
-                            type="text"
-                            name="TeamLeader"
-                            onChange={(e) => { setTeamleader(e.target.value) }}
-                            // value={formik.values.teamLeader}
-                            className="form-control required"
-                          >
-                            <option value="none">Please select your team leader. </option>
-                            {users?.users?.map((usr) => {
-                              return <option value={usr?.name}>{usr?.name}</option>
-                            })}
-                          </select>
-                          {formik.errors.email && formik.touched.email ? (
-                            <div style={{ color: "red" }}>{formik.errors.email}</div>
-                          ) : null}
+                          <div className="row">
+                            <div className="col-md-6">
+                              <label className="form-label">Team Name</label>
+                              <input
+                                type="text"
+                                name="teamName"
+                                onChange={(e) => { setTeamName(e.target.value) }}
+                                // value={formik.values.teamName}
+                                placeholder='Team Name'
+                                className="form-control required"
+                              />
+                              {formik.errors.teamName && formik.touched.teamName ? (
+                                <div style={{ color: "red" }}>{formik.errors.email}</div>
+                              ) : null}
+                            </div>
+                            <div className="col-md-6">
+                              <label className="form-label">Team Leader</label>
+                              <select
+                                type="text"
+                                name="TeamLeader"
+                                onChange={(e) => { setTeamleader(e.target.value) }}
+                                // value={formik.values.teamLeader}
+                                className="form-control required"
+                              >
+                                <option value="none">Please select your team leader. </option>
+                                {teamList?.map((usr) => {
+                                  return <option value={usr}>{usr}</option>
+                                })}
+                              </select>
+                              {formik.errors.email && formik.touched.email ? (
+                                <div style={{ color: "red" }}>{formik.errors.email}</div>
+                              ) : null}
+                            </div>
+                          </div>
                           <label className="form-label">Team</label>
                           <FormControl sx={{ m: 1, width: 1150 }}>
                             <InputLabel>Multiple Select</InputLabel>
