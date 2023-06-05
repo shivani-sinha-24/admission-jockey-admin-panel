@@ -73,7 +73,6 @@ export const statusDelete = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_STATUS_DELETE_REQUEST });
     const { data } = await API.delete(`/statusDelete?id=${id}`);
-console.log(data,"llllllooooo")
     dispatch({ type: USER_STATUS_DELETE_SUCCESS, payload:data });
 
     toast.success("Status deleted successfully.")

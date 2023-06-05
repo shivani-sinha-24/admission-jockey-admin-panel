@@ -1,44 +1,28 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import * as datatable from "../../../../data/Table/datatable/datatable";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import CountUp from "react-countup";
 import PropertyDetails from "../PropertyDetails";
 import { Card, Col, Row } from "react-bootstrap";
 import { WarningModal } from "../../../Modal/WarningModal";
-import { getCollegeList, getUniversityCourses } from "../../../../redux/Action/PropertyTypeAction";
+import { getCollegeList, getUniversityCourses, getUniversityCoursesForCollege } from "../../../../redux/Action/PropertyTypeAction";
 
 const CollegeShowModule = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const params = useParams();
     const [universityCourseList, setUniversityCourseList] = useState([]);
-    const { users, college, tab_status, category, universityCourse, university } = useSelector(state => ({
+    const { universityCourse, universityCoursesForCollege } = useSelector(state => ({
         users: state?.userAuth?.users,
-        category: state?.category?.category,
-        college: state?.propertyType?.college,
-        university: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
-        universityCourse: state?.universityCourse?.universityCourse.filter(item => item?.universityID == params?.unrid),
+        universityCourse: state?.universityCourse?.universityCourse?.filter(item => item?.universityID == params?.unrid),
+        universityCoursesForCollege :state?.universityCourse?.universityCoursesForCollege,
     }));
     useEffect(() => {
-        let filterlist = [];
-        universityCourse.map((uncrs) => {
-            console.log(uncrs);
-            if (uncrs?.collegeList == 0) {
-                filterlist.push(uncrs);
-            }
-            uncrs?.collegeList.map((clgList) => {
-                if (clgList !== params?.clgid) {
-                    console.log(filterlist, 'filterlist');
-                    console.log(uncrs, 'firstuncrs');
-                    filterlist.push(uncrs);
-                }
-            });
-        });
-        if (filterlist.length > 0) {
-            setUniversityCourseList(filterlist);
-        }
-        dispatch(getCollegeList());
         dispatch(getUniversityCourses());
+        let requestData = { "universityData": params?.unrid, "collegeId": params?.clgid }
+        dispatch(getUniversityCoursesForCollege(requestData));
     }, []);
 
     return (
@@ -56,8 +40,8 @@ const CollegeShowModule = () => {
                                 <Row>
                                     <Col lg={12} md={12} sm={12} xl={12}>
                                         <Row>
-                                            {universityCourseList?.length > 0 ?
-                                                universityCourseList.map((cors) => {
+                                            {universityCoursesForCollege?.length > 0 ?
+                                                universityCoursesForCollege.map((cors) => {
                                                     return (
                                                         <Col lg={6} md={12} sm={12} xl={4}>
                                                             <Card className="card overflow-hidden">
