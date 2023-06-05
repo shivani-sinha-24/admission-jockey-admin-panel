@@ -54,27 +54,27 @@ export default function Profile() {
 const profileData = users?.user
 
 
-  const handleUpdateProfile = (profileData) =>{
-    let formData = new FormData();
-    for (let value in profileData) {
-      formData.append(value, profileData[value]);
-    }
+  // const handleUpdateProfile = (profileData) =>{
+  //   let formData = new FormData();
+  //   for (let value in profileData) {
+  //     formData.append(value, profileData[value]);
+  //   }
 
-    console.log("formData",formData);
+  //   console.log("formData",formData);
 
-    dispatch(userUpdate(profileData?._id, formData)).then((data)=>{
+  //   dispatch(userUpdate(profileData?._id, formData)).then((data)=>{
 
-      if(data!=undefined){
+  //     if(data!=undefined){
 
-        console.log(data,"jooooooooooooooo")
+  //       console.log(data,"jooooooooooooooo")
 
-        sessionStorage.setItem("image",data?.image)
-        window.location.reload()
-        dispatch(fetchUserById(profileData?.role))
-      }
-    });
+  //       sessionStorage.setItem("image",data?.image)
+  //       window.location.reload()
+  //       dispatch(fetchUserById(profileData?.role))
+  //     }
+  //   });
    
-  }
+  // }
 
   
 
@@ -106,12 +106,12 @@ const profileData = users?.user
                   <Col lg={12} md={12} xl={6}>
                     <div className="wideget-user-desc d-sm-flex">
                       <div style={{position:"relative"}} className="wideget-user-img">
-                      <input 
+                      {/* <input 
                       type="file" 
                       onChange={(e)=>handleUpdateProfile(profileData && {...profileData[0],image:e.currentTarget.files[0]})} 
                       className="input-file-up profile_img_hover" 
                       name="image"
-                      />
+                      /> */}
                       {
                         // profileData && profileData[0]?.image != undefined ?
                         // <img className="profileImgMain" crossorigin="anonymous" src="http://localhost:5500/images/1682767874495-JSS_Logo.png" alt="img" /> :

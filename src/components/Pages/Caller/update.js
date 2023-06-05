@@ -44,8 +44,9 @@ export default function CallerUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
-                "_id": _id,
-                ...values
+                "id": _id,
+                ...values,
+                type:"user"
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();

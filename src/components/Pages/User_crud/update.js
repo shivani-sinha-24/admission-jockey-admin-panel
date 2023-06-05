@@ -43,15 +43,21 @@ export default function EditorUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
-                "_id": _id,
-                ...values
+// <<<<<<< HEAD
+                "id": _id,
+                ...values,
+                type:"user"
+// =======
+                // "_id": _id,
+                // ...values
+// >>>>>>> dc68e36912cf53deded7705d81afbb93f9d36acb
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
-                dispatch(userListUpdate(formData));
+                dispatch(userUpdate(formData))
                 navigate("/editor");
             } else {
                 dispatch(userListUpdate(values));

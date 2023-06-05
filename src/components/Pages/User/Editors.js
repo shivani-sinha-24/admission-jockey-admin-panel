@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { UserDetailModal } from "../../Modal/UserDetailModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByRole, userDelete, userListUpdate } from "../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Editors() {
   const dispatch = useDispatch();
-
+const navigate = useNavigate()
   const { users } = useSelector(state => ({
     users: state?.userAuth?.users,
   }));
@@ -27,17 +27,22 @@ export default function Editors() {
     setScroll(scrollType);
   };
   const handleStatusUpdate = (row) => {
-    dispatch(userListUpdate({...row,type:"user"}));
+    dispatch(userUpdate({...row,type:"user"}))
+    .then(()=>{
+      dispatch(fetchUserByRole(2))
+    })
+    .catch(err=>console.log(err))
   };
 
 
   const userDeleteAction = () => {
     dispatch(userDelete(deleteId));
+    dispatch(fetchUserByRole(2))
   }
 
   useEffect(() => {
     dispatch(fetchUserByRole(2))
-  }, [handleStatusUpdate])
+  }, [])
 
   const handleShow = (id)  => {
     setDeleteId(id)
