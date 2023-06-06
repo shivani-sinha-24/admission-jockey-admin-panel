@@ -1581,7 +1581,7 @@ export const DataTablesForCategory = ({
             width={40}
             height={40}
             style={{ borderRadius: "360px" }}
-            src={`${process.env.REACT_APP_API_BASE_URL}/${row?.logo}`}
+            src={`${process.env.REACT_APP_API_BASE_URL}/images/${row?.logo?row.logo:row?.image&&row.image}`}
           />
         </span>
       ),
@@ -1730,7 +1730,7 @@ export const DataTablesForDeleteCategoryList = ({
             width={40}
             height={40}
             style={{ borderRadius: "360px" }}
-            src={`${process.env.REACT_APP_API_BASE_URL}/${row?.logo}`}
+            src={`${process.env.REACT_APP_API_BASE_URL}/images/${row?.logo?row.logo:row?.image&&row.image}`}
           />
         </span>
       ),

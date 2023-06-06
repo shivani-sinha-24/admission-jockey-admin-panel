@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function ImagePreviewCard({image,setEditProfilePic}) {
+export function ImagePreviewCard({image,setEditProfilePic,name}) {
     const [show, setShow] = React.useState(true);
     const closeImgPrev = ()=>{
       setShow(false);
@@ -13,7 +13,7 @@ export function ImagePreviewCard({image,setEditProfilePic}) {
                 style={{width:'object-fit',height:'object-fit', border:'1px solid black'}}
               >
                   <div className="card-header ">
-                    <h3 className="card-title">Profile Image</h3>
+                    <h3 className="card-title">{name?name:'Profile Image'}</h3>
                     <div className="rtlcards ">
                       <button
                         size="small"

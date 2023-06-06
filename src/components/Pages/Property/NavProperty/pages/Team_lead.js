@@ -87,7 +87,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h3">Add Team Lead</Card.Title>
+                                <Card.Title as="h3">{editTeam?`Update Team Lead`: `Add Team Lead`}</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Card >

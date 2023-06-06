@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCategory,getCategory } from "../../../../redux/Action/CategoryAction";
 import { DropImg } from "../../Property/StepForm/component/DropImg";
+import {ImagePreviewCard} from '../../../Card/ImagePreviewCard'
 
 
 
@@ -22,8 +23,11 @@ export default function UpdateCategory() {
     const navigate = useNavigate();
     const { category } = useSelector(state => ({
         category: state?.category?.category.filter(item => item?._id == params.id)
-    }));
+    }));        
     const [content, setContent] = useState(category[0]?.description || "");
+    const [categoryLogoPreview,setCategoryLogoPreview] = useState(category[0]?.logo?true:false)
+    const [categoryImgPreview,setCategoryImgPreview] = useState(category[0]?.image?true:false)
+
     useEffect(() => {
         // dispatch(getCatergoryList())
     }, []);
@@ -37,18 +41,18 @@ export default function UpdateCategory() {
         },
         onSubmit: values => {
             values = { ...values, "description": content, id: params.id }
-            if (typeof values.image == 'object' || values.logo == 'object' || values.image == 'object' && values.logo == 'object') {
+            if (typeof values.image == 'object' ||typeof values.logo == 'object' ||typeof values.image == 'object' && values.logo == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
                 dispatch(updateCategory(formData));
-                dispatch(getCategory());
                 navigate("/category-list");
+                dispatch(getCategory());
             } else {
                 dispatch(updateCategory(values));
-                dispatch(getCategory());
                 navigate("/category-list");
+                dispatch(getCategory());
             }
         },
     });
@@ -90,6 +94,7 @@ export default function UpdateCategory() {
                                                             value={formik.values.parent}
                                                             placeholder='Parent'
                                                             className="form-control"
+                                                            disabled={true}
                                                         />
                                                         {formik.errors.parent && formik.touched.parent ? (
                                                             <div style={{ color: "red" }}>{formik.errors.parent}</div>
@@ -98,15 +103,31 @@ export default function UpdateCategory() {
                                                 </div>
                                                 <div className="row  d-flex mt-5">
                                                     <div className="col-md-6">
+                                                        {categoryImgPreview?
+                                                        <ImagePreviewCard 
+                                                        image={category[0].image}   
+                                                            setEditProfilePic={setCategoryImgPreview}
+                                                            name={'image'}
+
+                                                        />
+                                                        :
                                                         <div className="control-group form-group mb-0 drop">
                                                             <label className="form-label">Image</label>
                                                             <DropImg
                                                                 type="file" className="dropify" imgtype="image"
                                                                 formik={formik}
-                                                            />
+                                                                />
                                                         </div>
+                                                        }
                                                     </div>
                                                     <div className="col-md-6">
+                                                    {categoryLogoPreview?
+                                                        <ImagePreviewCard 
+                                                            image={category[0].logo}   
+                                                            setEditProfilePic={setCategoryLogoPreview}
+                                                            name={'logo'}
+                                                        />
+                                                        :
                                                         <div className="control-group form-group mb-0 drop">
                                                             <label className="form-label">Icon</label>
                                                             <DropImg
@@ -114,6 +135,7 @@ export default function UpdateCategory() {
                                                                 formik={formik}
                                                             />
                                                         </div>
+}
                                                     </div>
                                                 </div>
                                                 <div className="row  d-flex">

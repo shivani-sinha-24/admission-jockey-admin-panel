@@ -53,7 +53,8 @@ export default function DataTables() {
     // }, [])
     useEffect(() => {
         dispatch(getCategory());
-    }, [propertyDeleteAction])
+    // }, [propertyDeleteAction])
+    }, [])
 
     const userDeleteAction = (id) => {
 
