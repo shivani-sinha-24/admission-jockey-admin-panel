@@ -59,11 +59,10 @@ import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCate
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import UpdateCaller from "./components/Pages/Caller/update";
+import UpdateCallerTeamLeader from "./components/Pages/TeamLeader/Caller/Update_Caller_Team_Lead";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 import EditProfile from "./components/Pages/profileEdit/EditProfile";
 import Others from "./components/Pages/Property/NavProperty/Others";
-// import AddPropertyType from "./components/Pages/AddPropertyType/AddPropertyType";
-// import AddStatus from "./components/Pages/AddStatus/AddStatus";
 import AddStatus from "./components/Pages/Status_Crud/AddStatus";
 import AddPropertyType from "./components/Pages/PropertyType_Crud/AddPropertyType";
 import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePropertyType";
@@ -99,6 +98,7 @@ function App() {
               <Route path={"/callerAdd"} element={<AddCaller />} />
               <Route path={"/callerTeamList"} element={<CallerTeamLeaderList />} />
               <Route path={"/add_callerTeamList"} element={<AddCallerTeamLeader />} />
+              <Route path={"/update_callerTeamList/:id"} element={<UpdateCallerTeamLeader />} />
               <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/agent"} element={<Agent />} />

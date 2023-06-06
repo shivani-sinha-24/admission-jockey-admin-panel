@@ -1084,7 +1084,7 @@ export const CallerTeamLeaderDataTables = ({
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <NavLink
-              to={`/caller-update/${row._id}`}
+              to={`/update_callerTeamList/${row._id}`}
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>

@@ -59,7 +59,7 @@ export default function AddTeamLeader() {
         "teamName": teamName
       }
       dispatch(createTeamLeader(values));
-      navigate("/caller");
+      navigate("/callerTeamList");
     },
   });
   return (

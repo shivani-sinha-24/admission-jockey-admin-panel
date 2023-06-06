@@ -1,4 +1,4 @@
-import { TEAM_LEADER_GET_SUCCESS,TEAM_LEADER_ADD_SUCCESS, LOGIN_USER_FETCH_ID_SUCCESS, USER_DELETE_SUCCESS, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAIL, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_SUCCESS, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_SUCCESS, USER_UPDATE_SUCCESS } from '../Constants/Constants';
+import { TEAM_LEADER_GET_SUCCESS, TEAM_LEAD_UPDATE_SUCCESS, TEAM_LEADER_ADD_SUCCESS, LOGIN_USER_FETCH_ID_SUCCESS, USER_DELETE_SUCCESS, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAIL, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_SUCCESS, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_SUCCESS, USER_UPDATE_SUCCESS } from '../Constants/Constants';
 
 let initState = {
     users: {},
@@ -15,6 +15,13 @@ const userAuthReducer = (state = initState, action) => {
                     ...state.users,
                     users: [...state.users.users, action.payload]
                 }
+            });
+        case TEAM_LEAD_UPDATE_SUCCESS:
+            return ({
+                ...state,
+                teamLeader: state.teamLeader.map((item) =>
+                    item?._id == action.payload?._id ? { ...action.payload } : item
+                )
             });
         case TEAM_LEADER_ADD_SUCCESS:
             return ({

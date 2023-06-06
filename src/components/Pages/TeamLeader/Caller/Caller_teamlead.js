@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { TeamLeaderModal } from "../../../Modal/TeamLeaderModal";
-import { fetchUserByRole, userDelete, userListUpdate,getTeamLeader } from "../../../../redux/Action/AuthAction";
-import { SimpleModal } from "../../../Modal/SimpleModal";
+import { fetchUserByRole, userDelete, userListUpdate,getTeamLeader,teamLeadDelete } from "../../../../redux/Action/AuthAction";
 import { WarningModal } from "../../../Modal/WarningModal";
 export default function Caller() {
   const dispatch = useDispatch();
@@ -31,20 +30,21 @@ export default function Caller() {
   const handleStatusUpdate = (row) => {
     dispatch(userListUpdate({ ...row, type: "user" }));
   };
+  
   const handleOpenUserModal = (id) => {
     setShowUserProfile(true);
     setUserData(id);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
+
   useEffect(() => {
     dispatch(fetchUserByRole(3));
     dispatch(getTeamLeader());
   }, [])
 
-  const userDeleteAction = (id) => {
-    dispatch(userDelete(deleteId));
+  const userDeleteAction = () => {
+    dispatch(teamLeadDelete(deleteId));
+    dispatch(getTeamLeader())
   }
 
   const handleShow = (id) => {
