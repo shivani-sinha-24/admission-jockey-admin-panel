@@ -658,6 +658,19 @@ export const EditorDataTables = ({
               </i>
             </NavLink>
           </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
+            <NavLink
+              to={`/permission/${row._id}`}
+              className="btn btn-primary btn-sm rounded-11 me-2"
+            >
+              <i
+                className="fa fa-eye"
+                style={{ fontSize: "1.3rem" }}
+                aria-hidden="true"
+              // onClick={() => handleOpenModal(row)}
+              ></i>
+            </NavLink>
+          </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
             <Link
               onClick={
@@ -906,6 +919,19 @@ export const CallerDataTables = ({
                   <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
                 </svg>
               </i>
+            </NavLink>
+          </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={<Tooltip>Permission</Tooltip>}>
+            <NavLink
+              to={`/permission/${row._id}`}
+              className="btn btn-success btn-sm rounded-11 me-2"
+            >
+              <i
+                className="fa fa-eye"
+                style={{ fontSize: "1.3rem" }}
+                aria-hidden="true"
+              // onClick={() => handleOpenModal(row)}
+              ></i>
             </NavLink>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
@@ -1407,7 +1433,7 @@ export const DataTablesForProperty = ({
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <Link
               // onClick={handleClickOpen("paper", row)}
-              to={`${process.env.PUBLIC_URL}/update-property-type/${row._id}`}  
+              to={`${process.env.PUBLIC_URL}/update-property-type/${row._id}`}
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>
@@ -1560,7 +1586,7 @@ export const DataTablesForStatus = ({
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <Link
               // onClick={handleClickOpen("paper", row)}
-              to={`${process.env.PUBLIC_URL}/update-status/${row._id}`} 
+              to={`${process.env.PUBLIC_URL}/update-status/${row._id}`}
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>

@@ -49,6 +49,7 @@ import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
 import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
+import Permission from "./components/Pages/Permission/PermissionAccess";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
@@ -70,7 +71,7 @@ import UpdateStatus from "./components/Pages/Status_Crud/UpdateStatus";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
-  
+
   return (
     <>
       <ToastContainer />
@@ -112,9 +113,8 @@ function App() {
               <Route path={"/delete-category"} element={<DeleteCategoryList />} />
               <Route path={"/update-category/:id"} element={<UpdateCategory />} />
               <Route path={"/add-status"} element={<AddStatus />} />
-              <Route path={"/update-status/:id"} element={<UpdateStatus/>} />
-
-
+              <Route path={"/update-status/:id"} element={<UpdateStatus />} />
+              <Route path={"/permission/:id"} element={<Permission />} />
               <Route
                 path={"/property-list/:clgid/:edu_type"}
                 element={<PropertyDetails />}
