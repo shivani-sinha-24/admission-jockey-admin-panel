@@ -389,13 +389,13 @@ export const updateTeamLead = (teamLead) => async (dispatch) => {
 
 export const permission = async (permissionData) => {
   try {
-    console.log(permissionData,"authdata");
     const { data } = await API.post(`/addUserPermission`, permissionData);
     if (data.status_code == 200) {
       toast.success(data?.message)
     } else {
       toast.error(data?.message)
     }
+    return;
   } catch (error) {
     console.log(error, "error")
     toast.error(error?.message)

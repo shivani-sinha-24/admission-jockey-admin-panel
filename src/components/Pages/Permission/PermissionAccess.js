@@ -11,7 +11,7 @@ import {
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DropImg } from "../Property/StepForm/component/DropImg";
-import { permission } from "../../../redux/Action/AuthAction";
+import { permission, fetchUserByRole } from "../../../redux/Action/AuthAction";
 import ReactSwitch from 'react-switch';
 
 
@@ -19,33 +19,33 @@ export default function Permission() {
     const dispatch = useDispatch();
     const params = useParams();
     const navigate = useNavigate();
-
+    const [userPermission, setUserPermission] = React.useState({});
     const { users, college, tab_status } = useSelector(state => ({
-        users: state?.userAuth?.users,
-        college: state?.propertyType?.college.filter(item => item?._id == params.id),
-        tab_status: state?.propertyType?.tab_status,
+        users: state?.userAuth?.users?.users?.filter(item => item?._id == params.id)
     }));
-    const [checked, setChecked] = useState(true);
-    const [universityCreate, setUniversityCreate] = useState(true);
-    const [collegeCreate, setCollegeCreate] = useState(true);
-    const [statusCreate, setStatusCreate] = useState(true);
-    const [categoryCreate, setCategoryCreate] = useState(true);
-    const [propertyTypeCreate, setPropertyTypeCreate] = useState(true);
-    const [universityView, setUniversityView] = useState(true);
-    const [collegeView, setCollegeView] = useState(true);
-    const [statusView, setStatusView] = useState(true);
-    const [categoryView, setCategoryView] = useState(true);
-    const [proprtyTypeView, setPropertyTypeView] = useState(true);
-    const [universityUpate, setUniversityUpate] = useState(true);
-    const [collegeUpate, setCollegeUpate] = useState(true);
-    const [statusUpate, setStatusUpate] = useState(true);
-    const [categoryUpate, setCategoryUpate] = useState(true);
-    const [propertyTypeUpate, setPropertyTypeUpate] = useState(true);
-    const [universityDelete, setUniversityDelete] = useState(true);
-    const [collegeDelete, setCollegeDelete] = useState(true);
-    const [statusDelete, setStatusDelete] = useState(true);
-    const [categoryDelete, setCategoryDelete] = useState(true);
-    const [propertyTypeDelete, setPropertyTypeDelete] = useState(true);
+    useEffect(() => {
+        dispatch(fetchUserByRole(3));
+    }, []);
+    const [universityCreate, setUniversityCreate] = useState(users[0]?.permissions?.universityCreate);
+    const [collegeCreate, setCollegeCreate] = useState(users[0]?.permissions?.collegeCreate);
+    const [statusCreate, setStatusCreate] = useState(users[0]?.permissions?.statusCreate);
+    const [categoryCreate, setCategoryCreate] = useState(users[0]?.permissions?.categoryCreate);
+    const [propertyTypeCreate, setPropertyTypeCreate] = useState(users[0]?.permissions?.propertyTypeCreate);
+    const [universityView, setUniversityView] = useState(users[0]?.permissions?.universityView);
+    const [collegeView, setCollegeView] = useState(users[0]?.permissions?.collegeView);
+    const [statusView, setStatusView] = useState(users[0]?.permissions?.statusView);
+    const [categoryView, setCategoryView] = useState(users[0]?.permissions?.categoryView);
+    const [proprtyTypeView, setPropertyTypeView] = useState(users[0]?.permissions?.proprtyTypeView);
+    const [universityUpate, setUniversityUpate] = useState(users[0]?.permissions?.universityUpate);
+    const [collegeUpate, setCollegeUpate] = useState(users[0]?.permissions?.collegeUpate);
+    const [statusUpate, setStatusUpate] = useState(users[0]?.permissions?.statusUpate);
+    const [categoryUpate, setCategoryUpate] = useState(users[0]?.permissions?.categoryUpate);
+    const [propertyTypeUpate, setPropertyTypeUpate] = useState(users[0]?.permissions?.propertyTypeUpate);
+    const [universityDelete, setUniversityDelete] = useState(users[0]?.permissions?.universityDelete);
+    const [collegeDelete, setCollegeDelete] = useState(users[0]?.permissions?.collegeDelete);
+    const [statusDelete, setStatusDelete] = useState(users[0]?.permissions?.statusDelete);
+    const [categoryDelete, setCategoryDelete] = useState(users[0]?.permissions?.categoryDelete);
+    const [propertyTypeDelete, setPropertyTypeDelete] = useState(users[0]?.permissions?.propertyTypeDelete);
     const handleSetUniversityCreate = val => {
         setUniversityCreate(val);
     };
@@ -130,8 +130,8 @@ export default function Permission() {
             "categoryDelete": categoryDelete,
             "propertyTypeDelete": propertyTypeDelete
         }
-        console.log("testdataa",data)
         dispatch(permission(data));
+        navigate("/caller");
     }
     return (
         <div>
