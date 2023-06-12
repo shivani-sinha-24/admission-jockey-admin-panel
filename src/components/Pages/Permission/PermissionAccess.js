@@ -131,7 +131,7 @@ export default function Permission() {
             "propertyTypeDelete": propertyTypeDelete
         }
         dispatch(permission(data));
-        navigate("/caller");
+        window.location.href = '/caller';
     }
     return (
         <div>

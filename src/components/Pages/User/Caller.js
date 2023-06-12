@@ -36,9 +36,11 @@ export default function Caller() {
     setShowUserProfile(true);
     setUserData(id);
   };
+  
   const handleClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     dispatch(fetchUserByRole(3))
   }, [])
@@ -92,9 +94,6 @@ export default function Caller() {
           </Link> */}
         </div>
       </div>
-
-
-
       <Row className=" row-sm">
         <Col lg={12}>
           <Card>

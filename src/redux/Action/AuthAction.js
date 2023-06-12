@@ -42,34 +42,33 @@ export const register = (userInfo, forregister) => async (dispatch) => {
 
 //login action
 export const login = (userInfo) => async (dispatch) => {
-  console.log("Api", API);
-  console.log(userInfo, 'userInfouserInfo');
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const { data } = await API.post(`/userLogin`, userInfo);
-    //const {data} = await axios.post("http://localhost:5500/userLogin",userInfo);
-    console.log("log", data);
-    //console.log(data, data?.data, "ff")
     dispatch({ type: USER_LOGIN_SUCCESS });
-    if (data?.data?.responseUser?.role == 0) {
-      toast("Invalid Credentials");
-    } else if (data.status_code) {
-      sessionStorage.setItem("accessToken", data?.data?.token);
-      sessionStorage.setItem("userId", data?.data?.responseUser?._id);
-      sessionStorage.setItem("name", data?.data?.responseUser?.name);
-      sessionStorage.setItem("role", data?.data?.responseUser?.role);
-      sessionStorage.setItem("email", data?.data?.responseUser?.email);
-      sessionStorage.setItem("contact_no", data?.data?.responseUser?.contact_no);
-      sessionStorage.setItem("createdAt", data?.data?.responseUser?.created_at);
-      sessionStorage.setItem("image", data?.data?.responseUser?.image);
-      window.location.href = '/dashboard';
+    if (data?.message == "Sorry! Your Acount is deactivated") {
+      toast("Sorry! Your account is deactivated");
+    } else {
+      if (data?.data?.responseUser?.role == 0) {
+        toast("Invalid Credentials");
+      } else if (data.status_code) {
+        sessionStorage.setItem("accessToken", data?.data?.token);
+        sessionStorage.setItem("userId", data?.data?.responseUser?._id);
+        sessionStorage.setItem("name", data?.data?.responseUser?.name);
+        sessionStorage.setItem("role", data?.data?.responseUser?.role);
+        sessionStorage.setItem("email", data?.data?.responseUser?.email);
+        sessionStorage.setItem("contact_no", data?.data?.responseUser?.contact_no);
+        sessionStorage.setItem("createdAt", data?.data?.responseUser?.created_at);
+        sessionStorage.setItem("image", data?.data?.responseUser?.image);
+        if (data?.data?.responseUser?.permissions !== undefined) {
+          sessionStorage.setItem("permissions", JSON.stringify(data?.data?.responseUser?.permissions));
+        }
+        window.location.href = '/dashboard';
+      }
+      else {
+        toast("Invalid Credentials");
+      }
     }
-    else {
-      toast("Invalid Credentials")
-    }
-    // // if (data?.data?.accessToken) {
-    // //   window.location.href = '/dashboard';
-    // // }
   } catch (error) {
     console.log(error, "error")
     dispatch({
@@ -371,7 +370,6 @@ export const updateTeamLead = (teamLead) => async (dispatch) => {
   try {
     dispatch({ type: TEAM_LEAD_UPDATE_REQUEST });
     const { data } = await API.post(`/updateTeamLead`, teamLead);
-    console.log("CATEGORY_UPDATE_REQUEST", data);
     if (data.status_code == 200) {
       dispatch({ type: TEAM_LEAD_UPDATE_SUCCESS, payload: data?.category });
       toast.success(data?.message)
