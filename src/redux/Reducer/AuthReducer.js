@@ -17,6 +17,12 @@ const userAuthReducer = (state = initState, action) => {
                     users: [...state.users.users, action.payload]
                 }
             });
+
+        case USER_FETCH_ROLE_SUCCESS:
+            return ({
+                ...state,
+                users: action.payload
+            })
         case TEAM_LEAD_UPDATE_SUCCESS:
             return ({
                 ...state,
@@ -34,10 +40,10 @@ const userAuthReducer = (state = initState, action) => {
                 ...state,
                 teamLeader: action.payload
             });
-            return ({
-                ...state,
-                users: action.payload
-            });
+        // return ({
+        //     ...state,
+        //     users: action.payload
+        // });
 
         case USER_FETCH_ID_SUCCESS:
             return ({
@@ -51,7 +57,6 @@ const userAuthReducer = (state = initState, action) => {
                 profile_user: action.payload
             })
         case USER_PROFILEUPDATE_SUCCESS:
-            console.log(action.payload);
             return ({
                 ...state,
                 profileUsers: action.payload

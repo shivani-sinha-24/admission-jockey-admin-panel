@@ -198,7 +198,6 @@ export const fetchUserByRole = (role) => async (dispatch) => {
   try {
     dispatch({ type: USER_FETCH_ROLE_REQUEST });
     const { data } = await API.post("/getAllUser", { "role": role });
-    console.log("getAllUser", data, data?.data);
     dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")
@@ -215,6 +214,7 @@ export const fetchUserById = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_FETCH_ID_REQUEST });
     const { data } = await API.post(`/getUserById`, { id: id });
+    console.log(data,"ata")
     dispatch({ type: USER_FETCH_ID_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")

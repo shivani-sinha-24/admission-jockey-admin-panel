@@ -43,14 +43,9 @@ export default function EditorUpdate() {
         onSubmit: values => {
             let _id = params?.id;
             values = {
-// <<<<<<< HEAD
                 "id": _id,
                 ...values,
                 type:"user"
-// =======
-                // "_id": _id,
-                // ...values
-// >>>>>>> dc68e36912cf53deded7705d81afbb93f9d36acb
             }
             if (typeof values.image == 'object') {
                 let formData = new FormData();
