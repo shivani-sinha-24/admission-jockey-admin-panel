@@ -49,7 +49,8 @@ export default function DataTables() {
 
   useEffect(() => {
     dispatch(getCategory());
-  }, [propertyDeleteAction])
+  // }, [propertyDeleteAction])
+  }, [])
 
   const handleShow = (id) => () => {
     setDeleteId(id)

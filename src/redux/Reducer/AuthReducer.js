@@ -1,3 +1,4 @@
+
 import { TEAM_LEADER_GET_SUCCESS, TEAM_LEAD_UPDATE_SUCCESS, TEAM_LEADER_ADD_SUCCESS, LOGIN_USER_FETCH_ID_SUCCESS, USER_DELETE_SUCCESS, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAIL, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_SUCCESS, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_SUCCESS, USER_UPDATE_SUCCESS } from '../Constants/Constants';
 
 let initState = {
@@ -33,7 +34,6 @@ const userAuthReducer = (state = initState, action) => {
                 ...state,
                 teamLeader: action.payload
             });
-        case USER_FETCH_ROLE_SUCCESS:
             return ({
                 ...state,
                 users: action.payload

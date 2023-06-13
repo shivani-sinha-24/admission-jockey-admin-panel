@@ -41,16 +41,20 @@ export default function CreateCategory() {
         },
         onSubmit: values => {
             values = { ...values, "description": content }
-            if (typeof values.image == 'object' || values.logo == 'object' || values.image == 'object' && values.logo == 'object') {
+            if (typeof values.image == 'object' || typeof values.logo == 'object' || typeof values.image == 'object' && values.logo == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
                     formData.append(value, values[value]);
                 }
                 dispatch(createCategory(formData));
                 navigate("/category-list");
+                dispatch(getCategory())
+
             } else {
                 dispatch(createCategory(values));
                 navigate("/category-list");
+                dispatch(getCategory())
+
             }
         },
     });

@@ -30,13 +30,10 @@ export default function Caller() {
   const handleStatusUpdate = (row) => {
     dispatch(userListUpdate({ ...row, type: "user" }));
   };
-  
   const handleOpenUserModal = (id) => {
     setShowUserProfile(true);
     setUserData(id);
   };
-  
-
   useEffect(() => {
     dispatch(fetchUserByRole(3));
     dispatch(getTeamLeader());
@@ -92,6 +89,7 @@ export default function Caller() {
             <Card.Body>
               <div className="table-responsive">
                 <datatable.CallerTeamLeaderDataTables handleStatusUpdate={handleStatusUpdate} handleOpenUserModal={handleOpenUserModal} handleOpen={handleOpen} handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} teamLeaders={teamLeaders} />
+
               </div>
             </Card.Body>
           </Card>

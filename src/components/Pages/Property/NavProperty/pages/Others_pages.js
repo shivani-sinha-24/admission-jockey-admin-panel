@@ -33,7 +33,7 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
           aj_ranking: others?.aj_ranking || "",
           property_id: params.id,
       },
-      validationSchema:otherSchema,
+      // validationSchema:otherSchema,
       onSubmit:values=>{          
           
           // if (editTeam != undefined) {

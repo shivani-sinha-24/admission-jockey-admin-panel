@@ -212,7 +212,7 @@ export const createTeamLeader = (property) => async (dispatch) => {
 export const updateTeamLeader = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TEAM_UPDATE_REQUEST });
-    const { data } = await API.post(`/updateTeamLeader`, property);
+    const { data } = await API.put(`/updateTeamLeader`, property);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_TEAM_UPDATE_SUCCESS, payload: data?.team_lead });
