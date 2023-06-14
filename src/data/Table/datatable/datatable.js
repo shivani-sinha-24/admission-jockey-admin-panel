@@ -1931,7 +1931,7 @@ export const DataTablesForDeleteCategoryList = ({
 export const UniversityCourseTable = ({
   handleShow,
   universityCourse,
-  clgid
+  universityId
 }) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -1970,7 +1970,7 @@ export const UniversityCourseTable = ({
         <span className="">
           <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
             <NavLink
-              to={`/property-list/${clgid}/${row._id}/updateCollegeCourse`}
+              to={`/property-list/${universityId}/${row._id}/updateUniversityCourse`}
               className="btn btn-primary btn-sm rounded-11 me-2"
             >
               <i>
