@@ -2072,6 +2072,151 @@ export const UniversityCourseTable = ({
   );
 };
 
+export const CollegeCourseTable = ({
+  handleShow,
+  universityCourse,
+  // universityId,
+  clgid
+}) => {
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [toggleCleared, setToggleCleared] = React.useState(false);
+  const [data, setData] = React.useState(tableDataItems);
+
+  const handleRowSelected = React.useCallback((state) => {
+    setSelectedRows(state.selectedRows);
+  }, []);
+
+  const columns = [
+    {
+      name: "NAME",
+      selector: (row) => [row.name],
+      sortable: true,
+    },
+    {
+      name: "CATEGORY",
+      selector: (row) => [row.category],
+      sortable: true,
+    },
+    {
+      name: "DURATION",
+      selector: (row) => [row.duration],
+      sortable: true,
+    },
+    {
+      name: "FEES",
+      selector: (row) => [row.fees],
+      sortable: true,
+    },
+    {
+      name: "ACTION",
+      selector: (row) => [row.action],
+      sortable: true,
+      cell: (row) => (
+        <span className="">
+          <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>}>
+            <NavLink
+              to={`/property-list/${clgid}/${row.universityID}/${row._id}/updateCollegeCourse`}
+              className="btn btn-primary btn-sm rounded-11 me-2"
+            >
+              <i>
+                <svg
+                  className="table-edit"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="16"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
+                </svg>
+              </i>
+            </NavLink>
+            {/* <Link
+              onClick={handleClickOpen("paper", row)}
+              className="btn btn-primary btn-sm rounded-11 me-2"
+            >
+              <i>
+                <svg
+                  className="table-edit"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="16"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
+                </svg>
+              </i>
+            </Link> */}
+          </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
+            <Link
+              onClick={
+                //userDeleteAction(row?._id)
+                handleShow(row?._id)
+              }
+              to="#"
+              className="btn btn-danger btn-sm rounded-11"
+            >
+              <i>
+                <svg
+                  className="table-delete"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="16"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+                </svg>
+              </i>
+            </Link>
+          </OverlayTrigger>
+        </span>
+      ),
+    },
+  ];
+
+  const contextActions = React.useMemo(() => {
+    const handleDelete = () => {
+      if (
+        window.confirm(
+          `Are you sure you want to delete:\r ${selectedRows.map(
+            (r) => r.SNO
+          )}?`
+        )
+      ) {
+        setToggleCleared(!toggleCleared);
+        setData(differenceBy(data, selectedRows, "SNO"));
+      }
+    };
+    return (
+      <Button key="delete" onClick={handleDelete} icon="true">
+        Delete
+      </Button>
+    );
+  }, [data, selectedRows, toggleCleared]);
+  const tableDatas = {
+    columns,
+    data,
+  };
+
+  return (
+    // <DataTableExtensions {...tableDatas}>
+    <DataTable
+      title
+      columns={columns}
+      data={universityCourse}
+      selectableRows
+      contextActions={contextActions}
+      onSelectedRowsChange={handleRowSelected}
+      clearSelectedRows={toggleCleared}
+      pagination
+    />
+    // </DataTableExtensions>
+  );
+};
+
 export const DataTableColleges = ({
   handleShow,
   userDeleteAction,

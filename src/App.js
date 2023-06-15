@@ -156,7 +156,7 @@ function App() {
               <Route path={"/property-list/:clgid/collegecourselist"} element={<CollegeCourseList />} />
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
-              <Route path={"/property-list/:clgid/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
+              <Route path={"/property-list/:clgid/:universityId/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
               <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
