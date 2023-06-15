@@ -31,7 +31,6 @@ const TeamLead = () => {
       <PropertyDetails>
         {addTeam == false ? (
           <>
-
             <Row>
               <Col>
                 <Card>

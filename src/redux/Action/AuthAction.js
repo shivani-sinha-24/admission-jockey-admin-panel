@@ -1,6 +1,7 @@
 import API from "../../service/API";
 //import axios from "axios";
-import { TEAM_LEADER_ADD_FAILURE,TEAM_LEADER_ADD_SUCCESS,TEAM_LEADER_ADD_REQUEST,LOGIN_USER_FETCH_ID_FAILURE, LOGIN_USER_FETCH_ID_REQUEST, LOGIN_USER_FETCH_ID_SUCCESS, USER_CHANGE_PASS_FAILURE, USER_CHANGE_PASS_REQUEST, USER_CHANGE_PASS_SUCCESS, USER_DELETE_FAILURE, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_FETCH_ID_FAILURE, USER_FETCH_ID_REQUEST, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAILURE, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_FAILURE, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_MAIL_FAILURE, USER_MAIL_REQUEST, USER_MAIL_SUCCESS, USER_PROFILEUPDATE_FAILURE, USER_PROFILEUPDATE_REQUEST, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_FAILURE, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_RESET_FAILURE, USER_RESET_REQUEST, USER_RESET_SUCCESS, USER_UPDATE_FAILURE, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "../Constants/Constants";
+import { TEAM_LEAD_UPDATE_REQUEST, TEAM_LEAD_UPDATE_FAILURE, TEAM_LEAD_UPDATE_SUCCESS, TEAM_LEAD_DELETE_FAILURE, TEAM_LEAD_DELETE_REQUEST, TEAM_LEADER_GET_REQUEST, TEAM_LEADER_GET_SUCCESS, TEAM_LEADER_GET_FAILURE, TEAM_LEADER_ADD_FAILURE, TEAM_LEADER_ADD_SUCCESS, TEAM_LEADER_ADD_REQUEST, LOGIN_USER_FETCH_ID_FAILURE, LOGIN_USER_FETCH_ID_REQUEST, LOGIN_USER_FETCH_ID_SUCCESS, USER_CHANGE_PASS_FAILURE, USER_CHANGE_PASS_REQUEST, USER_CHANGE_PASS_SUCCESS, USER_DELETE_FAILURE, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_FETCH_ID_FAILURE, USER_FETCH_ID_REQUEST, USER_FETCH_ID_SUCCESS, USER_FETCH_ROLE_FAILURE, USER_FETCH_ROLE_REQUEST, USER_FETCH_ROLE_SUCCESS, USER_LOGIN_FAILURE, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_MAIL_FAILURE, USER_MAIL_REQUEST, USER_MAIL_SUCCESS, USER_PROFILEUPDATE_FAILURE, USER_PROFILEUPDATE_REQUEST, USER_PROFILEUPDATE_SUCCESS, USER_REGISTER_FAILURE, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_RESET_FAILURE, USER_RESET_REQUEST, USER_RESET_SUCCESS, USER_UPDATE_FAILURE, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "../Constants/Constants";
+
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -42,34 +43,33 @@ export const register = (userInfo, forregister) => async (dispatch) => {
 
 //login action
 export const login = (userInfo) => async (dispatch) => {
-  console.log("Api",API);
-  console.log(userInfo, 'userInfouserInfo');
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const { data } = await API.post(`/userLogin`, userInfo);
-    //const {data} = await axios.post("http://localhost:5500/userLogin",userInfo);
-    console.log("log",data);
-    //console.log(data, data?.data, "ff")
     dispatch({ type: USER_LOGIN_SUCCESS });
-    if (data?.data?.responseUser?.role == 0) {
-      toast("Invalid Credentials");
-    } else if (data.status_code) {
-      sessionStorage.setItem("accessToken", data?.data?.token);
-      sessionStorage.setItem("userId", data?.data?.responseUser?._id);
-      sessionStorage.setItem("name", data?.data?.responseUser?.name);
-      sessionStorage.setItem("role", data?.data?.responseUser?.role);
-      sessionStorage.setItem("email", data?.data?.responseUser?.email);
-      sessionStorage.setItem("contact_no", data?.data?.responseUser?.contact_no);
-      sessionStorage.setItem("createdAt", data?.data?.responseUser?.created_at);
-      sessionStorage.setItem("image", data?.data?.responseUser?.image);
-      window.location.href = '/dashboard';
+    if (data?.message == "Sorry! Your Acount is deactivated") {
+      toast("Sorry! Your account is deactivated");
+    } else {
+      if (data?.data?.responseUser?.role == 0) {
+        toast("Invalid Credentials");
+      } else if (data.status_code) {
+        sessionStorage.setItem("accessToken", data?.data?.token);
+        sessionStorage.setItem("userId", data?.data?.responseUser?._id);
+        sessionStorage.setItem("name", data?.data?.responseUser?.name);
+        sessionStorage.setItem("role", data?.data?.responseUser?.role);
+        sessionStorage.setItem("email", data?.data?.responseUser?.email);
+        sessionStorage.setItem("contact_no", data?.data?.responseUser?.contact_no);
+        sessionStorage.setItem("createdAt", data?.data?.responseUser?.created_at);
+        sessionStorage.setItem("image", data?.data?.responseUser?.image);
+        if (data?.data?.responseUser?.permissions !== undefined) {
+          sessionStorage.setItem("permissions", JSON.stringify(data?.data?.responseUser?.permissions));
+        }
+        window.location.href = '/dashboard';
+      }
+      else {
+        toast("Invalid Credentials");
+      }
     }
-    else {
-      toast("Invalid Credentials")
-    }
-    // // if (data?.data?.accessToken) {
-    // //   window.location.href = '/dashboard';
-    // // }
   } catch (error) {
     console.log(error, "error")
     dispatch({
@@ -175,7 +175,7 @@ export const changePassDone = (userInfo) => async (dispatch) => {
     dispatch({ type: USER_CHANGE_PASS_SUCCESS });
     if (data.status_code) {
       // sessionStorage.setItem("accessToken", data?.data?.token);
-       window.location.href = '/login';
+      window.location.href = '/login';
       toast.success(data?.message)
     } else {
       toast.success(data?.message)
@@ -197,8 +197,7 @@ export const changePassDone = (userInfo) => async (dispatch) => {
 export const fetchUserByRole = (role) => async (dispatch) => {
   try {
     dispatch({ type: USER_FETCH_ROLE_REQUEST });
-    const { data } = await API.post("/getAllUser",{"role":role});
-    console.log("getAllUser", data, data?.data);
+    const { data } = await API.post("/getAllUser", { "role": role });
     dispatch({ type: USER_FETCH_ROLE_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")
@@ -214,7 +213,8 @@ export const fetchUserByRole = (role) => async (dispatch) => {
 export const fetchUserById = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_FETCH_ID_REQUEST });
-    const { data } = await API.post(`/getUserById`,{id:id});
+    const { data } = await API.post(`/getUserById`, { id: id });
+    console.log(data,"ata")
     dispatch({ type: USER_FETCH_ID_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")
@@ -229,7 +229,7 @@ export const fetchUserById = (id) => async (dispatch) => {
 export const fetchLoginUserById = (id) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_USER_FETCH_ID_REQUEST });
-    const { data } = await API.post(`/getUserById`,{id:id});
+    const { data } = await API.post(`/getUserById`, { id: id });
     dispatch({ type: LOGIN_USER_FETCH_ID_SUCCESS, payload: data });
   } catch (error) {
     console.log(error, "error")
@@ -263,7 +263,7 @@ export const userDelete = (id) => async (dispatch) => {
 
 
 //userUpdate pass action
-export const  userUpdate = (user) => async (dispatch) => {
+export const userUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
     // console.log("APi",API);
@@ -283,10 +283,10 @@ export const  userUpdate = (user) => async (dispatch) => {
 
 
 //userProfile
-export const  userProfileUpdate = (user) => async (dispatch) => {
+export const userProfileUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_PROFILEUPDATE_REQUEST });
-    console.log("APi",API);
+    console.log("APi", API);
     const { data } = await API.put(`/userProfileUpdate`, user);
 
     console.log("userUpdate", data, data?.data);
@@ -294,7 +294,7 @@ export const  userProfileUpdate = (user) => async (dispatch) => {
 
     dispatch({ type: USER_PROFILEUPDATE_SUCCESS, payload: data });
     toast.success("User updated successfully.")
-    if(data){
+    if (data) {
       window.location.href = `/profile`;
     }
     return data
@@ -328,11 +328,74 @@ export const createTeamLeader = (user) => async (dispatch) => {
     const { data } = await API.post(`/createUserTeamLeader`, user);
     dispatch({ type: TEAM_LEADER_ADD_SUCCESS, payload: data });
     toast.success("Team Leader Add Successfully.");
+    window.location.href = '/callerTeamList';
   } catch (error) {
     toast.error(error)
     dispatch({
       type: TEAM_LEADER_ADD_FAILURE,
       payload: error.message && error.message ? error.message : '',
     });
+  }
+};
+export const getTeamLeader = () => async (dispatch) => {
+  try {
+    dispatch({ type: TEAM_LEADER_GET_REQUEST });
+    const { data } = await API.get(`/getUserTeamLeader`);
+    dispatch({ type: TEAM_LEADER_GET_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: TEAM_LEADER_GET_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
+
+
+export const teamLeadDelete = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: TEAM_LEAD_DELETE_REQUEST });
+    const { data } = await API.delete(`/deleteTeamLead?id=${id}`);
+    // dispatch({ type: CATEGORY_DELETE_SUCCESS, payload:data?.id });
+    toast.success("Category deleted successfully.")
+    return
+  } catch (error) {
+    dispatch({
+      type: TEAM_LEAD_DELETE_FAILURE,
+      // payload: error.message && error.message ? error.message : '',
+    });
+  }
+};
+
+export const updateTeamLead = (teamLead) => async (dispatch) => {
+  try {
+    dispatch({ type: TEAM_LEAD_UPDATE_REQUEST });
+    const { data } = await API.post(`/updateTeamLead`, teamLead);
+    if (data.status_code == 200) {
+      dispatch({ type: TEAM_LEAD_UPDATE_SUCCESS, payload: data?.category });
+      toast.success(data?.message)
+    } else {
+      toast.error(data?.message)
+    }
+  } catch (error) {
+    console.log(error, "error")
+    dispatch({
+      type: TEAM_LEAD_UPDATE_FAILURE
+    });
+    toast.error(error?.message)
+  }
+};
+
+export const permission = async (permissionData) => {
+  try {
+    const { data } = await API.post(`/addUserPermission`, permissionData);
+    if (data.status_code == 200) {
+      toast.success(data?.message)
+    } else {
+      toast.error(data?.message)
+    }
+    return;
+  } catch (error) {
+    console.log(error, "error")
+    toast.error(error?.message)
   }
 };

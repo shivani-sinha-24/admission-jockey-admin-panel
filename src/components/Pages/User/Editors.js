@@ -9,10 +9,11 @@ import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 export default function Editors() {
   const dispatch = useDispatch();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const { users } = useSelector(state => ({
     users: state?.userAuth?.users,
   }));
+  console.log(users,"kartik");
   const [show, setShow] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [open, setOpen] = React.useState(false);  

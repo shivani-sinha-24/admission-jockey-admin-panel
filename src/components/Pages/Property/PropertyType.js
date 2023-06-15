@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { StatusModal } from "../../Modal/StatusModal";
 import { useEffect } from "react";
-import { updatePropertyType,deletePropertyType,getPropertyType} from "../../../redux/Action/PropertyTypeAction";
+import { updatePropertyType, deletePropertyType, getPropertyType } from "../../../redux/Action/PropertyTypeAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
 import { PropertyTypeModal } from "../../Modal/PropertyTypeModal";
@@ -15,7 +15,7 @@ export default function PropertyType() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  const { property } = useSelector(state =>({
+  const { property } = useSelector(state => ({
     property: state?.propertyType?.property
 
   }));
@@ -29,6 +29,7 @@ export default function PropertyType() {
   const [scroll, setScroll] = React.useState("paper");
   const [editProperty, setEditProperty] = useState();
   const [deleteId, setDeleteId] = useState();
+  const [permission, setPermission] = React.useState({});
   const [show, setShow] = useState(false);
 
   const handleClickOpen = (scrollType, row) => () => {
@@ -38,9 +39,9 @@ export default function PropertyType() {
     setScroll(scrollType);
     //window.location.reload(false);
   };
-  
+
   const handlePropertyUpdate = (row) => () => {
-    dispatch(updatePropertyType(row?._id, {...row,type:"property"}));
+    dispatch(updatePropertyType(row?._id, { ...row, type: "property" }));
     dispatch(getPropertyType());
     window.location.reload(false);
   };
@@ -61,6 +62,12 @@ export default function PropertyType() {
   };
   useEffect(() => {
     dispatch(getPropertyType());
+    if (sessionStorage.getItem("permissions") !== null) {
+      let permission = JSON.parse(sessionStorage.getItem("permissions"));
+      if (Object.keys(permission)) {
+        setPermission(permission);
+      }
+    }
   }, [])
   return (
     <div>
@@ -76,26 +83,19 @@ export default function PropertyType() {
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <div className="ms-auto pageheader-btn">
-          <Link 
-          onClick={handleClickOpen("paper")} 
-          to={`${process.env.PUBLIC_URL}/add-property-type`} 
-          className="btn btn-primary btn-icon text-white me-3">
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add Property
-          </Link>
-          {/* <Link to="#" className="btn btn-success btn-icon text-white">
-            <span>
-              <i className="fe fe-log-in"></i>&nbsp;
-            </span>
-            Export
-          </Link> */}
-        </div>
+        {permission?.propertyTypeCreate == true || Object.keys(permission) == false ?
+          <div className="ms-auto pageheader-btn">
+            <Link
+              onClick={handleClickOpen("paper")}
+              to={`${process.env.PUBLIC_URL}/add-property-type`}
+              className="btn btn-primary btn-icon text-white me-3">
+              <span>
+                <i className="fe fe-plus"></i>&nbsp;
+              </span>
+              Add Property
+            </Link>
+          </div> : ""}
       </div>
-
-
 
       <Row className=" row-sm">
         <Col lg={12}>
@@ -105,10 +105,12 @@ export default function PropertyType() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.DataTablesForProperty 
-                handlePropertyUpdate={handlePropertyUpdate}
-                handleShow={handleShow} userDeleteAction={propertyDeleteAction}
-                property={users.role&&users.role==2?property?.filter(property=>property.created_by_user_id==users?._id):property} handleClickOpen={handleClickOpen} />
+                <datatable.DataTablesForProperty
+                  handlePropertyUpdate={handlePropertyUpdate}
+                  permission={permission}
+                  handleShow={handleShow} userDeleteAction={propertyDeleteAction}
+                  property={users.role&&users.role==2?property?.filter(property=>property.created_by_user_id==users?._id):property} 
+                  handleClickOpen={handleClickOpen} />
               </div>
             </Card.Body>
           </Card>

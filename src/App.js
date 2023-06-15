@@ -49,6 +49,7 @@ import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
 import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
+import Permission from "./components/Pages/Permission/PermissionAccess";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
 import Aminities from "./components/Pages/Property/NavProperty/Aminities";
@@ -59,11 +60,10 @@ import UpdateCategory from "./components/Pages/Cotegory/Category_crud/UpdateCate
 import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import UpdateCaller from "./components/Pages/Caller/update";
+import UpdateCallerTeamLeader from "./components/Pages/TeamLeader/Caller/Update_Caller_Team_Lead";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 import EditProfile from "./components/Pages/profileEdit/EditProfile";
 import Others from "./components/Pages/Property/NavProperty/Others";
-// import AddPropertyType from "./components/Pages/AddPropertyType/AddPropertyType";
-// import AddStatus from "./components/Pages/AddStatus/AddStatus";
 import AddStatus from "./components/Pages/Status_Crud/AddStatus";
 import AddPropertyType from "./components/Pages/PropertyType_Crud/AddPropertyType";
 import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePropertyType";
@@ -72,7 +72,7 @@ import UpdateGallery from "./components/Pages/Gallery/UpdateGallery";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
-  
+
   return (
     <>
       <ToastContainer />
@@ -100,6 +100,7 @@ function App() {
               <Route path={"/callerAdd"} element={<AddCaller />} />
               <Route path={"/callerTeamList"} element={<CallerTeamLeaderList />} />
               <Route path={"/add_callerTeamList"} element={<AddCallerTeamLeader />} />
+              <Route path={"/update_callerTeamList/:id"} element={<UpdateCallerTeamLeader />} />
               <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/gallery-update/:clgid"} element={<UpdateGallery/>} />
@@ -114,9 +115,8 @@ function App() {
               <Route path={"/delete-category"} element={<DeleteCategoryList />} />
               <Route path={"/update-category/:id"} element={<UpdateCategory />} />
               <Route path={"/add-status"} element={<AddStatus />} />
-              <Route path={"/update-status/:id"} element={<UpdateStatus/>} />
-
-
+              <Route path={"/update-status/:id"} element={<UpdateStatus />} />
+              <Route path={"/permission/:id"} element={<Permission />} />
               <Route
                 path={"/property-list/:clgid/:edu_type"}
                 element={<PropertyDetails />}

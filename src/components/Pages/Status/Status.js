@@ -25,6 +25,8 @@ export default function Status() {
   const [editStatus, setEditStatus] = useState();
   const [deleteId, setDeleteId] = useState();
   const [show, setShow] = useState(false);
+  const [permission, setPermission] = React.useState({});
+
 
   const handleClickOpen = (scrollType, row) => () => {
     setEditStatus(row);
@@ -46,6 +48,12 @@ export default function Status() {
   };
   useEffect(() => {
     dispatch(statusFetch());
+    if (sessionStorage.getItem("permissions") !== null) {
+      let permission = JSON.parse(sessionStorage.getItem("permissions"));
+      if (Object.keys(permission)) {
+        setPermission(permission);
+      }
+    }
   }, []);
   return (
     <div>
@@ -64,24 +72,26 @@ export default function Status() {
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <div className="ms-auto pageheader-btn">
-          <Link
-            // onClick={handleClickOpen("paper")}
-            to={`${process.env.PUBLIC_URL}/add-status`}
-            className="btn btn-primary btn-icon text-white me-3"
-          >
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add Status
-          </Link>
-          {/* <Link to="#" className="btn btn-success btn-icon text-white">
+        {permission?.statusCreate == true || Object.keys(permission) == false ?
+          <div className="ms-auto pageheader-btn">
+            <Link
+              // onClick={handleClickOpen("paper")}
+              to={`${process.env.PUBLIC_URL}/add-status`}
+              className="btn btn-primary btn-icon text-white me-3"
+            >
+              <span>
+                <i className="fe fe-plus"></i>&nbsp;
+              </span>
+              Add Status
+            </Link>
+            {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>
               <i className="fe fe-log-in"></i>&nbsp;
             </span>
             Export
           </Link> */}
-        </div>
+          </div>
+          : ""}
       </div>
 
       <Row className=" row-sm">
@@ -94,6 +104,7 @@ export default function Status() {
               <div className="table-responsive">
                 <datatable.DataTablesForStatus
                   handleShow={handleShow}
+                  permission={permission}
                   status={users.role&&users.role==2?status?.filter(status=>status.created_by_user_id==users?._id):status}
                   handleClickOpen={handleClickOpen}
                 />

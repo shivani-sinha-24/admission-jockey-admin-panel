@@ -92,14 +92,10 @@ export default function UpdateCollegeCourse() {
         },
         onSubmit: values => {
             values = {
-                "eligibilty": eligibilty,
-                "description": description,
                 "CollegeID": params.clgid,
-                "UniversityID":params.unicorsid,
-                "category": categoryOnSelect,
-                "sub_category": subCategoryOnSelect,
-                "stream": streamOnSelect,
-                ...values
+                "UniversityID": params.unicorsid,
+                "fees": values.fees,
+                "UniversityCourseID": universityCourse[0]._id
             }
             dispatch(createCollegeCourse(values));
             navigate(`/property-list`);

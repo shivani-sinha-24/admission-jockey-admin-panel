@@ -10,7 +10,6 @@ import { getCollegeCourses,collegeCourseDelete } from "../../../../redux/Action/
 const Course = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params?.clgid);
     const { users, college, tab_status, category, universityCourse,collegeCourse } = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
