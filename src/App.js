@@ -68,6 +68,7 @@ import AddStatus from "./components/Pages/Status_Crud/AddStatus";
 import AddPropertyType from "./components/Pages/PropertyType_Crud/AddPropertyType";
 import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePropertyType";
 import UpdateStatus from "./components/Pages/Status_Crud/UpdateStatus";
+import UpdateGallery from "./components/Pages/Gallery/UpdateGallery";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -102,6 +103,7 @@ function App() {
               <Route path={"/update_callerTeamList/:id"} element={<UpdateCallerTeamLeader />} />
               <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
+              <Route path={"/gallery-update/:clgid"} element={<UpdateGallery/>} />
               <Route path={"/agent"} element={<Agent />} />
               <Route path={"/guest"} element={<Guest />} />
               <Route path={"/caller"} element={<Caller />} />

@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormSelect } from "../Forms/FormSelect";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { register } from "../../redux/Action/AuthAction";
@@ -32,6 +32,11 @@ export function StatusModal({ open, scroll, handleClose,editStatus }) {
   }, [open]);
 
 
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser.user,
+  })); 
+
+  
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {

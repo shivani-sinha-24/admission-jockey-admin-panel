@@ -11,7 +11,7 @@ import { propertyDelete } from "../../../redux/Action/PropertyAction";
 export default function Editors() {
   const dispatch = useDispatch();
   const { users, college, tab_status } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser?.user,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     tab_status: state?.propertyType?.tab_status,
   }));
@@ -106,7 +106,7 @@ export default function Editors() {
                   handleClickOpen={handleClickOpen}
                   tab_status={tab_status}
                   permission={permission}
-                  college={college} />
+                  college={users?.role&&users?.role==2?college?.filter(college=>college.created_by_user_id==users?._id):college} />
               </div>
             </Card.Body>
           </Card>

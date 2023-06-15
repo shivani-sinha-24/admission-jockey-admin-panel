@@ -14,6 +14,11 @@ export default function Status() {
   const { status } = useSelector((state) => ({
     status: state?.status?.status?.statuses,
   }));
+  
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser?.user,
+  })); 
+
 
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -100,7 +105,7 @@ export default function Status() {
                 <datatable.DataTablesForStatus
                   handleShow={handleShow}
                   permission={permission}
-                  status={status}
+                  status={users.role&&users.role==2?status?.filter(status=>status.created_by_user_id==users?._id):status}
                   handleClickOpen={handleClickOpen}
                 />
               </div>

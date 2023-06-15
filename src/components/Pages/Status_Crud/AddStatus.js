@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { statusCreate, statusFetch, statusUpdate } from '../../../redux/Action/Status';
@@ -16,6 +16,8 @@ import { DropImg } from '../Property/StepForm/component/DropImg';
 const AddStatus = ({ open, scroll, handleClose }) => {
     const [editStatus, setEditStatus] = useState();
     const [content, setContent] = useState( "");
+
+    const navigate = useNavigate()
 
     const statusvalSchema = Yup.object().shape({
         name: Yup.string().required('Status name is required'),
@@ -34,6 +36,12 @@ const AddStatus = ({ open, scroll, handleClose }) => {
     }
   }, [open]);
 
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser.user,
+  })); 
+
+  // console.log("status: ",status);
+  // console.log("users id from add status: ",users._id);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -45,7 +53,7 @@ const AddStatus = ({ open, scroll, handleClose }) => {
     },
      validationSchema: statusvalSchema,
     onSubmit: values => {
-      values = { ...formik.values, "description": content }
+      values = { ...formik.values, "description": content, created_by_user_id :  users._id}
       console.log(values);
       if (editStatus != undefined) {
       dispatch(statusUpdate(editStatus?._id,values));
@@ -53,6 +61,7 @@ const AddStatus = ({ open, scroll, handleClose }) => {
       window.location.reload(false);
       }else{
         dispatch(statusCreate(values));
+        navigate('/status',{replace:false})
       }
       formik.resetForm();
       handleClose()

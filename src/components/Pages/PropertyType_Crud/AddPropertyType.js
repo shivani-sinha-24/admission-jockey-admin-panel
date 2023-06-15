@@ -23,6 +23,10 @@ const AddPropertyType = () => {
     property: state?.property?.property,
   }));
 
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser.user,
+  })); 
+
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const formik = useFormik({
@@ -36,7 +40,7 @@ const AddPropertyType = () => {
     },
     validationSchema: PropertyTypeSchema,
     onSubmit: values => {
-      values = { ...formik.values, "property_desc": content }
+      values = { ...formik.values, "property_desc": content , created_by_user_id :  users._id }
       if (typeof values.property_img == 'object') {
         let formData = new FormData();
         for (let value in values) {

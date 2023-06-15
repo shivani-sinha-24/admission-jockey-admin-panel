@@ -20,6 +20,10 @@ export default function PropertyType() {
 
   }));
 
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser?.user,
+  })); 
+
   console.log(property);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -48,8 +52,9 @@ export default function PropertyType() {
 
   const propertyDeleteAction = (id) => {
     dispatch(deletePropertyType(deleteId))
-    dispatch(getPropertyType());
-    window.location.reload(false);
+    .then(()=>dispatch(getPropertyType()))
+    
+    // window.location.reload(false);
   }
   const handleShow = (id) => () => {
     setDeleteId(id)
@@ -104,7 +109,8 @@ export default function PropertyType() {
                   handlePropertyUpdate={handlePropertyUpdate}
                   permission={permission}
                   handleShow={handleShow} userDeleteAction={propertyDeleteAction}
-                  property={property} handleClickOpen={handleClickOpen} />
+                  property={users.role&&users.role==2?property?.filter(property=>property.created_by_user_id==users?._id):property} 
+                  handleClickOpen={handleClickOpen} />
               </div>
             </Card.Body>
           </Card>

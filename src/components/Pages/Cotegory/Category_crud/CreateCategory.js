@@ -22,7 +22,7 @@ export default function CreateCategory() {
     const [content, setContent] = useState("");
     const navigate = useNavigate();
     const { users, college, tab_status, category } = useSelector(state => ({
-        users: state?.userAuth?.users,
+        users: state?.userAuth?.loginUser.user,
         college: state?.propertyType?.college.filter(item => item?._id == params.id),
         category: state?.category?.category,
         tab_status: state?.propertyType?.tab_status,
@@ -40,7 +40,7 @@ export default function CreateCategory() {
             "logo": ""
         },
         onSubmit: values => {
-            values = { ...values, "description": content }
+            values = { ...values, "description": content, created_by_user_id :  users._id }
             if (typeof values.image == 'object' || typeof values.logo == 'object' || typeof values.image == 'object' && values.logo == 'object') {
                 let formData = new FormData();
                 for (let value in values) {
@@ -102,11 +102,25 @@ export default function CreateCategory() {
                                                             onChange={formik.handleChange}
                                                             className="form-control">
                                                             <option value="">Please select your parent</option>
-                                                            {category?.map((item) => {
+                                                            {/* {category?.map((item) => {
                                                                 return (
                                                                     <option value={item?.name}>{item?.name}</option>
                                                                 )
-                                                            })}
+                                                            })} */}
+                                                            {users.role&&users.role==2?
+                                                            category?.map((item, index) =>{
+                                                               if(item.created_by_user_id==users?._id){
+                                                                return (
+                                                                    <option value={item?.name}>{item?.name}</option>
+                                                                )
+                                                               }
+                                                            }):
+                                                            category?.map((item) => {
+                                                                return (
+                                                                    <option value={item?.name}>{item?.name}</option>
+                                                                )
+                                                            })
+                                                            }
                                                         </select>}
                                                         {formik.errors.parent && formik.touched.parent ? (
                                                             <div style={{ color: "red" }}>{formik.errors.parent}</div>

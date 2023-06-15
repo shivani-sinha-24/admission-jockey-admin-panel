@@ -12,10 +12,14 @@ export default function Editors() {
   const dispatch = useDispatch();
 
   const { users, college, tab_status } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser?.user,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
     tab_status: state?.propertyType?.tab_status,
   }));
+
+  useEffect(() => {
+    dispatch(getCollegeList())
+  })
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -74,7 +78,7 @@ export default function Editors() {
               Property
             </Breadcrumb.Item>
             <Breadcrumb.Item className="breadcrumb-item active breadcrumds" aria-current="page">
-              College Property List
+            University Property List
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
@@ -103,7 +107,7 @@ export default function Editors() {
                   propertyDeleteAction={propertyDeleteAction}
                   handleClickOpen={handleClickOpen}
                   tab_status={tab_status}
-                  college={college}
+                  college={users?.role&&users?.role==2?college?.filter(college=>college.created_by_user_id==users?._id):college}
                   permission={permission} />
               </div>
             </Card.Body>

@@ -22,6 +22,10 @@ export default function Team_lead({ setAddTeam, editTeam }) {
         team_lead: state?.property?.team_lead,
     }));
 
+    const { users } = useSelector(state => ({
+        users: state?.userAuth?.loginUser?.user,
+      })); 
+    
     useEffect(() => {
         dispatch(getTeamLead())
     }, [])
@@ -50,6 +54,7 @@ export default function Team_lead({ setAddTeam, editTeam }) {
         },
         validationSchema: TeamLeadvalSchema,
         onSubmit: values => {
+            values = {...values, created_by_user_id :  users._id}
             if (editTeam != undefined) {
                 if (typeof values.image == 'object') {
                     let formData = new FormData();

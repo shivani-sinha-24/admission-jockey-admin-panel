@@ -28,7 +28,7 @@ export const statusCreate = (status) => async (dispatch) => {
     const { data } = await API.post(`/statusCreate`, status);
 console.log(data,"llllllooooo")
     dispatch({ type: USER_STATUS_CREATE_SUCCESS, payload:data });
-      window.location.href ="/status";
+      // window.location.href ="/status";
 
         toast.success("Status created successfully.")
 
