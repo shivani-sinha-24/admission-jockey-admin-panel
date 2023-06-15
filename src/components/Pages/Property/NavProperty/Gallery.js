@@ -1,8 +1,8 @@
-import React, { useEffect, useState,useParams } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getGallery } from "../../../../redux/Action/PropertyTypeAction";
 import { GalleryModal } from "../../../Modal/GalleryModal";
 import PropertyDetails from "../PropertyDetails";
@@ -39,9 +39,13 @@ const Gallery = () => {
   const [scroll, setScroll] = React.useState("paper");
   const [show, setShow] = useState(false);
   const [editGallery, setEditGallery] = useState(false);
+  // const params = useParams()
+  const params = useParams()
+  console.log(params);
 
   const { gallery } = useSelector((state) => ({
-    gallery: state?.propertyType?.gallery,
+    gallery: state?.propertyType?.gallery.filter(item => item?.property_id == params.clgid),
+    // gallery: state?.propertyType?.gallery,
   }));
 
   const handleClickOpen = (scrollType, row) => () => {
@@ -89,19 +93,21 @@ const Gallery = () => {
         {gallery?.length > 0 &&
           gallery?.map((item, i) => {
             return (
-              <>
-                <Card className="card">
+             
+              <Card 
+                key={i}
+                className="card">
                   <Card.Header>
                     <h3 className="card-title">{item?.title}</h3>
 
                     <div className="ms-auto pageheader-btn">
                       <NavLink
-                        onClick={handleClickOpen("paper", item)}
-                        to="#"
+                        // onClick={handleClickOpen("paper", item)}
+                        to={`/gallery-update/${params.clgid}`}
                         className="btn btn-primary btn-icon text-white me-3"
                       >
                         <span>
-                          <i className="fe fe-edit"></i>&nbsp;
+                          <i className="fe fe-plus"></i>&nbsp;
                         </span>
                         Edit
                       </NavLink>
@@ -132,7 +138,7 @@ const Gallery = () => {
                     </div>
                   </Card.Body>
                 </Card>
-              </>
+              
             );
           })}
 
@@ -141,6 +147,7 @@ const Gallery = () => {
           open={open}
           scroll={scroll}
           handleClose={handleClose}
+          gallery={gallery}
         />
       </PropertyDetails>
     </>

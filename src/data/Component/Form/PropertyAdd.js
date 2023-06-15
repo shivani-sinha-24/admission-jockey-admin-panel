@@ -164,6 +164,8 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
     }
   };
 
+  
+
   return (
     <div>
       <Form onSubmit={submitFormData}>
@@ -290,7 +292,9 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                       {selected.map((value) => (
                                         <Chip key={value} label={value} />
-                                      ))}
+                                      )
+                                      )}
+                                      
                                     </Box>
                                   )}
                                   MenuProps={MenuProps}
@@ -341,6 +345,10 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
 };
 function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser?.user,
+  })); 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -359,7 +367,8 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
     onSubmit: values => {
       values = {
         ...values,
-        "affilite_by": personName
+        "affilite_by": personName,
+        created_by_user_id :  users._id
       }
       if (typeof values.image == 'object') {
         let formData = new FormData();
@@ -368,13 +377,9 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
         }
         dispatch(createProperty(formData));
         dispatch(getCollegeList())
-        document.getElementById("propertyList").click();
-        window.location.reload(false);
       } else {
         dispatch(createProperty(values));
         dispatch(getCollegeList())
-        document.getElementById("propertyList").click();
-        window.location.reload(false);
       }
     },
   });
@@ -451,7 +456,7 @@ export function PropertyAdd() {
     aprovedBy: ""
   });
   const { users, college, tab_status } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser?.user,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
     tab_status: state?.propertyType?.tab_status,
   }));

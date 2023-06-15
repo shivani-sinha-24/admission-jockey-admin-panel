@@ -31,7 +31,7 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
           bengalCreditCard: others?.bengalCreditCard || "",
           cuet: others?.cuet || "",
           aj_ranking: others?.aj_ranking || "",
-          property_id: params.id,
+          property_id: params.clgid,
       },
       // validationSchema:otherSchema,
       onSubmit:values=>{          
@@ -88,8 +88,8 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
                               onBlur={handleBlur}
                               value={values.naac}
                               onChange={handleChange}
-                              onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,naac:'true'})}}
-                              onMouseLeave={()=>setMouseHover({...mouseHover,naac:'false'})}
+                              // onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,naac:'true'})}}
+                              // onMouseLeave={()=>setMouseHover({...mouseHover,naac:'false'})}
                             />
                             {/* {mouseHover?.naac=='true'&& <span><EditIcon color='disabled'/></span>} */}
                             {errors.naac && touched.naac ? (
@@ -111,8 +111,8 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
                               onBlur={handleBlur}
                               value={values.nirf}
                               onChange={handleChange}
-                              onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,nirf:'true'})}}
-                              onMouseLeave={()=>setMouseHover({...mouseHover,nirf:'false'})}
+                              // onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,nirf:'true'})}}
+                              // onMouseLeave={()=>setMouseHover({...mouseHover,nirf:'false'})}
                             />
                             {/* {mouseHover?.nirf=='true'&& <span><EditIcon color='disabled'/></span>} */}
                             {errors.nirf && touched.nirf ? (
@@ -134,8 +134,8 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
                               onBlur={handleBlur}
                               value={values.nba}
                               onChange={handleChange}
-                              onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,nba:'true'})}}
-                              onMouseLeave={()=>setMouseHover({...mouseHover,nba:'false'})}
+                              // onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,nba:'true'})}}
+                              // onMouseLeave={()=>setMouseHover({...mouseHover,nba:'false'})}
                             />
                             {/* {mouseHover?.nba=='true'&& <span><EditIcon color='disabled'/></span>} */}
                             {errors.nba && touched.nba ? (
@@ -157,8 +157,8 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
                               onBlur={handleBlur}
                               value={values.aj_ranking}
                               onChange={handleChange}
-                              onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,aj_ranking:'true'})}}
-                              onMouseLeave={()=>setMouseHover({...mouseHover,aj_ranking:'false'})}
+                              // onMouseEnter={e=>{console.log('mouse hover');setMouseHover({...mouseHover,aj_ranking:'true'})}}
+                              // onMouseLeave={()=>setMouseHover({...mouseHover,aj_ranking:'false'})}
                             />
                             {/* {mouseHover?.aj_ranking=='true'&& <span><EditIcon color='disabled'/></span>} */}
                             {errors.aj_ranking && touched.aj_ranking ? (

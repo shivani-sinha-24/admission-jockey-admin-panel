@@ -11,12 +11,9 @@ const Others = () => {
   const params = useParams();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
-  
-  const  {others}  = useSelector((state) =>( 
-    {
-      others: state?.propertyType?.others?.filter(item => item?.property_id == params.id)
-    }
-  ))
+  const  {others}  = useSelector((state) =>({
+    others: state?.propertyType?.others?.filter(item => item?.property_id == params.clgid)
+  }))
   
   useEffect(() => {
     dispatch(getOthers());
@@ -25,11 +22,6 @@ const Others = () => {
   const setDataForm = () => {
     setEditTeam(others[0]);
   }
-  // if(others){
-  //   setAddTeam()
-  // }
-
-
   return (
     <>
         <PropertyDetails>
@@ -37,7 +29,9 @@ const Others = () => {
           {
             addTeam
             ?
-            <Others_pages others={others[0]} addTeam={addTeam} setAddTeam={setAddTeam} editTeam={editTeam} />
+
+              <Others_pages others={others[0]} addTeam={addTeam} setAddTeam={setAddTeam} editTeam={editTeam} />
+            
             :
             <Row>
               <Col>
@@ -62,22 +56,6 @@ const Others = () => {
                         </span>
                       </Button>
                     </div>
-                    {/* {others?.length > 0?null:<div
-                      onClick={() => {
-                        setAddTeam(true);
-                        setDataForm(); 
-                      }}
-                      className="ms-auto pageheader-btn"
-                    >
-                      <Button
-                        className="btn btn-primary btn-icon text-white me-3"
-                      >
-                        <span>
-                          <i className="fe fe-plus"></i>&nbsp;
-                        {others?.length > 0 ? "Edit" : "Add Others"}
-                        </span>
-                      </Button>
-                    </div>} */}
                   </Card.Header>
                   :
                   <Card.Header>

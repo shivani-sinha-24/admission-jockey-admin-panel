@@ -16,7 +16,7 @@ export default function DataTables() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { users, tab_status, category, college } = useSelector(state => ({
-    users: state?.userAuth?.users,
+    users: state?.userAuth?.loginUser?.user,
     tab_status: state?.propertyType?.tab_status,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     category: state?.category?.category.filter(item => item?.softDelete !== true),
@@ -106,7 +106,7 @@ export default function DataTables() {
                   propertyDeleteAction={propertyDeleteAction}
                   handleClickOpen={handleClickOpen}
                   tab_status={tab_status}
-                  category={category} />
+                  category={users.role&&users.role==2?category?.filter(category=>category.created_by_user_id==users?._id):category} />
               </div>
             </Card.Body>
           </Card>

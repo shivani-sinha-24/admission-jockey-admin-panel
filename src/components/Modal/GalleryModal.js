@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Row } from "react-bootstrap";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -13,18 +13,22 @@ import * as Yup from 'yup';
 import { register } from "../../redux/Action/AuthAction";
 import { createStatus, statusCreate, statusFetch, statusUpdate } from "../../redux/Action/Status";
 import { DropImg } from "../Pages/Property/StepForm/component/DropImg";
-import { createGallery, getGallery } from "../../redux/Action/PropertyTypeAction";
+import { createGallery, deleteGalleryImg, getGallery } from "../../redux/Action/PropertyTypeAction";
 import { useParams } from "react-router-dom";
+import {GalleryImagePreviewCard} from "../Card/GalleryImagePreviewCard"
 
 const statusvalSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
 });
 
-export function GalleryModal({ open, scroll, handleClose, editGallery }) {
+export function GalleryModal({ open, scroll, handleClose, editGallery,gallery }) {
   const descriptionElementRef = React.useRef(null);
   const dispatch = useDispatch();
   const params = useParams();
+  const [imgArray,setImgArray] = useState(editGallery?.gallery_img)
 
+  console.log('editGallery:', editGallery);
+  
   React.useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;
@@ -34,6 +38,10 @@ export function GalleryModal({ open, scroll, handleClose, editGallery }) {
     }
   }, [open]);
 
+  // React.useEffect(()=>{
+  //   setImgArray
+  // },[editGallery?.gallery_img])
+
   console.log(params, "params")
   const formik = useFormik({
     enableReinitialize: true,
@@ -42,9 +50,9 @@ export function GalleryModal({ open, scroll, handleClose, editGallery }) {
       "property_id": editGallery?.property_id || "",
       "gallery_img": editGallery?.gallery_img || ""
     },
-    validationSchema: statusvalSchema,
+    validationSchema: editGallery?statusvalSchema:null,
     onSubmit: values => {
-      console.log(values, "valuesvaluesvalues")
+      console.log(values.gallery_img, "valuesvaluesvalues")
       if (editGallery != undefined) {
 
         if (typeof values.gallery_img[0] != 'string') {
@@ -70,7 +78,7 @@ export function GalleryModal({ open, scroll, handleClose, editGallery }) {
 
       } else {
         let formData = new FormData();
-        formData.append("property_id", params.id);
+        formData.append("property_id", params.clgid);
 
         formData.append("title", values.title);
         for (const image of values.gallery_img) {
@@ -86,6 +94,10 @@ export function GalleryModal({ open, scroll, handleClose, editGallery }) {
       // alert(JSON.stringify(values, null, 2));
     },
   });
+
+
+  
+
   return (
     <>
       <Dialog

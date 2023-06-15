@@ -2,7 +2,7 @@ import { CardContent } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { getTeamLead } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Team_lead from "./pages/Team_lead";
@@ -12,13 +12,20 @@ const TeamLead = () => {
   const dispatch = useDispatch();
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
-  const { team_lead } = useSelector((state) => ({
-    team_lead: state?.propertyType?.team_lead,
+  const params = useParams()
+  let { team_lead } = useSelector((state) => ({
+    team_lead: state?.propertyType?.team_lead.filter(item => item?.property_id == params.clgid),
   }));
+
+  const { users } = useSelector(state => ({
+    users: state?.userAuth?.loginUser?.user,
+  })); 
 
   useEffect(() => {
     dispatch(getTeamLead());
   }, []);
+
+  // team_lead = users.role&&users.role==2?team_lead?.filter(team_lead=>team_lead.created_by_user_id==users?._id):team_lead
   return (
     <>
       <PropertyDetails>
