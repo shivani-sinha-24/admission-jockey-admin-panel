@@ -96,18 +96,7 @@ export default function UpdatecollegeCourse() {
         },
         onSubmit: values => {
             values = {
-                // "name": name,
-                // "full_name": full_name,
-                // "eligibilty": eligibilty,
-                // "description": description,
-                // "type": type,
                 "fees":fees,
-                // "universityID": params.universityId,
-                // "duration": duration,
-                // "lateral_entry": lateral_entry,
-                // "category": categoryOnSelect,
-                // "sub_category": subCategoryOnSelect,
-                // "stream": streamOnSelect,
                 "id": params.id
             }
             dispatch(updateCollegeCourse(values));

@@ -104,6 +104,26 @@ export const MENUITEMS = [
           },
 
         ],
+      },
+
+      {
+        title: "Claim Property",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/claim-university-property-list`,
+            type: "link",
+            title: "University Properties",
+          },
+          {
+            path: `/claim-property-list`,
+            type: "link",
+            title: "College Properties",
+          },
+
+        ],
       }
     ],
   },
