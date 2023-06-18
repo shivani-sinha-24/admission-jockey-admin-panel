@@ -105,7 +105,6 @@ export const MENUITEMS = [
 
         ],
       },
-
       {
         title: "Claim Property",
         icon: "user",
@@ -123,6 +122,24 @@ export const MENUITEMS = [
             title: "College Properties",
           },
 
+        ],
+      }, 
+      {
+        title: "My Property",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/my-university-property-list`,
+            type: "link",
+            title: "My University Properties",
+          },
+          {
+            path: `/claim-property-list`,
+            type: "link",
+            title: "My College Properties",
+          },
         ],
       }
     ],

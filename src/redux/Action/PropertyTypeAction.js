@@ -128,8 +128,6 @@ export const getCollegeList = () => async (dispatch) => {
     dispatch({ type: GET_COLLEGE_LIST });
     const { data } = await API.get(`/getCollegeList`);
 
-    console.log("getCollegeAffliateApprove", data);
-
     dispatch({ type: SUCCESS_COLLEGE_LIST, payload: data });
 
   } catch (error) {
