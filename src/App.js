@@ -51,6 +51,8 @@ import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
 import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
+import ClaimUniversityPropertyList from "./components/Pages/Property/ClaimUniversityPropertyList";
+import MyUniversityPropertyList from "./components/Pages/Property/MyUniversityPropertyList";
 import Permission from "./components/Pages/Permission/PermissionAccess";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
@@ -115,7 +117,10 @@ function App() {
               <Route path={"/caller"} element={<Caller />} />
               <Route path={"/status"} element={<Status />} />
               <Route path={"/property-list"} element={<PropertyList />} />
+              {/* <Route path={"/property-list"} element={<PropertyList />} /> */}
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
+              <Route path={"/claim-university-property-list"} element={<ClaimUniversityPropertyList />} />
+              <Route path={"/my-university-property-list"} element={<MyUniversityPropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
               <Route path={"/add-category"} element={<CreateCategory />} />
               <Route path={"/delete-category"} element={<DeleteCategoryList />} />
@@ -162,7 +167,7 @@ function App() {
               <Route path={"/property-list/:clgid/collegecourselist"} element={<CollegeCourseList />} />
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
-              <Route path={"/property-list/:clgid/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
+              <Route path={"/property-list/:clgid/:universityId/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
               <Route path={"/property-list/:id/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />

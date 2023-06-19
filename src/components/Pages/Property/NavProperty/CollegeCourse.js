@@ -53,9 +53,9 @@ const Course = () => {
                                 </div> */}
                             </Card.Header>
                             <Card.Body>
-                                <datatable.UniversityCourseTable
+                                <datatable.CollegeCourseTable
                                     handleStatusUpdate={handleStatusUpdate}
-                                    universityId={params.id}
+                                    // universityId={params.id}
                                     clgid={params.clgid}
                                     handleShow={handleShow}
                                     universityCourse={collegeCourse} />

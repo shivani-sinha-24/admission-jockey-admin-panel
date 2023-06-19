@@ -8,7 +8,7 @@ import '../../../../../App.css'; import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCollegeCourse,getCollegeCourses } from "../../../../../redux/Action/PropertyTypeAction";
+import { updateCollegeCourse,getCollegeCourses,getUniversityCourses } from "../../../../../redux/Action/PropertyTypeAction";
 import { getCategory } from "../../../../../redux/Action/CategoryAction";
 import JoditEditor from 'jodit-react';
 
@@ -20,24 +20,28 @@ export default function UpdatecollegeCourse() {
     const editor = useRef(null);
     const deditor = useRef(null);
     const navigate = useNavigate();
-    const { collegeCourse, category } = useSelector(state => ({
+    console.log(params?.clgid,'params?.clgid');
+    const { collegeCourse, category ,universityCourse} = useSelector(state => ({
         users: state?.userAuth?.users,
         category: state?.category?.category,
-        collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?.CollegeID == params?.clgid),
+        collegeCourse: state?.collegeCourse?.collegeCourse.filter(item => item?._id == params?.id),
+        universityCourse: state?.universityCourse?.universityCourse?.filter(item => item?._id == params?.universityId),
         tab_status: state?.propertyType?.tab_status,
     }));
     const [streamList, setStreamList] = useState([]);
     const [subcategory, setSubcategory] = useState([]);
-    const [categoryOnSelect, setCategoryOnSelect] = useState(collegeCourse[0]?.category || "");
-    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(collegeCourse[0]?.sub_category || "");
-    const [streamOnSelect, setStreamOnSelect] = useState(collegeCourse[0]?.stream || "");
+    const [categoryOnSelect, setCategoryOnSelect] = useState(universityCourse[0]?.category || "");
+    const [subCategoryOnSelect, setSubCategoryOnSelect] = useState(universityCourse[0]?.sub_category || "");
+    const [streamOnSelect, setStreamOnSelect] = useState(universityCourse[0]?.stream || "");
     useEffect(() => {
         dispatch(getCategory());
-        if (collegeCourse[0]?.category) {
-            setCategory(collegeCourse[0]?.category);
+        dispatch(getUniversityCourses());
+        dispatch(getCollegeCourses());
+        if (universityCourse[0]?.category) {
+            setCategory(universityCourse[0]?.category);
         }
-        if (collegeCourse[0]?.category && collegeCourse[0]?.sub_category) {
-            setSubCategory(collegeCourse[0]?.sub_category)
+        if (universityCourse[0]?.category && universityCourse[0]?.sub_category) {
+            setSubCategory(universityCourse[0]?.sub_category)
         }
     }, []);
     const setCategory = (cat) => {
@@ -78,13 +82,13 @@ export default function UpdatecollegeCourse() {
         }
     }
     const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    const [eligibilty, setEligibilty] = useState(collegeCourse[0]?.eligibilty || "");
-    const [description, setDescription] = useState(collegeCourse[0]?.description || "");
-    const [lateral_entry, setLateral_entry] = useState(collegeCourse[0]?.lateral_entry || "");
-    const [duration, setDuration] = useState(collegeCourse[0]?.duration || "");
-    const [name, setName] = useState(collegeCourse[0]?.name || "");
-    const [full_name, setFull_name] = useState(collegeCourse[0]?.full_name || "");
-    const [type, setType] = useState(collegeCourse[0]?.type || "");
+    const [eligibilty, setEligibilty] = useState(universityCourse[0]?.eligibilty || "");
+    const [description, setDescription] = useState(universityCourse[0]?.description || "");
+    const [lateral_entry, setLateral_entry] = useState(universityCourse[0]?.lateral_entry || "");
+    const [duration, setDuration] = useState(universityCourse[0]?.duration || "");
+    const [name, setName] = useState(universityCourse[0]?.name || "");
+    const [full_name, setFull_name] = useState(universityCourse[0]?.full_name || "");
+    const [type, setType] = useState(universityCourse[0]?.type || "");
     const [fees, setFees] = useState(collegeCourse[0]?.fees || "");
     const formik = useFormik({
         enableReinitialize: true,
@@ -92,18 +96,7 @@ export default function UpdatecollegeCourse() {
         },
         onSubmit: values => {
             values = {
-                "name": name,
-                "full_name": full_name,
-                "eligibilty": eligibilty,
-                "description": description,
-                "type": type,
                 "fees":fees,
-                "universityID": params.universityId,
-                "duration": duration,
-                "lateral_entry": lateral_entry,
-                "category": categoryOnSelect,
-                "sub_category": subCategoryOnSelect,
-                "stream": streamOnSelect,
                 "id": params.id
             }
             dispatch(updateCollegeCourse(values));

@@ -37,10 +37,6 @@ export function GalleryModal({ open, scroll, handleClose, editGallery,gallery })
     }
   }, [open]);
 
-  // React.useEffect(()=>{
-  //   setImgArray
-  // },[editGallery?.gallery_img])
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {

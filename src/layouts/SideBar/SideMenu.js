@@ -104,6 +104,43 @@ export const MENUITEMS = [
           },
 
         ],
+      },
+      {
+        title: "Claim Property",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/claim-university-property-list`,
+            type: "link",
+            title: "University Properties",
+          },
+          {
+            path: `/claim-property-list`,
+            type: "link",
+            title: "College Properties",
+          },
+
+        ],
+      }, 
+      {
+        title: "My Property",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/my-university-property-list`,
+            type: "link",
+            title: "My University Properties",
+          },
+          {
+            path: `/claim-property-list`,
+            type: "link",
+            title: "My College Properties",
+          },
+        ],
       }
     ],
   },
@@ -236,20 +273,38 @@ export const PROPERTYMANAGERMENUITEMS = [
         active: false,
         children: [
           {
-            path: `/university-property-list`,
-            type: "link",
-            title: "University Properties",
-          },
-          {
-            path: `/property-list`,
-            type: "link",
-            title: "College properties",
-          },
-          {
-            path: `/add-property`,
-            type: "link",
-            title: "Add Property",
-          },
+            title: "My Property",
+            icon: "user",
+            type: "sub",
+            active: false,
+            children: [
+              {
+                path: `/my-university-property-list`,
+                type: "link",
+                title: "My University Properties",
+              },
+              {
+                path: `/claim-property-list`,
+                type: "link",
+                title: "My College Properties",
+              },
+            ],
+          }
+          // {
+          //   path: `/university-property-list`,
+          //   type: "link",
+          //   title: "University Properties",
+          // },
+          // {
+          //   path: `/property-list`,
+          //   type: "link",
+          //   title: "College properties",
+          // },
+          // {
+          //   path: `/add-property`,
+          //   type: "link",
+          //   title: "Add Property",
+          // },
 
         ],
       }
