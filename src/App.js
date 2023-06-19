@@ -52,7 +52,9 @@ import Faqs from "./components/Pages/Property/NavProperty/Faqs";
 import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
 import ClaimUniversityPropertyList from "./components/Pages/Property/ClaimUniversityPropertyList";
+import ClaimCollegePropertyList from "./components/Pages/Property/ClaimCollegePropertyList";
 import MyUniversityPropertyList from "./components/Pages/Property/MyUniversityPropertyList";
+import MyCollegePropertyList from "./components/Pages/Property/MyCollegePropertyList";
 import Permission from "./components/Pages/Permission/PermissionAccess";
 import TeamLead from "./components/Pages/Property/NavProperty/TeamLead";
 import Review from "./components/Pages/Property/NavProperty/Review";
@@ -120,7 +122,9 @@ function App() {
               {/* <Route path={"/property-list"} element={<PropertyList />} /> */}
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
               <Route path={"/claim-university-property-list"} element={<ClaimUniversityPropertyList />} />
+              <Route path={"/claim-college-property-list"} element={<ClaimCollegePropertyList />} />
               <Route path={"/my-university-property-list"} element={<MyUniversityPropertyList />} />
+              <Route path={"/my-college-property-list"} element={<MyCollegePropertyList />} />
               <Route path={"/category-list"} element={<CategoryList />} />
               <Route path={"/add-category"} element={<CreateCategory />} />
               <Route path={"/delete-category"} element={<DeleteCategoryList />} />

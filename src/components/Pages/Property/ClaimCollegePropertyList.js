@@ -6,25 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/AuthAction";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
+import { OtpModal } from "../../Modal/OtpModal";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
 import { propertyDelete } from "../../../redux/Action/PropertyAction";
+import { ToastContainer, toast } from 'react-toastify';
+
 export default function Editors() {
   const dispatch = useDispatch();
-
   const { users, college, tab_status } = useSelector(state => ({
     users: state?.userAuth?.loginUser?.user,
-    college: state?.propertyType?.college.filter(item => item?.edu_type == "University"),
+    college: state?.propertyType?.college.filter(item => item?.edu_type !== "University" && item.isClaimed !== true),
     tab_status: state?.propertyType?.tab_status,
   }));
 
-  useEffect(() => {
-    dispatch(getCollegeList())
-  })
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
-  const [editUser, setEditUser] = useState();
+  const [propertyId, setPropertyId] = useState("");
   const [permission, setPermission] = React.useState({});
   const [deleteId, setDeleteId] = useState();
 
@@ -46,7 +45,6 @@ export default function Editors() {
   };
   const handleStatusUpdate = (row) => () => {
     dispatch(userUpdate(row?._id, { ...row, type: "property" }));
-    dispatch(getCollegeList())
   };
 
   const handleClose = () => {
@@ -55,7 +53,6 @@ export default function Editors() {
 
   const propertyDeleteAction = (id) => {
     dispatch(propertyDelete(deleteId))
-    dispatch(getCollegeList())
     window.location.reload(false);
   }
 
@@ -64,58 +61,62 @@ export default function Editors() {
   }, [])
 
   const handleShow = (id) => () => {
-    setDeleteId(id)
-    setShow(true)
+    updatePost(id);
   };
+
+  async function updatePost(id) {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', authorization: `Bearer ${sessionStorage.getItem("accessToken")}` },
+      body: JSON.stringify({ property_id: id, user_id: sessionStorage.getItem("userId") })
+    };
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/sendOtpForClaim`, requestOptions);
+    const data = await response.json();
+    if (data.status_code = 200) {
+      setOpen(true);
+      setPropertyId(data.data.property_id);
+      toast.success(data.message);
+    }
+  }
 
   return (
     <div>
-      <div cl
-      assName="page-header">
+      <div className="page-header">
         <div>
-          <h1 className="page-title"> University Property List</h1>
+          <h1 className="page-title">Claim  College Property List</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
               Property
             </Breadcrumb.Item>
             <Breadcrumb.Item className="breadcrumb-item active breadcrumds" aria-current="page">
-            University Property List
+              Claim College Property List
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        {permission?.universityCreate == true || Object.keys(permission) == false ?
-          <div className="ms-auto pageheader-btn">
-            <NavLink to="/add-propertys" className="btn btn-primary btn-icon text-white me-3">
-              <span>
-                <i className="fe fe-plus"></i>&nbsp;
-              </span>
-              Add Property
-            </NavLink>
-          </div> : ""}
       </div>
 
       <Row className=" row-sm">
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">University Property List</h3>
+              <h3 className="card-title">Claim College Property List</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.ProrpertyListTable
+                <datatable.ClaimProrpertyListTable
                   handleStatusUpdate={handleStatusUpdate}
                   handleShow={handleShow}
                   propertyDeleteAction={propertyDeleteAction}
                   handleClickOpen={handleClickOpen}
                   tab_status={tab_status}
-                  college={users?.role&&users?.role==2?college?.filter(college=>college.created_by_user_id==users?._id):college}
+                  college={users?.role && users?.role == 2 ? college?.filter(college => college.created_by_user_id == users?._id) : college}
                   permission={permission} />
               </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <SimpleModal role={2} editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
+      <OtpModal open={open} scroll={scroll} propertyId={propertyId} userId={sessionStorage.getItem("userId")} handleClose={handleClose} />
       <WarningModal setShow={setShow} propertyDeleteAction={propertyDeleteAction} show={show} handleShow={handleShow} />
     </div>
   );
