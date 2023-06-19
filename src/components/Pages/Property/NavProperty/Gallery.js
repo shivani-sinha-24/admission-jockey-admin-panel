@@ -89,7 +89,7 @@ const Gallery = () => {
         {gallery?.length > 0 &&
           gallery?.map((item, i) => {
             return (
-             
+             console.log('item id: ',item?._id),
               <Card 
                 key={i}
                 className="card">
@@ -99,7 +99,7 @@ const Gallery = () => {
                     <div className="ms-auto pageheader-btn">
                       <NavLink
                         // onClick={handleClickOpen("paper", item)}
-                        to={`/gallery-update/${params.clgid}`}
+                        to={`/gallery-update/${item?._id}`}
                         className="btn btn-primary btn-icon text-white me-3"
                       >
                         <span>
