@@ -64,7 +64,6 @@ const Gallery = () => {
   return (
     <>
       <PropertyDetails>
-
         <Row>
           <Col>
             <Card>
@@ -125,7 +124,6 @@ const Gallery = () => {
                             return (
                               <div className="col-4" key={index}>
                                 <PhotoItem
-                                  // image="http://localhost:5500/images"
                                   image={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
                                   className="br-5"
                                   group="group1"

@@ -187,20 +187,15 @@ export const getGallery = () => async (dispatch) => {
 export const deleteGalleryImg = (details) => async (dispatch) => {
   try {
 
-    console.log(details);
     dispatch({ type: DELETE_GALLERY_IMAGE_REQUEST});
     const {data} =  await API.put(`/delete-gallery-image`,details)
-
     if(data.status_code == 200){
-      console.log(data);
       dispatch({type: DELETE_GALLERY_IMAGE_SUCCESS, payload:data})
       toast.success(data?.message)
     }else{
       toast.error(data?.message)
     }
-    
   } catch (error) {
-    console.log(error, "error")
     dispatch({
       type: DELETE_GALLERY_IMAGE_FAILURE
     });
@@ -210,18 +205,15 @@ export const deleteGalleryImg = (details) => async (dispatch) => {
 
 export const replaceGalleryImage = (details) => async (dispatch) => {
   try {
-    console.log(details);
     dispatch({type:REPLACE_GALLERY_IMAGE_REQUEST})
     const {data} = await API.put(`/replace-gallery-image`,details)
     if(data.status_code == 200){
-      console.log(data);
       dispatch({type: REPLACE_GALLERY_IMAGE_SUCCESS, payload:data})
       toast.success(data?.message)
     }else{
       toast.error(data?.message)
     }
   } catch (error) {
-    console.log(error, "error")
     dispatch({
       type: REPLACE_GALLERY_IMAGE_FAILURE
     });
@@ -241,7 +233,6 @@ export const updateGalleryImage = (details) => async (dispatch) =>{
       toast.error(data?.message)
     }
   } catch (error) {
-    console.log(error, "error")
     dispatch({
       type: EDIT_GALLERY_IMAGE_FAILURE
     });
