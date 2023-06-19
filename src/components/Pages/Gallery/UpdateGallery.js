@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import { DropImg } from '../Property/StepForm/component/DropImg'
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,10 +16,15 @@ const UpdateGallery = () => {
         dispatch(getGallery());
       }, []);
 
+    const [galleryImgToDelete,setGalleryImgToDelete] = useState([]);
+    console.log('galleryImgToDelete: ',galleryImgToDelete);
+
     const { gallery } = useSelector((state) => ({
-        gallery: state?.propertyType?.gallery.filter(item => item?.property_id == params.clgid),
+        gallery: state?.propertyType?.gallery.filter(item => item?._id == params.clgid),
         // gallery: state?.propertyType?.gallery,
       }));
+
+      console.log("gallery: ",gallery);
 
       const formik = useFormik({
         enableReinitialize: true,
@@ -96,6 +101,8 @@ const UpdateGallery = () => {
                                     key={index}
                                     // handleDelete={handleDelete}
                                     index={index}
+                                    setGalleryImgToDelete={setGalleryImgToDelete}
+                                    galleryImgToDelete={galleryImgToDelete}
                                 />
                                 )
                             }
