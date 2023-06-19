@@ -11,7 +11,7 @@ export default function Caller() {
 
   const { users,teamLeaders } = useSelector(state => ({
     users: state?.userAuth?.users,
-    teamLeaders: state?.userAuth?.teamLeader,
+    teamLeaders: state?.userAuth?.teamLeader.filter(teamleader=>teamleader.type=='Caller'),
   }));
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -40,8 +40,8 @@ export default function Caller() {
   }, [])
 
   const userDeleteAction = () => {
-    dispatch(teamLeadDelete(deleteId));
-    dispatch(getTeamLeader())
+    dispatch(teamLeadDelete(deleteId))
+    .then(()=>dispatch(getTeamLeader()));
   }
 
   const handleShow = (id) => {

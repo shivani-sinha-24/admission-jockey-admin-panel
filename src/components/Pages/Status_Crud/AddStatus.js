@@ -40,8 +40,6 @@ const AddStatus = ({ open, scroll, handleClose }) => {
     users: state?.userAuth?.loginUser.user,
   })); 
 
-  // console.log("status: ",status);
-  // console.log("users id from add status: ",users._id);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -54,7 +52,6 @@ const AddStatus = ({ open, scroll, handleClose }) => {
      validationSchema: statusvalSchema,
     onSubmit: values => {
       values = { ...formik.values, "description": content, created_by_user_id :  users._id}
-      console.log(values);
       if (editStatus != undefined) {
       dispatch(statusUpdate(editStatus?._id,values));
       dispatch(statusFetch());

@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByRole, userDelete, userListUpdate, createTeamLeader } from "../../../../redux/Action/AuthAction";
+import { fetchUserByRole, userDelete, userListUpdate, createTeamLeader, getTeamLeader } from "../../../../redux/Action/AuthAction";
 import {
   Stack,
   OutlinedInput,
@@ -59,7 +59,8 @@ export default function AddTeamLeader() {
         "teamName": teamName
       }
       dispatch(createTeamLeader(values));
-      navigate("/callerTeamList");
+      // navigate("/callerTeamList");
+      dispatch(getTeamLeader());
     },
   });
   return (
@@ -69,7 +70,7 @@ export default function AddTeamLeader() {
           <Col lg={12} xl={12} md={12} sm={12}>
             <Card>
               <Card.Header>
-                < Card.Title as="h3">Add Editor Team Leader</Card.Title>
+                < Card.Title as="h3">Add Caller Team Leader</Card.Title>
               </Card.Header>
               <Col sm={12} lg={12} md={12} xl={12}>
                 <Card >
@@ -140,16 +141,19 @@ export default function AddTeamLeader() {
                                 </Stack>
                               )}
                             >
-                              {teamList.map((name) => (
-                                <MenuItem
+                              {teamList.map((name) => {
+                                if(name!==teamLeader){
+                                  return<MenuItem
                                   key={name}
                                   value={name}
                                   sx={{ justifyContent: "space-between" }}
-                                >
-                                  {name}
-                                  {team.includes(name) ? <CheckIcon color="info" /> : null}
-                                </MenuItem>
-                              ))}
+                                  >
+                                    {name}
+                                    {team.includes(name) ? <CheckIcon color="info" /> : null}
+                                  </MenuItem>
+                                }
+                                }
+                              )}
                             </Select>
                           </FormControl>
                           <Button type="submit" variant="primary" className="me-1 mt-5" >Submit</Button>

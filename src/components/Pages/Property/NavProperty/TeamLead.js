@@ -25,7 +25,6 @@ const TeamLead = () => {
     dispatch(getTeamLead());
   }, []);
 
-  // team_lead = users.role&&users.role==2?team_lead?.filter(team_lead=>team_lead.created_by_user_id==users?._id):team_lead
   return (
     <>
       <PropertyDetails>

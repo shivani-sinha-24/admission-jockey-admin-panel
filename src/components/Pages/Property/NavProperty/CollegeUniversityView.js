@@ -25,7 +25,6 @@ const CollegeUniversityView = () => {
         temp.map((unv) => {
             universityListForFetch.push({ name: unv });
         });
-        console.log(university);
         var result = university.filter(function (o1) {
             return universityListForFetch.some(function (o2) {
                 return o1.name === o2.name;       // assumes unique id

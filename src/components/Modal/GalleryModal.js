@@ -27,7 +27,6 @@ export function GalleryModal({ open, scroll, handleClose, editGallery,gallery })
   const params = useParams();
   const [imgArray,setImgArray] = useState(editGallery?.gallery_img)
 
-  console.log('editGallery:', editGallery);
   
   React.useEffect(() => {
     if (open) {
@@ -47,7 +46,6 @@ export function GalleryModal({ open, scroll, handleClose, editGallery,gallery })
     },
     validationSchema: editGallery?statusvalSchema:null,
     onSubmit: values => {
-      console.log(values.gallery_img, "valuesvaluesvalues")
       if (editGallery != undefined) {
 
         if (typeof values.gallery_img[0] != 'string') {

@@ -23,7 +23,6 @@ export default function Login() {
     },
     validationSchema: SignupSchema,
     onSubmit: values => {
-      // console.log('values: ', formik.values);
       dispatch(login(values));
       //alert(JSON.stringify(values, null, 2));
     },

@@ -23,7 +23,6 @@ const Admission_process = () => {
   const setDataForm = () => {
     setEditTeam(admission_process[0]);
   }
-  console.log('admission_process: ',admission_process);
   return (
     <>
       <PropertyDetails>

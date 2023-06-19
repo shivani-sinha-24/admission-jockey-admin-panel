@@ -238,7 +238,7 @@ const propertyTypeReducer = (state = initState, action) => {
             //     ...state,
             //     gallery:
             // })
-            console.log(action.payload);
+            // console.log(action.payload);
 
 
         default:

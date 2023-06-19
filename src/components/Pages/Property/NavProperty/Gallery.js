@@ -39,13 +39,10 @@ const Gallery = () => {
   const [scroll, setScroll] = React.useState("paper");
   const [show, setShow] = useState(false);
   const [editGallery, setEditGallery] = useState(false);
-  // const params = useParams()
   const params = useParams()
-  console.log(params);
 
   const { gallery } = useSelector((state) => ({
     gallery: state?.propertyType?.gallery.filter(item => item?.property_id == params.clgid),
-    // gallery: state?.propertyType?.gallery,
   }));
 
   const handleClickOpen = (scrollType, row) => () => {

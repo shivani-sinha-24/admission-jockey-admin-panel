@@ -13,7 +13,6 @@ export default function Editors() {
   const { users } = useSelector(state => ({
     users: state?.userAuth?.users,
   }));
-  console.log(users,"kartik");
   const [show, setShow] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [open, setOpen] = React.useState(false);  
@@ -32,7 +31,6 @@ export default function Editors() {
     .then(()=>{
       dispatch(fetchUserByRole(2))
     })
-    .catch(err=>console.log(err))
   };
 
 
@@ -80,6 +78,12 @@ export default function Editors() {
               <i className="fe fe-plus"></i>&nbsp;
             </span>
             Add Editor
+          </Link>
+          <Link  to="/editorTeamList" className="btn btn-primary btn-icon text-white me-3">
+            <span>
+              <i className="fe fe-plus"></i>&nbsp;
+            </span>
+            Team Leader
           </Link>
           {/* <Link to="#" className="btn btn-success btn-icon text-white">
             <span>

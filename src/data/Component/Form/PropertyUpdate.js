@@ -50,8 +50,8 @@ export default function PropertyUpdate() {
             }
             dispatch(collegeUpdate(values));
             dispatch(getCollegeList());
-            navigate("/property-list");
-            window.location.reload(false);
+            // navigate("/property-list");
+            // window.location.reload(false);
         },
     });
     return (

@@ -328,7 +328,11 @@ export const createTeamLeader = (user) => async (dispatch) => {
     const { data } = await API.post(`/createUserTeamLeader`, user);
     dispatch({ type: TEAM_LEADER_ADD_SUCCESS, payload: data });
     toast.success("Team Leader Add Successfully.");
-    window.location.href = '/callerTeamList';
+    if(data.teamLeader.type=='Caller'){
+      window.location.href = '/callerTeamList';
+    }else if(data.teamLeader.type=='Editor'){
+      window.location.href = '/editorTeamList';
+    }
   } catch (error) {
     toast.error(error)
     dispatch({
@@ -356,7 +360,7 @@ export const teamLeadDelete = (id) => async (dispatch) => {
     dispatch({ type: TEAM_LEAD_DELETE_REQUEST });
     const { data } = await API.delete(`/deleteTeamLead?id=${id}`);
     // dispatch({ type: CATEGORY_DELETE_SUCCESS, payload:data?.id });
-    toast.success("Category deleted successfully.")
+    toast.success("Team Leader deleted successfully.")
     return
   } catch (error) {
     dispatch({
@@ -370,9 +374,15 @@ export const updateTeamLead = (teamLead) => async (dispatch) => {
   try {
     dispatch({ type: TEAM_LEAD_UPDATE_REQUEST });
     const { data } = await API.post(`/updateTeamLead`, teamLead);
+    console.log(data);
     if (data.status_code == 200) {
       dispatch({ type: TEAM_LEAD_UPDATE_SUCCESS, payload: data?.category });
       toast.success(data?.message)
+      if(data.teamLeader.type=='Caller'){
+        window.location.href = '/callerTeamList';
+      }else if(data.teamLeader.type=='Editor'){
+        window.location.href = '/editorTeamList';
+      }
     } else {
       toast.error(data?.message)
     }

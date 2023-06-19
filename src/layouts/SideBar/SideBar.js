@@ -108,7 +108,6 @@ const Sidebar = () => {
     }
     item.active = !item.active;
     setMainMenu({ mainmenu: MENU });
-    console.log(mainmenu)
   };
 
   //Hover effect
