@@ -88,7 +88,6 @@ const UpdateGallery = () => {
                             {gallery[0]?.gallery_img?.length?
                             gallery[0].gallery_img.map((image,index)=>
                             {
-                                console.log(image, index)
                                 return(
                                 <GalleryImagePreviewCard
                                     image={image}

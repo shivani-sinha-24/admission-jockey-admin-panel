@@ -22,7 +22,6 @@ const UpdateStatus = ({ open, scroll, handleClose }) => {
     dispatch(statusFetch());
   }, []);
 
-  console.log(status);
   const descriptionElementRef = React.useRef(null);
 
 

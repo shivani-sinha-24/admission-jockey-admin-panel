@@ -34,7 +34,6 @@ export default function Team_lead({ setAddTeam, editTeam }) {
     // const [preview,setPreview] = useState(null)
     // const [fileDataURL, setFileDataURL] = useState(null);
     
-    // console.log(team_lead);
     
     const TeamLeadvalSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),

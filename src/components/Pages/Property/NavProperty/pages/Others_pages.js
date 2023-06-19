@@ -37,26 +37,21 @@ const Others_pages = ({setAddTeam, editTeam,others}) => {
       onSubmit:values=>{          
           
           // if (editTeam != undefined) {
-          //   console.log(values);
           //   dispatch(updateOthers(values));
           //   setAddTeam(false);
           // } else {
-          //   console.log(values);
           //   dispatch(createOthers(values));
           //   setAddTeam(false);
           // }
           if (others) {
-            console.log(values);
             dispatch(updateOthers(values));
             setAddTeam(false);
           } else {
-            console.log(values);
             dispatch(createOthers(values));
             setAddTeam(false);
           }
       }
   })
-  console.log(values);
 
   return (
     <div>

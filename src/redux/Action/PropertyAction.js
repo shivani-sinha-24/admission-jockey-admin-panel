@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import API from "../../service/API";
 import {
     PROPERTY_CREATE_REQUEST, PROPERTY_UPDATE_REQUEST, PROPERTY_UPDATE_SUCCESS, PROPERTY_UPDATE_FAILURE, PROPERTY_CREATE_SUCCESS, PROPERTY_CREATE_FAILURE, PROPERTY_DELETE_FAILURE, PROPERTY_DELETE_SUCCESS, PROPERTY_DELETE_REQUEST
@@ -7,7 +6,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 //Add Status action
 export const createProperty = (status) => async (dispatch) => {
-    // const navigate = useNavigate()
     try {
         dispatch({ type: PROPERTY_CREATE_REQUEST });
         const { data } = await API.post(`/collegeCreate`, status);
@@ -15,14 +13,11 @@ export const createProperty = (status) => async (dispatch) => {
         if (data.status_code == 200) {
 
             toast.success(data?.message)
-            console.log(data.college.edu_type);
             if(data.college.edu_type=='University'){
-                // navigate('/university-property-list')
                 window.location.href = '/university-property-list'
 
             }else{
                 window.location.href = '/property-list'
-                // navigate('/property-list')
 
             }
         } else {
@@ -75,6 +70,11 @@ export const collegeUpdate = (status) => async (dispatch) => {
         const { data } = await API.put(`/updateCollege`, status);
         dispatch({ type: PROPERTY_UPDATE_SUCCESS, payload: data });
         toast.success("college updated successfully.")
+        if(data.college.edu_type=='University'){
+            window.location.href = '/university-property-list'
+        }else{
+            window.location.href = '/property-list'
+        }
     } catch (error) {
         dispatch({
             PROPERTY_UPDATE_FAILURE,
@@ -87,7 +87,6 @@ export const propertyDelete = (id) => async (dispatch) => {
     try {
         dispatch({ type: PROPERTY_DELETE_REQUEST });
         const { data } = await API.delete(`/deleteCollege?id=${id}`);
-        console.log(data, "propertyDelte");
         dispatch({ type: PROPERTY_DELETE_SUCCESS, payload: data });
         toast.success("Property deleted successfully.")
     } catch (error) {

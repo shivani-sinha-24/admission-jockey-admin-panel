@@ -25,7 +25,9 @@ import Guest from "./components/Pages/User/Guest";
 import Caller from "./components/Pages/User/Caller";
 import Status from "./components/Pages/Status/Status";
 import CallerTeamLeaderList from "./components/Pages/TeamLeader/Caller/Caller_teamlead";
+import EditorTeamLeaderList from './components/Pages/TeamLeader/Editor/Editor_temlead'
 import AddCallerTeamLeader from "./components/Pages/TeamLeader/Caller/Add_Caller_Team_Lead";
+import AddEditorTeamLeader from "./components/Pages/TeamLeader/Editor/Add_Editor_Team_Lead";
 import PropertyList from "./components/Pages/Property/PropertyList";
 import AddProperty from "./components/Pages/Property/AddProperty";
 import PropertyType from "./components/Pages/Property/PropertyType";
@@ -61,6 +63,7 @@ import { PropertyAdd } from "./data/Component/Form/PropertyAdd";
 import UpdateEditor from "./components/Pages/User_crud/update";
 import UpdateCaller from "./components/Pages/Caller/update";
 import UpdateCallerTeamLeader from "./components/Pages/TeamLeader/Caller/Update_Caller_Team_Lead";
+import UpdateEditorTeamLeader from "./components/Pages/TeamLeader/Editor/Update_Editor_Team_Lead";
 import PropertyUpdate from "./data/Component/Form/PropertyUpdate";
 import EditProfile from "./components/Pages/profileEdit/EditProfile";
 import Others from "./components/Pages/Property/NavProperty/Others";
@@ -99,8 +102,11 @@ function App() {
               <Route path={"/editorAdd"} element={<AddEditors />} />
               <Route path={"/callerAdd"} element={<AddCaller />} />
               <Route path={"/callerTeamList"} element={<CallerTeamLeaderList />} />
+              <Route path={"/editorTeamList"} element={<EditorTeamLeaderList />} />
               <Route path={"/add_callerTeamList"} element={<AddCallerTeamLeader />} />
+              <Route path={"/add_editorTeamList"} element={<AddEditorTeamLeader />} />
               <Route path={"/update_callerTeamList/:id"} element={<UpdateCallerTeamLeader />} />
+              <Route path={"/update_editorTeamList/:id"} element={<UpdateEditorTeamLeader />} />
               <Route path={"/caller-update/:id"} element={<UpdateCaller />} />
               <Route path={"/editor-update/:id"} element={<UpdateEditor />} />
               <Route path={"/gallery-update/:clgid"} element={<UpdateGallery/>} />

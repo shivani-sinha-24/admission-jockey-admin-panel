@@ -14,7 +14,6 @@ const Faqs = () => {
     faqs: state?.propertyType?.faqs,
   }));
 
-  console.log(faqs, "faqs")
   useEffect(() => {
     dispatch(getFaqs())
   }, [])

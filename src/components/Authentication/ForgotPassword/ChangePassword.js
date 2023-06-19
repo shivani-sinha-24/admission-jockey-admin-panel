@@ -14,7 +14,7 @@ const SignupSchema = Yup.object().shape({
 export default function ChangePassword() {
 
   const dispatch = useDispatch();
-console.log(window.location.pathname.split("/")[2],"window.location.pathname")
+  // console.log(window.location.pathname.split("/")[2],"window.location.pathname")
   const formik = useFormik({
     initialValues: {
       "new_password": "",

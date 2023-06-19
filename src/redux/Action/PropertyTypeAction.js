@@ -10,7 +10,6 @@ export const createPropertyType = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TYPE_ADD_REQUEST });
     const { data } = await API.post(`/createPropertyType`, property);
-    console.log("PROPERTY_TYPE_ADD_REQUEST", data)
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_TYPE_ADD_SUCCESS, payload: data?.propertyCreated });
@@ -46,7 +45,6 @@ export const updatePropertyType = (id, property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_TYPE_UPDATE_REQUEST });
     const { data } = await API.put(`/updatePropertyType?id=${id}`, property);
-    console.log("data", data);
     dispatch({ type: PROPERTY_TYPE_UPDATE_SUCCESS, payload: data });
 
     toast.success("Property updated successfully.")
@@ -82,7 +80,6 @@ export const preopertyForm = (property, navigate) => async (dispatch) => {
     dispatch({ type: PROPERTY_FORM_REQUEST });
     const { data } = await API.post(`/collegeCreate`, property);
 
-    console.log("PROPERTY_FORM_REQUEST", data);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_FORM_SUCCESS, payload: data?.college });
@@ -108,7 +105,6 @@ export const getCollegeAffliateApprove = () => async (dispatch) => {
     dispatch({ type: GET_AFFILIATE_APPROVE });
     const { data } = await API.get(`/getCollegeAffliateApprove`);
 
-    console.log("getCollegeAffliateApprove", data);
 
     dispatch({ type: SUCCESS_AFFILIATE_APPROVE, payload: data });
 
@@ -128,7 +124,6 @@ export const getCollegeList = () => async (dispatch) => {
     dispatch({ type: GET_COLLEGE_LIST });
     const { data } = await API.get(`/getCollegeList`);
 
-    console.log("getCollegeAffliateApprove", data);
 
     dispatch({ type: SUCCESS_COLLEGE_LIST, payload: data });
 
@@ -149,7 +144,6 @@ export const createGallery = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_GALLERY_ADD_REQUEST });
     const { data } = await API.post(`/createGallery`, property);
-    console.log(data, "PROPERTY_GALLERY_ADD_REQUEST")
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_GALLERY_ADD_SUCCESS, payload: data?.gallery });
@@ -172,7 +166,6 @@ export const getGallery = () => async (dispatch) => {
   try {
     dispatch({ type: GET_GALLERY_LIST });
     const { data } = await API.get(`/getGallery`);
-    console.log(data, "getGallery")
 
     dispatch({ type: SUCCESS_GALLERY_LIST, payload: data });
 
@@ -189,14 +182,12 @@ export const getGallery = () => async (dispatch) => {
 export const deleteGalleryImg = (details) => async (dispatch) => {
   try {
 
-    console.log(details);
     dispatch({ type: DELETE_GALLERY_IMAGE_REQUEST});
     const {data} =  await API.put(`/delete-gallery-image`,details)
 
     if(data.status_code == 200){
-      console.log(data);
       dispatch({type: DELETE_GALLERY_IMAGE_SUCCESS, payload:data})
-      toast.success(data?.message)
+      // toast.success(data?.message)
     }else{
       toast.error(data?.message)
     }
@@ -212,11 +203,9 @@ export const deleteGalleryImg = (details) => async (dispatch) => {
 
 export const replaceGalleryImage = (details) => async (dispatch) => {
   try {
-    console.log(details);
     dispatch({type:REPLACE_GALLERY_IMAGE_REQUEST})
     const {data} = await API.put(`/replace-gallery-image`,details)
     if(data.status_code == 200){
-      console.log(data);
       dispatch({type: REPLACE_GALLERY_IMAGE_SUCCESS, payload:data})
       toast.success(data?.message)
     }else{
@@ -301,7 +290,6 @@ export const getTeamLead = () => async (dispatch) => {
     dispatch({ type: GET_TEAM_LIST });
     const { data } = await API.get(`/getTeamLead`);
 
-    console.log("getGallery", data);
 
     dispatch({ type: SUCCESS_TEAM_LIST, payload: data });
 
@@ -321,7 +309,6 @@ export const createPlacement = (property) => async (dispatch) => {
     dispatch({ type: PROPERTY_PLACEMENT_ADD_REQUEST });
     const { data } = await API.post(`/createPlacement`, property);
 
-    console.log("PROPERTY_PLACEMENT_ADD_REQUEST", data);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_PLACEMENT_ADD_SUCCESS, payload: data?.placement });
@@ -344,7 +331,6 @@ export const updatePlacement = (property) => async (dispatch) => {
     dispatch({ type: PROPERTY_PLACEMENT_UPDATE_REQUEST });
     const { data } = await API.put(`/updatePlacement`, property);
 
-    console.log("PROPERTY_PLACEMENT_UPDATE_REQUEST", data);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_PLACEMENT_UPDATE_SUCCESS, payload: data?.placement });
@@ -369,7 +355,6 @@ export const getPlacement = () => async (dispatch) => {
     dispatch({ type: GET_PLACEMENT_LIST });
     const { data } = await API.get(`/getPlacement`);
 
-    console.log("getPlacement", data);
 
     dispatch({ type: SUCCESS_PLACEMENT_LIST, payload: data });
 
@@ -389,7 +374,6 @@ export const createLoan = (property) => async (dispatch) => {
     dispatch({ type: PROPERTY_LOAN_ADD_REQUEST });
     const { data } = await API.post(`/createLoan`, property);
 
-    console.log("PROPERTY_LOAN_ADD_REQUEST", data);
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_LOAN_ADD_SUCCESS, payload: data?.loan });
@@ -413,7 +397,6 @@ export const updateLoan = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_LOAN_UPDATE_REQUEST });
     const { data } = await API.put(`/updateLoan`, property);
-    console.log("PROPERTY_LOAN_UPDATE_REQUEST", data);
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_LOAN_UPDATE_SUCCESS, payload: data?.loan });
       toast.success(data?.message)
@@ -436,7 +419,6 @@ export const getLoan = () => async (dispatch) => {
     dispatch({ type: GET_LOAN_LIST });
     const { data } = await API.get(`/getLoan`);
 
-    console.log(data, "getLoan")
 
     dispatch({ type: SUCCESS_LOAN_LIST, payload: data });
 
@@ -497,7 +479,6 @@ export const getScholarship = () => async (dispatch) => {
   try {
     dispatch({ type: GET_SCHOLARSHIP_LIST });
     const { data } = await API.get(`/getScholarship`);
-    console.log(data, "getGallery")
 
     dispatch({ type: SUCCESS_SCHOLARSHIP_LIST, payload: data });
 
@@ -609,7 +590,6 @@ export const getAnnouncement = () => async (dispatch) => {
 
     dispatch({ type: GET_ANNOUNCEMENT_LIST });
     const { data } = await API.get(`/getAnnouncement`);
-    console.log(data, "getGallery")
 
     dispatch({ type: SUCCESS_ANNOUNCEMENT_LIST, payload: data });
 
@@ -627,7 +607,6 @@ export const createFaqs = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_FAQS_ADD_REQUEST });
     const { data } = await API.post(`/createFaqs`, property);
-    console.log(data, "PROPERTY_FAQS_ADD_REQUEST")
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_FAQS_ADD_SUCCESS, payload: data?.faqs });
@@ -649,7 +628,6 @@ export const updateFaqs = (property) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_FAQS_UPDATE_REQUEST });
     const { data } = await API.put(`/updateFaqs`, property);
-    console.log(data, "PROPERTY_FAQS_UPDATE_REQUEST")
 
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_FAQS_UPDATE_SUCCESS, payload: data?.faqs });
@@ -670,7 +648,6 @@ export const getFaqs = () => async (dispatch) => {
   try {
     dispatch({ type: GET_FAQS_LIST });
     const { data } = await API.get(`/getFaqs`);
-    console.log(data, "getGallery")
 
     dispatch({ type: SUCCESS_FAQS_LIST, payload: data });
 
@@ -835,7 +812,6 @@ export const createOthers = (values) => async (dispatch) => {
   try {
     dispatch({ type: PROPERTY_OTHERS_ADD_REQUEST })
     const { data } = await API.post(`/createOther`, values);
-    console.log(data);
     if (data.status_code == 200) {
       dispatch({ type: PROPERTY_OTHERS_ADD_SUCCESS, payload: data?.others })
       toast.success(data?.message)
@@ -851,7 +827,6 @@ export const createOthers = (values) => async (dispatch) => {
 export const updateOthers = (values) => async (dispatch) => {
   try {
 
-    console.log('values from action update', values);
     dispatch({ type: PROPERTY_OTHERS_UPDATE_REQUEST })
     const { data } = await API.put(`/updateOther`, values);
     if (data.status_code == 200) {
@@ -958,7 +933,6 @@ export const getUniversityCoursesForCollege = (requestData) => async (dispatch) 
   try {
     dispatch({ type: GET_UNIVERSITY_COURSE_FOR_COLLEGE_LIST });
     const { data } = await API.post('/getUniversityCourseForCollege', requestData);
-    console.log(data);
     dispatch({ type: SUCCESS_UNIVERSITY_COURSE_FOR_COLLEGE_LIST, payload: data });
   } catch (error) {
     dispatch({

@@ -29,7 +29,6 @@ const editProfileSchema = Yup.object().shape({
 
 export function EditProfileModal({ open, role, scroll, handleClose, editUser, profile }) {
 
-  console.log(editUser);
   const descriptionElementRef = React.useRef(null);
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -56,7 +55,6 @@ export function EditProfileModal({ open, role, scroll, handleClose, editUser, pr
       if (editUser != undefined) {
         let formData = new FormData();
         for (let value in values) {
-          console.log(value, values[value]);
           formData.append(value, values[value]);
         }
         dispatch(userUpdate(editUser?._id, formData));

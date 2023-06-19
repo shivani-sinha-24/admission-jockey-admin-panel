@@ -41,8 +41,7 @@ export default function DataTables() {
   const handleShow = (id) => () => {
     setDeleteId(id)
     setShow(true)
-  };
-  console.log(users)
+  }; 
   return (
     <div>
       <div className="page-header">

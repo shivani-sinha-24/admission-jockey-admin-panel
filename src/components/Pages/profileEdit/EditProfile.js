@@ -25,7 +25,6 @@ const EditProfile = () => {
   const editor = useRef(null);
   const [content, setContent] = useState(profileData?.description || "");
 
-  console.log(profileData?._id);
 
   const [file, setFile] = useState("");
   const [preview,setPreview] = useState(null)
@@ -41,7 +40,6 @@ const EditProfile = () => {
     },
     onSubmit:(values)=>{
       values = { ...formik.values, "description": content, id }
-      console.log(values);
       let formData = new FormData();
       for (let value in values) {
           formData.append(value, values[value]);

@@ -50,7 +50,6 @@ export function CategoryModal({
 
   const [image, setImage] = useState('');
   function handleImage(e) {
-    console.log(e.target.files);
     setImage(e.target.files[0]);
   }
 
@@ -58,7 +57,7 @@ export function CategoryModal({
     const formData = new FormData();
     formData.append('image', image);
     axios.post('.../assets/images',formData).then((res) => {
-        console.log(res);
+      // console.log(res);
     })
   }
 

@@ -24,7 +24,6 @@ export default function PropertyType() {
     users: state?.userAuth?.loginUser?.user,
   })); 
 
-  console.log(property);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
   const [editProperty, setEditProperty] = useState();

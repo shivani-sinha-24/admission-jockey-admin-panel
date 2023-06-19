@@ -24,7 +24,6 @@ export const getCategory = () => async (dispatch) => {
   try {
     dispatch({ type: CATEGORY_GET_REQUEST });
     const { data } = await API.get(`/getCategory`);
-    console.log(data);
     dispatch({ type: CATEGORY_GET_SUCCESS, payload: data });
 
   } catch (error) {
@@ -80,7 +79,6 @@ export const updateCategory = (category) => async (dispatch) => {
   try {
     dispatch({ type: CATEGORY_UPDATE_REQUEST });
     const { data } = await API.put(`/updateCategory`, category);
-    console.log("CATEGORY_UPDATE_REQUEST", data);
     if (data.status_code == 200) {
       dispatch({ type: CATEGORY_UPDATE_SUCCESS, payload: data?.category });
       toast.success(data?.message)

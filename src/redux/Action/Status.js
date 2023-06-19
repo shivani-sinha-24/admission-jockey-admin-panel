@@ -26,7 +26,6 @@ export const statusCreate = (status) => async (dispatch) => {
   try {
     dispatch({ type: USER_STATUS_CREATE_REQUEST });
     const { data } = await API.post(`/statusCreate`, status);
-console.log(data,"llllllooooo")
     dispatch({ type: USER_STATUS_CREATE_SUCCESS, payload:data });
       // window.location.href ="/status";
 

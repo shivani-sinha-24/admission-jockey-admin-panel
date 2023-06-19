@@ -31,14 +31,14 @@ export default function AddTeamLeader() {
     const navigate = useNavigate();
     const { users, college, tab_status, teamLeaders } = useSelector(state => ({
         users: state?.userAuth?.users?.users,
-        teamLeaders: state?.userAuth?.teamLeader.filter(item => item._id = params.id),
+        teamLeaders: state?.userAuth?.teamLeader.filter(item => item._id == params.id),
     }));
     const [teamLeader, setTeamleader] = React.useState(teamLeaders[0]?.teamLeader || "");
     const [teamName, setTeamName] = React.useState(teamLeaders[0]?.teamName || "");
     const [team, setTeam] = React.useState(teamLeaders[0]?.team || []);
     const [teamList, setTeamList] = React.useState([]);
     useEffect(() => {
-        dispatch(fetchUserByRole(3));
+        dispatch(fetchUserByRole(2));
         dispatch(getTeamLeader());
         if (users?.length > 0) {
             let filterList = [];
@@ -63,7 +63,7 @@ export default function AddTeamLeader() {
             }
             dispatch(updateTeamLead(values));
             dispatch(getTeamLeader());
-            navigate("/callerTeamList");
+            // navigate("/callerTeamList");
         },
     });
     return (
