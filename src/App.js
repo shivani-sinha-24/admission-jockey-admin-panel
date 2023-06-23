@@ -74,6 +74,7 @@ import AddPropertyType from "./components/Pages/PropertyType_Crud/AddPropertyTyp
 import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePropertyType";
 import UpdateStatus from "./components/Pages/Status_Crud/UpdateStatus";
 import UpdateGallery from "./components/Pages/Gallery/UpdateGallery";
+import UpdateHostel from "./components/Pages/Property/NavProperty/pages/UpdateHostel";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -168,11 +169,12 @@ function App() {
               <Route path={"/property-list/:clgid/:unicorsid/addcollegecourse"} element={<AddCollegeCourse />} />
               <Route path={"/property-list/:universityId/:id/updateUniversityCourse"} element={<UpdateUniversityCourse />} />
               <Route path={"/property-list/:clgid/:universityId/:id/updateCollegeCourse"} element={<UpdateCollegeCourse />} />
-              <Route path={"/property-list/:id/others"} element={<Others />} />
+              <Route path={"/property-list/:clgid/others"} element={<Others />} />
               <Route path={"/property-list/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:clgid/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:edu_type/:clgid/hostel"} element={<Hostel />} />
+              <Route path={"/update-hostel/:id"} element={<UpdateHostel />} />
               <Route path={"/property-list/:clgid/QA"} element={<QA />} />
               <Route path={"/property-list/:edu_type/:clgid/QA"} element={<QA />} />
               <Route

@@ -286,16 +286,16 @@ export const userUpdate = (user) => async (dispatch) => {
 export const userProfileUpdate = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_PROFILEUPDATE_REQUEST });
-    console.log("APi", API);
+    // console.log("APi", API);
     const { data } = await API.put(`/userProfileUpdate`, user);
 
-    console.log("userUpdate", data, data?.data);
-    console.log("data", data);
+    // console.log("userUpdate", data, data?.data);
+    // console.log("data", data);
 
     dispatch({ type: USER_PROFILEUPDATE_SUCCESS, payload: data });
     toast.success("User updated successfully.")
     if (data) {
-      window.location.href = `/profile`;
+      // window.location.href = `/profile`;
     }
     return data
   } catch (error) {
@@ -374,9 +374,9 @@ export const updateTeamLead = (teamLead) => async (dispatch) => {
   try {
     dispatch({ type: TEAM_LEAD_UPDATE_REQUEST });
     const { data } = await API.post(`/updateTeamLead`, teamLead);
-    console.log(data);
+    // console.log(data);
     if (data.status_code == 200) {
-      dispatch({ type: TEAM_LEAD_UPDATE_SUCCESS, payload: data?.category });
+      dispatch({ type: TEAM_LEAD_UPDATE_SUCCESS, payload: data?.teamLeader });
       toast.success(data?.message)
       if(data.teamLeader.type=='Caller'){
         window.location.href = '/callerTeamList';

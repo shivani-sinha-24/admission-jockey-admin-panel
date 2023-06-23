@@ -1,6 +1,6 @@
 import React, { useEffect, useState ,useRef} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 import moment from 'moment'
@@ -11,6 +11,7 @@ import { DropImg } from '../Property/StepForm/component/DropImg';
 
 const EditProfile = () => {
   const dispatch = useDispatch()    
+  const navigate = useNavigate()
   const {users} = useSelector(state => ({
     users: state?.userAuth?.loginUser,
   })); 
@@ -44,7 +45,8 @@ const EditProfile = () => {
       for (let value in values) {
           formData.append(value, values[value]);
       }
-      dispatch(userProfileUpdate(formData));
+      dispatch(userProfileUpdate(formData))
+      navigate('/profile');
     }
   })
 

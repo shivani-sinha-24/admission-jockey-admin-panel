@@ -1279,12 +1279,12 @@ export const ProrpertyListTable = ({
     },
 
     {
-      name: "COLLEGE TYPE",
+      name: "UNIVERSITY TYPE",
       selector: (row) => [row.college_type],
       sortable: true,
     },
     {
-      name: "COLLEGE EMAIL",
+      name: "UNIVERSITY EMAIL",
       selector: (row) => [row.email],
       sortable: true,
     },

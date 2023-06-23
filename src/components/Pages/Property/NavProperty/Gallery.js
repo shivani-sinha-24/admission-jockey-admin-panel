@@ -89,7 +89,6 @@ const Gallery = () => {
         {gallery?.length > 0 &&
           gallery?.map((item, i) => {
             return (
-             console.log('item id: ',item?._id),
               <Card 
                 key={i}
                 className="card">

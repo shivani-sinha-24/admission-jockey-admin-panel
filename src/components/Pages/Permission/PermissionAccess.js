@@ -130,8 +130,9 @@ export default function Permission() {
             "categoryDelete": categoryDelete,
             "propertyTypeDelete": propertyTypeDelete
         }
+        navigate(-1)
         dispatch(permission(data));
-        window.location.href = '/caller';
+        // window.location.href = '/caller';
     }
     return (
         <div>
@@ -252,6 +253,7 @@ export default function Permission() {
                                         </tr>
                                     </table>
                                     <div className="d-flex justify-content-end">
+                                        <button className="btn btn-danger mt-2 me-2 " onClick={() => navigate(-1)} >Cancel</button>
                                         <button className="btn btn-primary mt-2 " onClick={() => onSubmit()} >Submit</button>
                                     </div>
                                     {/* </form> */}

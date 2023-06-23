@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Dropdown, Navbar, Container,Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { changePass, fetchLoginUserById, fetchUserById } from "../../redux/Action/AuthAction";
 // import user8 from "../../../assets/images/profile__.png";
 import user8 from '../../assets/images/profile__.png'
@@ -413,32 +413,47 @@ export function Header() {
                       
                       </Dropdown.Item>
                       <Dropdown.Item
-                        href={`${process.env.PUBLIC_URL}/pages/mailInbox/`}
+                        // href={`${process.env.PUBLIC_URL}/pages/mailInbox/`}
                       >
+                        <Link to={`${process.env.PUBLIC_URL}/pages/mailInbox/`}>
                         <i className="dropdown-icon fe fe-mail"></i> Inbox
+                        </Link>
                         <span className="badge bg-secondary float-end">3</span>
                       </Dropdown.Item>
                       <Dropdown.Item
-                        href={`${process.env.PUBLIC_URL}/pages/mailCompose/`}
+                        // href={`${process.env.PUBLIC_URL}/pages/mailCompose/`}
                       >
+                        <Link to={`${process.env.PUBLIC_URL}/pages/mailCompose/`}>
                         <i className="dropdown-icon fe fe-settings"></i>
                         Settings
+                        </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item
+                      {/* <Dropdown.Item
                         href={`${process.env.PUBLIC_URL}/pages/faqs/`}
                       >
                         <i className="dropdown-icon fe fe-alert-triangle"></i>
-                        Need help?p??
+                        Need help???
+                      </Dropdown.Item> */}
+                      <Dropdown.Item
+                       // href={`/profile`}
+                      >
+                      <Link to={`${process.env.PUBLIC_URL}/pages/faqs/`}>
+                      <i className="dropdown-icon fe fe-alert-triangle"></i>
+                        Need help???
+                      </Link>
+                      
                       </Dropdown.Item>
                       <Dropdown.Item  onClick={() => {
                       sessionStorage.clear();
                       window.location.reload(false);
                       window.location.href = '/login';
                     }} 
-                        href={`${process.env.PUBLIC_URL}/custompages/login/`}
+                        // href={`${process.env.PUBLIC_URL}/login`}
                       >
+                        <Link>
                         <i className="dropdown-icon fe fe-alert-circle"></i>
                         Sign out
+                        </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

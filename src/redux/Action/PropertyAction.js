@@ -13,13 +13,13 @@ export const createProperty = (status) => async (dispatch) => {
         if (data.status_code == 200) {
 
             toast.success(data?.message)
-            if(data.college.edu_type=='University'){
-                window.location.href = '/university-property-list'
+            // if(data.college.edu_type=='University'){
+            //     window.location.href = '/university-property-list'
 
-            }else{
-                window.location.href = '/property-list'
+            // }else{
+            //     window.location.href = '/property-list'
 
-            }
+            // }
         } else {
             toast.error(data?.message)
         }
@@ -70,11 +70,11 @@ export const collegeUpdate = (status) => async (dispatch) => {
         const { data } = await API.put(`/updateCollege`, status);
         dispatch({ type: PROPERTY_UPDATE_SUCCESS, payload: data });
         toast.success("college updated successfully.")
-        if(data.college.edu_type=='University'){
-            window.location.href = '/university-property-list'
-        }else{
-            window.location.href = '/property-list'
-        }
+        // if(data.college.edu_type=='University'){
+        //     window.location.href = '/university-property-list'
+        // }else{
+        //     window.location.href = '/property-list'
+        // }
     } catch (error) {
         dispatch({
             PROPERTY_UPDATE_FAILURE,
