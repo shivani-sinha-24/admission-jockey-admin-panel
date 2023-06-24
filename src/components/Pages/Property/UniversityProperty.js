@@ -19,7 +19,7 @@ export default function Editors() {
 
   useEffect(() => {
     dispatch(getCollegeList())
-  })
+  },[])
 
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);

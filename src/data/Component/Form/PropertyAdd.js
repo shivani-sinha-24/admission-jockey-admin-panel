@@ -376,9 +376,11 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
           formData.append(value, values[value]);
         }
         dispatch(createProperty(formData));
+        navigate(-1)
         dispatch(getCollegeList())
       } else {
         dispatch(createProperty(values));
+        navigate(-1)
         dispatch(getCollegeList())
       }
     },

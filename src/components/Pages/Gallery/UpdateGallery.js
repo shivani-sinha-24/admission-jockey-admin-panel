@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap'
 import { DropImg } from '../Property/StepForm/component/DropImg'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getGallery, updateGalleryImage } from '../../../redux/Action/PropertyTypeAction';
+import { deleteGalleryImg, getGallery, updateGalleryImage } from '../../../redux/Action/PropertyTypeAction';
 import { replace, useFormik } from "formik";
 import * as Yup from 'yup';
 import { GalleryImagePreviewCard } from '../../Card/GalleryImagePreviewCard';
@@ -17,14 +17,12 @@ const UpdateGallery = () => {
       }, []);
 
     const [galleryImgToDelete,setGalleryImgToDelete] = useState([]);
-    console.log('galleryImgToDelete: ',galleryImgToDelete);
 
     const { gallery } = useSelector((state) => ({
         gallery: state?.propertyType?.gallery.filter(item => item?._id == params.clgid),
         // gallery: state?.propertyType?.gallery,
       }));
 
-      console.log("gallery: ",gallery);
 
       const formik = useFormik({
         enableReinitialize: true,
@@ -35,6 +33,11 @@ const UpdateGallery = () => {
         },
         // validationSchema: gallery[0]?statusvalSchema:null,
         onSubmit: values => {       
+            if(galleryImgToDelete?.length){
+              
+              dispatch(deleteGalleryImg(galleryImgToDelete))
+              dispatch(getGallery());
+            }
             if (typeof values.gallery_img[0] != 'string') {
               let formData = new FormData();
               formData.append("property_id", values.property_id);
@@ -46,6 +49,7 @@ const UpdateGallery = () => {
               }
             //   dispatch(createGallery(formData))
             dispatch(updateGalleryImage(formData))
+            navigate(`/property-list/${gallery[0]?.property_id}/gallery`)
             dispatch(getGallery());
             } else {
     
@@ -57,11 +61,14 @@ const UpdateGallery = () => {
                 gallery_img: values.gallery_img
               }));
             }
+          navigate(`/property-list/${gallery[0]?.property_id}/gallery`)
           dispatch(getGallery());
           formik.resetForm();
           // alert(JSON.stringify(values, null, 2));
         },
       });
+
+      const [reViewImg,setReviewImg] = useState(false)
   return (
     <div>
         <form onSubmit={formik.handleSubmit}>
@@ -103,6 +110,8 @@ const UpdateGallery = () => {
                                     index={index}
                                     setGalleryImgToDelete={setGalleryImgToDelete}
                                     galleryImgToDelete={galleryImgToDelete}
+                                    reViewImg={reViewImg}
+                                    setReviewImg={setReviewImg}
                                 />
                                 )
                             }
@@ -118,7 +127,7 @@ const UpdateGallery = () => {
                                 formik={formik}
                                 />
                             </div>
-                            <Button variant="secondary" className="me-1" onClick={()=>formik.resetForm()}>Cancel</Button>
+                            <Button variant="secondary" className="me-1" onClick={()=>{formik.resetForm();setGalleryImgToDelete([]);dispatch(getGallery());setReviewImg(true)}}>Cancel</Button>
                             <Button type="submit" variant="primary" className="me-1" >Submit</Button>
                         </Col>
                     </Card>

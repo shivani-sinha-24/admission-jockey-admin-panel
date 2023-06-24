@@ -40,7 +40,7 @@ const PropertyDetails = ({ children }) => {
                     role="tablist"
                     defaultActiveKey="videos"
                   >
-                    <Nav.Item onClick={() => navigate(`/property-list`)} className="nav-item">
+                    <Nav.Item onClick={() => navigate(`/university-property-list`)} className="nav-item">
                       <Nav.Link
                         className="nav-link border py-2 px-4 m-1"
                         id="tab1"

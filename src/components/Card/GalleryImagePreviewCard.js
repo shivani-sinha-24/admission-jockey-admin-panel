@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DropImg } from '../Pages/Property/StepForm/component/DropImg';
 import { useFormik } from "formik";
 
-export function GalleryImagePreviewCard({image,setEditProfilePic,name,id,index}) {
-    const dispatch = useDispatch()
+export function GalleryImagePreviewCard({reViewImg,setReviewImg,image,setEditProfilePic,name,id,index,galleryImgToDelete,setGalleryImgToDelete}) {
+  const dispatch = useDispatch()
     const ref = useRef()
     const inputRef = useRef()
     const [show, setShow] = React.useState(true);
@@ -24,11 +24,16 @@ export function GalleryImagePreviewCard({image,setEditProfilePic,name,id,index})
       state?.propertyType?.gallery.filter(gallery=>gallery._id==gallery_details.id)
     )
 
+   
     const handleDelete = (gallery_details)=>{
-      dispatch(deleteGalleryImg(gallery_details))
-      .then(()=>{
-        dispatch(getGallery());
-      })
+      // dispatch(deleteGalleryImg(gallery_details))
+      // .then(()=>{
+      //   dispatch(getGallery());
+      // })
+      setGalleryImgToDelete([...galleryImgToDelete,gallery_details])
+      ref.current.style.display = 'none'
+      setReviewImg(false)
+      
     }
 
     const[editImgPreview,setEditImgPreview] = useState(null)
@@ -51,6 +56,14 @@ export function GalleryImagePreviewCard({image,setEditProfilePic,name,id,index})
         })
       }
     })
+    useEffect(()=>{
+      // dispatch(getGallery())
+      if(ref.current.style.display = 'none'){
+      ref.current.style.display = 'block'
+      }
+
+
+    },[reViewImg])
 
     const [editImage,setEditImage] = useState(false)
     return (

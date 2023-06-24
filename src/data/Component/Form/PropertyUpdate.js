@@ -49,6 +49,7 @@ export default function PropertyUpdate() {
                 ...values
             }
             dispatch(collegeUpdate(values));
+            navigate(-1)
             dispatch(getCollegeList());
             // navigate("/property-list");
             // window.location.reload(false);

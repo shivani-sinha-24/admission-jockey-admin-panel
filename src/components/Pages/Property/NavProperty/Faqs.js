@@ -5,13 +5,15 @@ import { getFaqs } from "../../../../redux/Action/PropertyTypeAction";
 import PropertyDetails from "../PropertyDetails";
 import Faqs_pages from "./pages/Faqs_pages";
 import { Card, Col, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 const Faqs = () => {
   const dispatch = useDispatch();
+  const params = useParams()
   const [addTeam, setAddTeam] = useState(false);
   const [editTeam, setEditTeam] = useState();
   const { faqs } = useSelector(state => ({
-    faqs: state?.propertyType?.faqs,
+    faqs: state?.propertyType?.faqs.filter(item => item?.property_id == params.clgid),
   }));
 
   useEffect(() => {
@@ -44,45 +46,39 @@ const Faqs = () => {
 
               < Card>
 
-                <Card.Body className="faqaccordion">
-                  <div
-                    aria-multiselectable="true"
-                    className="accordion"
-                    id="accordion"
-                    role="tablist"
-                  >
-                    {
-                      faqs?.map((item, i) => {
-                        return (
-                          <>
-                            <Accordion className="acc-card mb-4 " flush>
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header className="acc-header">
-                                  <div className=" pageheader-btn">
-                                    <span>
-                                      <i onClick={() => {
-                                        setAddTeam(true);
-                                        setEditTeam(item);
-                                      }} className="fe fe-edit">
-                                        <button></button></i>&nbsp;
-                                    </span>
-                                  </div>
-                                  {item?.ques}
-                                </Accordion.Header>
-                                <Accordion.Body className="border">
-                                  {item?.answer}
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </Accordion>
-                          </>
-                        )
-                      })
-                    }
-
-
-
-                  </div>
-                </Card.Body>
+                {
+                  faqs?.map((item, i) => {
+                  return (
+                  <Card.Body className="faqaccordion">
+                    <div
+                      aria-multiselectable="true"
+                      className="accordion"
+                      id="accordion"
+                      role="tablist"
+                    >
+                      <Accordion className="acc-card mb-4 " flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header className="acc-header">
+                            <div className=" pageheader-btn">
+                              <span>
+                                <i onClick={() => {
+                                  setAddTeam(true);
+                                  setEditTeam(item);
+                                }} className="fe fe-edit">
+                                  <button></button></i>&nbsp;
+                              </span>
+                            </div>
+                            {item?.ques}
+                          </Accordion.Header>
+                          <Accordion.Body className="border">
+                              {item?.answer}
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>                       
+                    </div>
+                  </Card.Body>
+                  )})
+                }
 
               </Card>
 
