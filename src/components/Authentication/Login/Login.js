@@ -109,7 +109,7 @@ export default function Login() {
                       Login
                     </button>
                   </div>
-                  {/* <div className="text-center pt-3">
+                  <div className="text-center pt-3">
                     <p className="text-dark mb-0">
                       Not a member?
                       <Link
@@ -119,7 +119,7 @@ export default function Login() {
                         Create an Account
                       </Link>
                     </p>
-                  </div> */}
+                  </div>
                 </form>
               </Card.Body>
               <Card.Footer>

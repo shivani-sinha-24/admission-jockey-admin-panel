@@ -25,14 +25,10 @@ const EditProfile = () => {
   const profileData = users?.user
   const editor = useRef(null);
   const [content, setContent] = useState(profileData?.description || "");
-
-
   const [file, setFile] = useState("");
   const [preview,setPreview] = useState(null)
   const [fileDataURL, setFileDataURL] = useState(null);
-
   const [editProfilePic,setEditProfilePic] = useState(profileData?.image?true:false)
-
   const formik = useFormik({
     initialValues:{
       "name":profileData?.name || '',
@@ -49,7 +45,6 @@ const EditProfile = () => {
       navigate('/profile');
     }
   })
-
   return (
     <div className="container bg-white p-3 mt-5">
         <div className="row ">

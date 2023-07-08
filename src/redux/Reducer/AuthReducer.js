@@ -36,15 +36,10 @@ const userAuthReducer = (state = initState, action) => {
                 teamLeader: [...state.teamLeader, action.payload]
             });
         case TEAM_LEADER_GET_SUCCESS:
-        return ({
+            return ({
                 ...state,
                 teamLeader: action.payload
             });
-        // return ({
-        //     ...state,
-        //     users: action.payload
-        // });
-
         case USER_FETCH_ID_SUCCESS:
             return ({
                 ...state,
