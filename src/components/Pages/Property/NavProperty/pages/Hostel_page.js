@@ -119,7 +119,7 @@ const Hostel_page = ({setAddHostel,girlsContent, boysContent, girlsHostel,boysHo
                                     <div className="hostel-title fw-bold fs-6 my-2">Girls Hostel</div>
                                         <div className="col-md-6">
                                             <div >
-                                                        <label className="form-label">Ttile</label>
+                                                        <label className="form-label">Title</label>
                                                         <input
                                                             type="text"
                                                             className="form-control required"
@@ -181,7 +181,7 @@ const Hostel_page = ({setAddHostel,girlsContent, boysContent, girlsHostel,boysHo
                                     <div className="hostel-title fw-bold fs-6 my-2">Boys Hostel</div>
                                         <div className="col-md-6">
                                             <div >
-                                                        <label className="form-label">Ttile</label>
+                                                        <label className="form-label">Title</label>
                                                         <input
                                                             type="text"
                                                             className="form-control required"

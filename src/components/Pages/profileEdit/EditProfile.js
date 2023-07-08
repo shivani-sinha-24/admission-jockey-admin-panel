@@ -47,6 +47,7 @@ const EditProfile = () => {
       }
       dispatch(userProfileUpdate(formData))
       navigate('/profile');
+      dispatch(fetchLoginUserById(sessionStorage.getItem("userId")))
     }
   })
 

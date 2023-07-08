@@ -89,7 +89,7 @@ export default function Admission_process_pages({ setAddTeam, editTeam }) {
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div >
-                                                        <label className="form-label">Ttile</label>
+                                                        <label className="form-label">Title</label>
                                                         <input
                                                             type="text"
                                                             className="form-control required"
