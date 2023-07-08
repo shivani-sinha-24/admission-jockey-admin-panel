@@ -54,7 +54,7 @@ const userAuthReducer = (state = initState, action) => {
         case USER_PROFILEUPDATE_SUCCESS:
             return ({
                 ...state,
-                profileUsers: action.payload
+                profile_user: action.payload
             })
         case LOGIN_USER_FETCH_ID_SUCCESS:
             return ({
