@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { createProperty } from "../../../redux/Action/PropertyAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,19 +29,78 @@ import { DropImg } from "../../../components/Pages/Property/StepForm/component/D
 
 
 //WizardForm
-function Name({ nextStep, handleFormData, values }) {
+function Name({ nextStep, handleFormData, values , setFormData }) {
   const [error, setError] = useState(false);
+
+  const [phonenumber, setphonenumber] = useState("");
+  const [isphonenumberTouched, setIsphonenumberTouched] = useState(false);
+
+  const [website, setwebsite] = useState("");
+  const [iswebsiteTouched, setIswebsiteTouched] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+
+  const isphonenumberValid = phonenumber.trim() !== "";
+  const hasphonenumberError = !isphonenumberValid && isphonenumberTouched;
+
+  const iswebsiteValid = website.trim() !== "";
+  const haswebsiteError = !iswebsiteValid && iswebsiteTouched;
+  
+  const isEmailValid =
+  email.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const hasEmailError = !isEmailValid && isEmailTouched;
+
+  const [isFormValid,setIsFormValid] = useState(false);
+  useEffect(() => {
+    setIsFormValid(isphonenumberValid && iswebsiteValid && isEmailValid);
+  }, [isphonenumberValid, iswebsiteValid, isEmailValid]);
+
   const submitFormData = (e) => {
     e.preventDefault();
-    if (
-      validator.isEmpty(values.email) ||
-      validator.isEmpty(values.phonenumber) ||
-      validator.isEmpty(values.website)
-    ) {
-      setError(true);
-    } else {
+    // if (
+    //   validator.isEmpty(values.email) ||
+    //   validator.isEmpty(values.phonenumber) ||
+    //   validator.isEmpty(values.website)
+    // ) {
+    //   setError(true);
+    // } else {
+    //   nextStep();
+    // }
+    if(isFormValid){
       nextStep();
+    }else{
+      setIsphonenumberTouched(true);
+      setIswebsiteTouched(true);
+      setIsEmailTouched(true);
     }
+  };
+
+  
+  const phonenumberChangeHandler = (e) => {
+    setphonenumber(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+
+  const phonenumberBlurHandler = (e) => {
+    setIsphonenumberTouched(true);
+  };
+
+  const websiteChangeHandler = (e) => {
+    setwebsite(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+
+  const websiteBlurHandler = (e) => {
+    setIswebsiteTouched(true);
+  };
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+
+  const emailBlurHandler = (e) => {
+    setIsEmailTouched(true);
   };
 
   return (
@@ -61,14 +120,16 @@ function Name({ nextStep, handleFormData, values }) {
                         <Form.Group className="">
                           <Form.Label>Email</Form.Label>
                           <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            style={{ border: hasEmailError ? "2px solid #ff0000" : "" }}
                             name="email"
                             defaultValue={values.email}
                             type="text"
                             placeholder="Email"
-                            onChange={handleFormData("email")}
+                            onChange={(e)=>{emailChangeHandler(e);handleFormData("email")}}
+                            onBlur={emailBlurHandler}
+                            
                           />
-                          {error ? (
+                          {hasEmailError ? (
                             <Form.Text style={{ color: "#ff0000" }}>
                               This is a required field
                             </Form.Text>
@@ -79,14 +140,15 @@ function Name({ nextStep, handleFormData, values }) {
                         <Form.Group className="">
                           <Form.Label>Website</Form.Label>
                           <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            style={{ border: haswebsiteError ? "2px solid #ff0000" : "" }}
                             name="website"
                             defaultValue={values.website}
                             type="text"
                             placeholder="Website"
-                            onChange={handleFormData("website")}
+                            onChange={(e)=>{websiteChangeHandler(e);handleFormData("website")}}
+                            onBlur={websiteBlurHandler}
                           />
-                          {error ? (
+                          {haswebsiteError ? (
                             <Form.Text style={{ color: "#ff0000" }}>
                               This is a required field
                             </Form.Text>
@@ -97,15 +159,16 @@ function Name({ nextStep, handleFormData, values }) {
                         <Form.Group className="">
                           <Form.Label>Phone Number</Form.Label>
                           <Form.Control
-                            style={{ border: error ? "2px solid #ff0000" : "" }}
+                            style={{ border: hasphonenumberError ? "2px solid #ff0000" : "" }}
                             name="phonenumber"
                             pattern="[789][0-9]{9}"
                             defaultValue={values.phonenumber}
                             type="text"
-                            placeholder="Phone Number"
-                            onChange={handleFormData("phonenumber")}
+                            placeholder="Phone Number"          
+                            onChange={(e)=>{phonenumberChangeHandler(e);handleFormData("phonenumber")}}
+                            onBlur={phonenumberBlurHandler}
                           />
-                          {error ? (
+                          {hasphonenumberError ? (
                             <Form.Text style={{ color: "#ff0000" }}>
                               This is a required field
                             </Form.Text>
@@ -113,7 +176,7 @@ function Name({ nextStep, handleFormData, values }) {
                             ""
                           )}
                         </Form.Group>
-                        <Button type="submit" className="mb-5">
+                        <Button type="submit" className="mb-5" >
                           Continue
                         </Button>
                       </div>
@@ -130,7 +193,7 @@ function Name({ nextStep, handleFormData, values }) {
 }
 
 
-function StepTwo({ nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
+function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
   // const ITEM_HEIGHT = 48;
   // const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -155,15 +218,101 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
   }
 
   const [error, setError] = useState(false);
+
+  const [type, settype] = useState("");
+  const [istypeTouched, setIstypeTouched] = useState(false);
+
+  const [name, setname] = useState("");
+  const [isnameTouched, setIsnameTouched] = useState(false);
+
+  const [shortName, setshortName] = useState("");
+  const [isshortNameTouched, setIsshortNameTouched] = useState(false);
+
+  const [estyr, setestyr] = useState("");
+  const [isestyrTouched, setIsestyrTouched] = useState(false);
+
+  const [aprovedBy, setaprovedBy] = useState("");
+  const [isaprovedByTouched, setIsaprovedByTouched] = useState(false);
+
+  const istypeValid = type.trim() !== "";
+  const hastypeError = !istypeValid && istypeTouched;
+
+  const isnameValid = name.trim() !== "";
+  const hasnameError = !isnameValid && isnameTouched;
+
+  const isshortNameValid = shortName.trim() !== "";
+  const hasshortNameError = !isshortNameValid && isshortNameTouched;
+
+  const isestyrValid = estyr.trim() !== "";
+  const hasestyrError = !isestyrValid && isestyrTouched;
+
+  const isaprovedByValid = aprovedBy.trim() !== "";
+  const hasaprovedByError = !isaprovedByValid && isaprovedByTouched;
+
+  const [isFormValid,setIsFormValid] = useState(false);
+  useEffect(() => {
+    setIsFormValid(istypeValid && isnameValid && isshortNameValid && isestyrValid && isaprovedByValid);
+  }, [istypeValid, isnameValid, isshortNameValid, isestyrValid, isaprovedByValid]);
+  
   const submitFormData = (e) => {
     e.preventDefault();
-    if (validator.isEmpty(values.type) || validator.isEmpty(values.name) || validator.isEmpty(values.shortName) || validator.isEmpty(values.estyr) || validator.isEmpty(values.aprovedBy)) {
-      setError(true);
-    } else {
+    // if (validator.isEmpty(values.type) || validator.isEmpty(values.name) || validator.isEmpty(values.shortName) || validator.isEmpty(values.estyr) || validator.isEmpty(values.aprovedBy)) {
+      //   setError(true);
+      // } else {
+        //   nextStep();
+        // }
+    if(isFormValid){
       nextStep();
+    }else{
+      setIsaprovedByTouched(true);
+      setIsestyrTouched(true);
+      setIsshortNameTouched(true);
+      setIsnameTouched(true);
+      setIstypeTouched(true)
     }
   };
 
+  const typeChangeHandler = (e) => {
+    settype(e.target.value);
+    setFormData({...values,type:e.target.value})
+  };
+
+  const typeBlurHandler = (e) => {
+    setIstypeTouched(true);
+  };
+
+  const nameChangeHandler = (e) => {
+    setname(e.target.value);
+    setFormData({...values,name:e.target.value})
+  };
+
+  const nameBlurHandler = (e) => {
+    setIsnameTouched(true);
+  };
+  
+  const estyrBlurHandler = (e) => {
+    setIsestyrTouched(true);
+  };
+  const estyrChangeHandler = (e) => {
+    setestyr(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+  
+  const aprovedByChangeHandler = (e) => {
+    setaprovedBy(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+  const aprovedByBlurHandler = (e) => {
+    setIsaprovedByTouched(true);
+  };
+  const shortNameChangeHandler = (e) => {
+    setshortName(e.target.value);
+    setFormData({...values,[e.target.name]:e.target.value})
+  };
+
+  const shortNameBlurHandler = (e) => {
+    setIsshortNameTouched(true);
+  };
   
 
   return (
@@ -183,13 +332,16 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                         <Form.Group className="mb-3">
                           <Form.Label>Type</Form.Label>
                           <Form.Select
-                            style={{ border: error ? "2px solid red" : "" }}
-                            onChange={handleFormData("type")}>
-                            <option >Select Type</option>
+                            style={{ border: hastypeError ? "2px solid red" : "" }}
+                            // onChange={handleFormData("type")}
+                            onChange={(e)=>{typeChangeHandler(e);handleFormData("type")}}
+                            onBlur={typeBlurHandler}
+                          >
+                            <option value="">Select Type</option>
                             <option value="University">University</option>
                             <option value="College">College</option>
                           </Form.Select>
-                          {error ? (
+                          {hastypeError ? (
                             <Form.Text style={{ color: "red" }}>
                               This is a required field
                             </Form.Text>
@@ -203,12 +355,14 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                             <Form.Group className="mb-3">
                               <Form.Label>Name</Form.Label>
                               <Form.Control
-                                style={{ border: error ? "2px solid red" : "" }}
+                                style={{ border: hasnameError ? "2px solid red" : "" }}
                                 type="text"
                                 placeholder="Name"
-                                onChange={handleFormData("name")}
+                                // onChange={handleFormData("name")}
+                                onChange={(e)=>{nameChangeHandler(e);handleFormData("name")}}
+                                onBlur={nameBlurHandler}
                               />
-                              {error ? (
+                              {hasnameError ? (
                                 <Form.Text style={{ color: "red" }}>
                                   This is a required field
                                 </Form.Text>
@@ -221,12 +375,14 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                             <Form.Group className="mb-3">
                               <Form.Label>Short Name</Form.Label>
                               <Form.Control
-                                style={{ border: error ? "2px solid red" : "" }}
+                                style={{ border: hasshortNameError ? "2px solid red" : "" }}
                                 type="text"
                                 placeholder="Short Name"
-                                onChange={handleFormData("shortName")}
+                                // onChange={handleFormData("shortName")}
+                                onChange={(e)=>{shortNameChangeHandler(e);handleFormData("shortName")}}
+                                onBlur={shortNameBlurHandler}
                               />
-                              {error ? (
+                              {hasshortNameError ? (
                                 <Form.Text style={{ color: "red" }}>
                                   This is a required field
                                 </Form.Text>
@@ -241,15 +397,17 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                             <Form.Group className="mb-3">
                               <Form.Label>Est. Year</Form.Label>
                               <Form.Control
-                                style={{ border: error ? "2px solid #ff0000" : "" }}
+                                style={{ border: hasestyrError ? "2px solid #ff0000" : "" }}
                                 name="estyr"
                                 defaultValue={values.estyr}
                                 pattern="^(19|20)\d{2}$"
                                 type="number"
                                 placeholder="1900-2050"
-                                onChange={handleFormData("estyr")}
+                                // onChange={handleFormData("estyr")}
+                                onChange={(e)=>{estyrChangeHandler(e);handleFormData("estyr")}}
+                                onBlur={estyrBlurHandler}
                               />
-                              {error ? (
+                              {hasestyrError ? (
                                 <Form.Text style={{ color: "#ff0000" }}>
                                   This is a required field
                                 </Form.Text>
@@ -262,14 +420,16 @@ function StepTwo({ nextStep, handleFormData, prevStep, values, university, handl
                             <Form.Group className="mb-3">
                               <Form.Label>Approved By</Form.Label>
                               <Form.Control
-                                style={{ border: error ? "2px solid #ff0000" : "" }}
+                                style={{ border: hasaprovedByError ? "2px solid #ff0000" : "" }}
                                 name="aprovedBy"
                                 defaultValue={values.aprovedBy}
                                 type="text"
                                 placeholder="aprovedBy"
-                                onChange={handleFormData("aprovedBy")}
+                                // onChange={handleFormData("aprovedBy")}
+                                onChange={(e)=>{aprovedByChangeHandler(e);handleFormData("aprovedBy")}}
+                                onBlur={aprovedByBlurHandler}
                               />
-                              {error ? (
+                              {hasaprovedByError ? (
                                 <Form.Text style={{ color: "#ff0000" }}>
                                   This is a required field
                                 </Form.Text>
@@ -365,6 +525,7 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
       "image": ""
     },
     onSubmit: values => {
+      console.log('values: ',values);
       values = {
         ...values,
         "affilite_by": personName,
@@ -469,23 +630,24 @@ export function PropertyAdd() {
     setstep(step - 1);
   };
   const handleInputData = input => e => {
-    const { value } = e.target;
+    const { value,name } = e.target;
     setFormData(prevState => ({
       ...prevState,
       [input]: value
     }));
   }
+  
   switch (step) {
     case 1:
       return (
         <div className="custom-margin">
-          <Name nextStep={nextStep} handleFormData={handleInputData} values={formData} />
+          <Name nextStep={nextStep} handleFormData={handleInputData} values={formData} setFormData={setFormData}/>
         </div>
       );
     case 2:
       return (
         <div className="custom-margin">
-          <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} university={college} handleChange={handleChange} personName={personName} />
+          <StepTwo setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} university={college} handleChange={handleChange} personName={personName} />
         </div>
       );
     default:
