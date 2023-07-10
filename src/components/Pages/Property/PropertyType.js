@@ -32,7 +32,7 @@ export default function PropertyType() {
   const [show, setShow] = useState(false);
 
   const handleClickOpen = (scrollType, row) => () => {
-    console.log(row);
+    // console.log(row);
     setEditProperty(row)
     // setOpen(true);
     setScroll(scrollType);

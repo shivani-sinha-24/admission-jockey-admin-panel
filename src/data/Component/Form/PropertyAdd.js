@@ -32,13 +32,13 @@ import { DropImg } from "../../../components/Pages/Property/StepForm/component/D
 function Name({ nextStep, handleFormData, values , setFormData }) {
   const [error, setError] = useState(false);
 
-  const [phonenumber, setphonenumber] = useState("");
+  const [phonenumber, setphonenumber] = useState(values.phonenumber||"");
   const [isphonenumberTouched, setIsphonenumberTouched] = useState(false);
 
-  const [website, setwebsite] = useState("");
+  const [website, setwebsite] = useState(values.website||"");
   const [iswebsiteTouched, setIswebsiteTouched] = useState(false);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(values.email||"");
   const [isEmailTouched, setIsEmailTouched] = useState(false);
 
   const isphonenumberValid = phonenumber.trim() !== "";
@@ -219,19 +219,19 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
 
   const [error, setError] = useState(false);
 
-  const [type, settype] = useState("");
+  const [type, settype] = useState(values.type||"");
   const [istypeTouched, setIstypeTouched] = useState(false);
 
-  const [name, setname] = useState("");
+  const [name, setname] = useState(values.name||"");
   const [isnameTouched, setIsnameTouched] = useState(false);
 
-  const [shortName, setshortName] = useState("");
+  const [shortName, setshortName] = useState(values.shortName||"");
   const [isshortNameTouched, setIsshortNameTouched] = useState(false);
 
-  const [estyr, setestyr] = useState("");
+  const [estyr, setestyr] = useState(values.estyr||"");
   const [isestyrTouched, setIsestyrTouched] = useState(false);
 
-  const [aprovedBy, setaprovedBy] = useState("");
+  const [aprovedBy, setaprovedBy] = useState(values.aprovedBy||"");
   const [isaprovedByTouched, setIsaprovedByTouched] = useState(false);
 
   const istypeValid = type.trim() !== "";
@@ -283,7 +283,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
 
   const nameChangeHandler = (e) => {
     setname(e.target.value);
-    setFormData({...values,name:e.target.value})
+    setFormData({...values,[e.target.name]:e.target.value})
   };
 
   const nameBlurHandler = (e) => {
@@ -336,10 +336,11 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                             // onChange={handleFormData("type")}
                             onChange={(e)=>{typeChangeHandler(e);handleFormData("type")}}
                             onBlur={typeBlurHandler}
+                            value={values.type}
                           >
                             <option value="">Select Type</option>
-                            <option value="University">University</option>
-                            <option value="College">College</option>
+                            <option value="University" >University</option>
+                            <option value="College" >College</option>
                           </Form.Select>
                           {hastypeError ? (
                             <Form.Text style={{ color: "red" }}>
@@ -358,6 +359,8 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 style={{ border: hasnameError ? "2px solid red" : "" }}
                                 type="text"
                                 placeholder="Name"
+                                name="name"
+                                defaultValue={values.name}
                                 // onChange={handleFormData("name")}
                                 onChange={(e)=>{nameChangeHandler(e);handleFormData("name")}}
                                 onBlur={nameBlurHandler}
@@ -378,6 +381,8 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 style={{ border: hasshortNameError ? "2px solid red" : "" }}
                                 type="text"
                                 placeholder="Short Name"
+                                defaultValue={values.shortName}
+                                name="shortName"
                                 // onChange={handleFormData("shortName")}
                                 onChange={(e)=>{shortNameChangeHandler(e);handleFormData("shortName")}}
                                 onBlur={shortNameBlurHandler}
@@ -503,6 +508,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
     </div>
   );
 };
+
 function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -525,7 +531,6 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
       "image": ""
     },
     onSubmit: values => {
-      console.log('values: ',values);
       values = {
         ...values,
         "affilite_by": personName,
@@ -537,11 +542,13 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
           formData.append(value, values[value]);
         }
         dispatch(createProperty(formData));
-        navigate(-1)
+        // navigate(-1)
+        {values.edu_type=="University"?navigate('/university-property-list'):navigate('/property-list')}
         dispatch(getCollegeList())
       } else {
         dispatch(createProperty(values));
-        navigate(-1)
+        // navigate(-1)
+        {values.edu_type=="University"?navigate('/university-property-list'):navigate('/property-list')}
         dispatch(getCollegeList())
       }
     },

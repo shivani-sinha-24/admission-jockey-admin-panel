@@ -190,7 +190,7 @@ const profileData = users?.user
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td>
+                                        <td style={{backgroundColor:'white'}}>
                                           <strong>Location :</strong> USA
                                         </td>
                                       </tr>
@@ -207,7 +207,7 @@ const profileData = users?.user
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td>
+                                        <td style={{backgroundColor:'white'}}>
                                           <strong>Phone :</strong> 
                                           {/* {profileData && profileData[0]?.contact_no} */}
                                           {profileData?.contact_no}

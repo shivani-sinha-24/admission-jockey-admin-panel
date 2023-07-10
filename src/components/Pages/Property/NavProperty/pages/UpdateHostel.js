@@ -15,7 +15,7 @@ const UpdateHostel = () => {
         hostel: state?.propertyType?.hostel.filter(item => item?._id == params.id),
     }));
     const [content, setContent] = useState(hostel[0]?.description || "");
-      console.log(hostel);
+    //   console.log(hostel);
       const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -27,7 +27,7 @@ const UpdateHostel = () => {
         onSubmit: values => {
             values = { ...values, "description": content }
             // values = {...values, 'type_of_hostel' : hostel[0]?.type_of_hostel}
-            console.log(values);
+            // console.log(values);
                 navigate(-1)
                 dispatch(updateHostel(values));
                 dispatch(getHostel())
