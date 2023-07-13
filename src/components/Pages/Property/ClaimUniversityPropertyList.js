@@ -18,8 +18,6 @@ export default function Editors() {
     college: state?.propertyType?.college.filter(item => item?.edu_type == "University" && item.isClaimed !== true),
     tab_status: state?.propertyType?.tab_status,
   }));
-
-
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");

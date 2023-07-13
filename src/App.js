@@ -80,7 +80,6 @@ import UpdateHostel from "./components/Pages/Property/NavProperty/pages/UpdateHo
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
-
   return (
     <>
       <ToastContainer />
