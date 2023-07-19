@@ -77,6 +77,9 @@ import UpdatePropertyType from "./components/Pages/PropertyType_Crud/UpdatePrope
 import UpdateStatus from "./components/Pages/Status_Crud/UpdateStatus";
 import UpdateGallery from "./components/Pages/Gallery/UpdateGallery";
 import UpdateHostel from "./components/Pages/Property/NavProperty/pages/UpdateHostel";
+import SeoList from "./components/Pages/SEO/seo";
+import AddSeo from "./components/Pages/SEO/seo_crud/add";
+import UpdateSeo from "./components/Pages/SEO/seo_crud/update";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -226,11 +229,13 @@ function App() {
                 element={<Aminities />}
               />
               {/* PROPERTY NAVIGATION ROUTES END */}
-              {/* <Route path={"/add-property"} element={<AddProperty />} /> */}
               <Route path={"/add-property-type"} element={<AddPropertyType />} />
               <Route path={"/update-property-type/:id"} element={<UpdatePropertyType />} />
               <Route path={"/property-type"} element={<PropertyType />} />
               <Route path={"/form-property/:form"} element={<FormProperty />} />
+              <Route path={"/seo-list"} element={<SeoList />} />
+              <Route path={"/seo-add"} element={<AddSeo />} />
+              <Route path={"/update-seo/:id"} element={<UpdateSeo />} />
             </Route>
           </>
         ) : (

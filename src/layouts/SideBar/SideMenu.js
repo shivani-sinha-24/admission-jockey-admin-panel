@@ -185,6 +185,19 @@ export const MENUITEMS = [
             title: "Category",
           }
         ],
+      },
+      {
+        title: "SEO",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/seo-list`,
+            type: "link",
+            title: "Seo",
+          }
+        ],
       }
 
     ],

@@ -6,17 +6,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import "react-datepicker/dist/react-datepicker.css";
-import { FormSelect } from "../Forms/FormSelect";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
-import { register } from "../../redux/Action/AuthAction";
-import { createStatus, statusCreate, statusFetch, statusUpdate } from "../../redux/Action/Status";
-import { DropImg } from "../Pages/Property/StepForm/component/DropImg";
-import { createGallery, deleteGalleryImg, getGallery } from "../../redux/Action/PropertyTypeAction";
 import { useParams } from "react-router-dom";
-import { GalleryImagePreviewCard } from "../Card/GalleryImagePreviewCard"
 
 const statusvalSchema = Yup.object().shape({
     propertyClaimOtp: Yup.string().required('Otp is required'),

@@ -29,16 +29,22 @@ import { DropImg } from "../../../components/Pages/Property/StepForm/component/D
 
 
 //WizardForm
-function Name({ nextStep, handleFormData, values , setFormData }) {
+function Name({ nextStep, handleFormData, values, setFormData }) {
   const [error, setError] = useState(false);
 
-  const [phonenumber, setphonenumber] = useState(values.phonenumber||"");
+  const [phonenumber, setphonenumber] = useState(values.phonenumber || "");
+  const [property_address, setproperty_address] = useState(values.property_address || "");
+  const [property_state, setproperty_state] = useState(values.property_state || "");
+  const [property_district, setproperty_district] = useState(values.property_district || "");
   const [isphonenumberTouched, setIsphonenumberTouched] = useState(false);
+  const [ispropertyAddressTouched, setIsPropertyAddressTouched] = useState(false);
+  const [ispropertyStateTouched, setIsPropertyStateTouched] = useState(false);
+  const [ispropertyDistrictTouched, setIsPropertyDistrictTouched] = useState(false);
 
-  const [website, setwebsite] = useState(values.website||"");
+  const [website, setwebsite] = useState(values.website || "");
   const [iswebsiteTouched, setIswebsiteTouched] = useState(false);
 
-  const [email, setEmail] = useState(values.email||"");
+  const [email, setEmail] = useState(values.email || "");
   const [isEmailTouched, setIsEmailTouched] = useState(false);
 
   const isphonenumberValid = phonenumber.trim() !== "";
@@ -46,49 +52,78 @@ function Name({ nextStep, handleFormData, values , setFormData }) {
 
   const iswebsiteValid = website.trim() !== "";
   const haswebsiteError = !iswebsiteValid && iswebsiteTouched;
-  
+
+
+  const ispropertyAddressValid = property_address.trim() !== "";
+  const haspropertyAddressError = !ispropertyAddressValid && ispropertyAddressTouched;
+
+  const ispropertyStateValid = property_state.trim() !== "";
+  const haspropertyStateError = !ispropertyStateValid && ispropertyStateTouched;
+
+  const ispropertyDistrictValid = property_district.trim() !== "";
+  const haspropertyDistrictError = !ispropertyDistrictValid && ispropertyDistrictTouched;
+
   const isEmailValid =
-  email.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    email.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const hasEmailError = !isEmailValid && isEmailTouched;
 
-  const [isFormValid,setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
-    setIsFormValid(isphonenumberValid && iswebsiteValid && isEmailValid);
-  }, [isphonenumberValid, iswebsiteValid, isEmailValid]);
+    setIsFormValid(isphonenumberValid && iswebsiteValid && isEmailValid && ispropertyAddressValid && ispropertyDistrictValid && ispropertyStateValid);
+  }, [isphonenumberValid, iswebsiteValid, isEmailValid, ispropertyAddressValid, ispropertyDistrictValid, ispropertyStateValid]);
 
   const submitFormData = (e) => {
     e.preventDefault();
-    // if (
-    //   validator.isEmpty(values.email) ||
-    //   validator.isEmpty(values.phonenumber) ||
-    //   validator.isEmpty(values.website)
-    // ) {
-    //   setError(true);
-    // } else {
-    //   nextStep();
-    // }
-    if(isFormValid){
+    if (isFormValid) {
       nextStep();
-    }else{
+    } else {
       setIsphonenumberTouched(true);
       setIswebsiteTouched(true);
       setIsEmailTouched(true);
+      setIsPropertyAddressTouched(true);
+      setIsPropertyStateTouched(true);
+      setIsPropertyDistrictTouched(true);
     }
   };
 
-  
+
   const phonenumberChangeHandler = (e) => {
     setphonenumber(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
 
   const phonenumberBlurHandler = (e) => {
     setIsphonenumberTouched(true);
   };
 
+  const propertyAddressBlurHandler = (e) => {
+    setIsPropertyAddressTouched(true);
+  };
+  const propertyStateBlurHandler = (e) => {
+    setIsPropertyStateTouched(true);
+  };
+  const propertyDistrictBlurHandler = (e) => {
+    setIsPropertyDistrictTouched(true);
+  };
+
   const websiteChangeHandler = (e) => {
     setwebsite(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
+  };
+
+  const propertyAddressChangeHandler = (e) => {
+    setproperty_address(e.target.value);
+    setFormData({ ...values, [e.target.name]: e.target.value })
+  };
+
+  const propertyStateChangeHandler = (e) => {
+    setproperty_state(e.target.value);
+    setFormData({ ...values, [e.target.name]: e.target.value })
+  };
+
+  const propertyDistrictChangeHandler = (e) => {
+    setproperty_district(e.target.value);
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
 
   const websiteBlurHandler = (e) => {
@@ -96,7 +131,7 @@ function Name({ nextStep, handleFormData, values , setFormData }) {
   };
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
 
   const emailBlurHandler = (e) => {
@@ -117,68 +152,142 @@ function Name({ nextStep, handleFormData, values , setFormData }) {
                   <section>
                     <div className="row">
                       <div className="col-md-12">
-                        <Form.Group className="">
-                          <Form.Label>Email</Form.Label>
-                          <Form.Control
-                            style={{ border: hasEmailError ? "2px solid #ff0000" : "" }}
-                            name="email"
-                            defaultValue={values.email}
-                            type="text"
-                            placeholder="Email"
-                            onChange={(e)=>{emailChangeHandler(e);handleFormData("email")}}
-                            onBlur={emailBlurHandler}
-                            
-                          />
-                          {hasEmailError ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
-                        <Form.Group className="">
-                          <Form.Label>Website</Form.Label>
-                          <Form.Control
-                            style={{ border: haswebsiteError ? "2px solid #ff0000" : "" }}
-                            name="website"
-                            defaultValue={values.website}
-                            type="text"
-                            placeholder="Website"
-                            onChange={(e)=>{websiteChangeHandler(e);handleFormData("website")}}
-                            onBlur={websiteBlurHandler}
-                          />
-                          {haswebsiteError ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
-                        <Form.Group className="">
-                          <Form.Label>Phone Number</Form.Label>
-                          <Form.Control
-                            style={{ border: hasphonenumberError ? "2px solid #ff0000" : "" }}
-                            name="phonenumber"
-                            pattern="[789][0-9]{9}"
-                            defaultValue={values.phonenumber}
-                            type="text"
-                            placeholder="Phone Number"          
-                            onChange={(e)=>{phonenumberChangeHandler(e);handleFormData("phonenumber")}}
-                            onBlur={phonenumberBlurHandler}
-                          />
-                          {hasphonenumberError ? (
-                            <Form.Text style={{ color: "#ff0000" }}>
-                              This is a required field
-                            </Form.Text>
-                          ) : (
-                            ""
-                          )}
-                        </Form.Group>
-                        <Button type="submit" className="mb-5" >
-                          Continue
-                        </Button>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <Form.Group className="">
+                              <Form.Label>Email</Form.Label>
+                              <Form.Control
+                                style={{ border: hasEmailError ? "2px solid #ff0000" : "" }}
+                                name="email"
+                                defaultValue={values.email}
+                                type="text"
+                                placeholder="Email"
+                                onChange={(e) => { emailChangeHandler(e); handleFormData("email") }}
+                                onBlur={emailBlurHandler}
+
+                              />
+                              {hasEmailError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+                            <Form.Group className="">
+                              <Form.Label>Website</Form.Label>
+                              <Form.Control
+                                style={{ border: haswebsiteError ? "2px solid #ff0000" : "" }}
+                                name="website"
+                                defaultValue={values.website}
+                                type="text"
+                                placeholder="Website"
+                                onChange={(e) => { websiteChangeHandler(e); handleFormData("website") }}
+                                onBlur={websiteBlurHandler}
+                              />
+                              {haswebsiteError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+                            <Form.Group className="">
+                              <Form.Label>Phone Number</Form.Label>
+                              <Form.Control
+                                style={{ border: hasphonenumberError ? "2px solid #ff0000" : "" }}
+                                name="phonenumber"
+                                pattern="[789][0-9]{9}"
+                                defaultValue={values.phonenumber}
+                                type="text"
+                                placeholder="Phone Number"
+                                onChange={(e) => { phonenumberChangeHandler(e); handleFormData("phonenumber") }}
+                                onBlur={phonenumberBlurHandler}
+                              />
+                              {hasphonenumberError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+
+                            <Form.Group className="">
+                              <Form.Label>Property Address</Form.Label>
+                              <Form.Control
+                                style={{ border: haspropertyAddressError ? "2px solid #ff0000" : "" }}
+                                name="property_address"
+                                defaultValue={values.property_address}
+                                type="text"
+                                placeholder="Property Address"
+                                onChange={(e) => { propertyAddressChangeHandler(e); handleFormData("property_address") }}
+                                onBlur={propertyAddressBlurHandler}
+                              />
+                              {haspropertyAddressError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+                            <Form.Group className="">
+                              <Form.Label>Property State</Form.Label>
+                              <Form.Control
+                                style={{ border: haspropertyStateError ? "2px solid #ff0000" : "" }}
+                                name="property_state"
+                                defaultValue={values.property_state}
+                                type="text"
+                                placeholder="Property State"
+                                onChange={(e) => { propertyStateChangeHandler(e); handleFormData("property_state") }}
+                                onBlur={propertyStateBlurHandler}
+                              />
+                              {haspropertyStateError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-md-6">
+                            <Form.Group className="">
+                              <Form.Label>Property Distrct</Form.Label>
+                              <Form.Control
+                                style={{ border: haspropertyDistrictError ? "2px solid #ff0000" : "" }}
+                                name="property_district"
+                                defaultValue={values.property_district}
+                                type="text"
+                                placeholder="Property District"
+                                onChange={(e) => { propertyDistrictChangeHandler(e); handleFormData("property_state") }}
+                                onBlur={propertyDistrictBlurHandler}
+                              />
+                              {haspropertyDistrictError ? (
+                                <Form.Text style={{ color: "#ff0000" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div>
+                            <Button type="submit" className="mb-5" >
+                              Continue
+                            </Button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -193,7 +302,8 @@ function Name({ nextStep, handleFormData, values , setFormData }) {
 }
 
 
-function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
+function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
+  console.log(values);
   // const ITEM_HEIGHT = 48;
   // const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -219,19 +329,19 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
 
   const [error, setError] = useState(false);
 
-  const [type, settype] = useState(values.type||"");
+  const [type, settype] = useState(values.type || "");
   const [istypeTouched, setIstypeTouched] = useState(false);
 
-  const [name, setname] = useState(values.name||"");
+  const [name, setname] = useState(values.name || "");
   const [isnameTouched, setIsnameTouched] = useState(false);
 
-  const [shortName, setshortName] = useState(values.shortName||"");
+  const [shortName, setshortName] = useState(values.shortName || "");
   const [isshortNameTouched, setIsshortNameTouched] = useState(false);
 
-  const [estyr, setestyr] = useState(values.estyr||"");
+  const [estyr, setestyr] = useState(values.estyr || "");
   const [isestyrTouched, setIsestyrTouched] = useState(false);
 
-  const [aprovedBy, setaprovedBy] = useState(values.aprovedBy||"");
+  const [aprovedBy, setaprovedBy] = useState(values.aprovedBy || "");
   const [isaprovedByTouched, setIsaprovedByTouched] = useState(false);
 
   const istypeValid = type.trim() !== "";
@@ -249,21 +359,21 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
   const isaprovedByValid = aprovedBy.trim() !== "";
   const hasaprovedByError = !isaprovedByValid && isaprovedByTouched;
 
-  const [isFormValid,setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
     setIsFormValid(istypeValid && isnameValid && isshortNameValid && isestyrValid && isaprovedByValid);
   }, [istypeValid, isnameValid, isshortNameValid, isestyrValid, isaprovedByValid]);
-  
+
   const submitFormData = (e) => {
     e.preventDefault();
     // if (validator.isEmpty(values.type) || validator.isEmpty(values.name) || validator.isEmpty(values.shortName) || validator.isEmpty(values.estyr) || validator.isEmpty(values.aprovedBy)) {
-      //   setError(true);
-      // } else {
-        //   nextStep();
-        // }
-    if(isFormValid){
+    //   setError(true);
+    // } else {
+    //   nextStep();
+    // }
+    if (isFormValid) {
       nextStep();
-    }else{
+    } else {
       setIsaprovedByTouched(true);
       setIsestyrTouched(true);
       setIsshortNameTouched(true);
@@ -274,7 +384,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
 
   const typeChangeHandler = (e) => {
     settype(e.target.value);
-    setFormData({...values,type:e.target.value})
+    setFormData({ ...values, type: e.target.value })
   };
 
   const typeBlurHandler = (e) => {
@@ -283,37 +393,37 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
 
   const nameChangeHandler = (e) => {
     setname(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
 
   const nameBlurHandler = (e) => {
     setIsnameTouched(true);
   };
-  
+
   const estyrBlurHandler = (e) => {
     setIsestyrTouched(true);
   };
   const estyrChangeHandler = (e) => {
     setestyr(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
-  
+
   const aprovedByChangeHandler = (e) => {
     setaprovedBy(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
   const aprovedByBlurHandler = (e) => {
     setIsaprovedByTouched(true);
   };
   const shortNameChangeHandler = (e) => {
     setshortName(e.target.value);
-    setFormData({...values,[e.target.name]:e.target.value})
+    setFormData({ ...values, [e.target.name]: e.target.value })
   };
 
   const shortNameBlurHandler = (e) => {
     setIsshortNameTouched(true);
   };
-  
+
 
   return (
     <div>
@@ -334,7 +444,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                           <Form.Select
                             style={{ border: hastypeError ? "2px solid red" : "" }}
                             // onChange={handleFormData("type")}
-                            onChange={(e)=>{typeChangeHandler(e);handleFormData("type")}}
+                            onChange={(e) => { typeChangeHandler(e); handleFormData("type") }}
                             onBlur={typeBlurHandler}
                             value={values.type}
                           >
@@ -362,7 +472,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 name="name"
                                 defaultValue={values.name}
                                 // onChange={handleFormData("name")}
-                                onChange={(e)=>{nameChangeHandler(e);handleFormData("name")}}
+                                onChange={(e) => { nameChangeHandler(e); handleFormData("name") }}
                                 onBlur={nameBlurHandler}
                               />
                               {hasnameError ? (
@@ -384,7 +494,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 defaultValue={values.shortName}
                                 name="shortName"
                                 // onChange={handleFormData("shortName")}
-                                onChange={(e)=>{shortNameChangeHandler(e);handleFormData("shortName")}}
+                                onChange={(e) => { shortNameChangeHandler(e); handleFormData("shortName") }}
                                 onBlur={shortNameBlurHandler}
                               />
                               {hasshortNameError ? (
@@ -409,7 +519,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 type="number"
                                 placeholder="1900-2050"
                                 // onChange={handleFormData("estyr")}
-                                onChange={(e)=>{estyrChangeHandler(e);handleFormData("estyr")}}
+                                onChange={(e) => { estyrChangeHandler(e); handleFormData("estyr") }}
                                 onBlur={estyrBlurHandler}
                               />
                               {hasestyrError ? (
@@ -431,7 +541,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                 type="text"
                                 placeholder="aprovedBy"
                                 // onChange={handleFormData("aprovedBy")}
-                                onChange={(e)=>{aprovedByChangeHandler(e);handleFormData("aprovedBy")}}
+                                onChange={(e) => { aprovedByChangeHandler(e); handleFormData("aprovedBy") }}
                                 onBlur={aprovedByBlurHandler}
                               />
                               {hasaprovedByError ? (
@@ -459,7 +569,7 @@ function StepTwo({setFormData, nextStep, handleFormData, prevStep, values, unive
                                         <Chip key={value} label={value} />
                                       )
                                       )}
-                                      
+
                                     </Box>
                                   )}
                                   MenuProps={MenuProps}
@@ -514,7 +624,7 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
   const navigate = useNavigate()
   const { users } = useSelector(state => ({
     users: state?.userAuth?.loginUser?.user,
-  })); 
+  }));
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -527,28 +637,26 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
       "short_name": values.shortName || "",
       "est_year": values.estyr || "",
       "approve_by": values.aprovedBy || "",
-      // "affilite_by": values.affilatedBy || [],
+      "logo": "",
       "image": ""
     },
     onSubmit: values => {
       values = {
         ...values,
         "affilite_by": personName,
-        created_by_user_id :  users._id
+        created_by_user_id: users?._id
       }
-      if (typeof values.image == 'object') {
+      if (typeof values.image == 'object' && typeof values.logo == 'object') {
         let formData = new FormData();
         for (let value in values) {
           formData.append(value, values[value]);
         }
         dispatch(createProperty(formData));
-        // navigate(-1)
-        {values.edu_type=="University"?navigate('/university-property-list'):navigate('/property-list')}
+        { values.edu_type == "University" ? navigate('/university-property-list') : navigate('/property-list') }
         dispatch(getCollegeList())
       } else {
         dispatch(createProperty(values));
-        // navigate(-1)
-        {values.edu_type=="University"?navigate('/university-property-list'):navigate('/property-list')}
+        { values.edu_type == "University" ? navigate('/university-property-list') : navigate('/property-list') }
         dispatch(getCollegeList())
       }
     },
@@ -570,6 +678,16 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
                         <Form.Group className="">
                           <div className="control-group form-group mb-0 drop">
                             <label className="form-label">Logo</label>
+                            <DropImg
+                              type="file" className="dropify" imgtype="logo"
+                              formik={formik}
+                            />
+                          </div>
+                        </Form.Group>
+                        <br />
+                        <Form.Group className="">
+                          <div className="control-group form-group mb-0 drop">
+                            <label className="form-label">Featured Image</label>
                             <DropImg
                               type="file" className="dropify" imgtype="image"
                               formik={formik}
@@ -637,18 +755,18 @@ export function PropertyAdd() {
     setstep(step - 1);
   };
   const handleInputData = input => e => {
-    const { value,name } = e.target;
+    const { value, name } = e.target;
     setFormData(prevState => ({
       ...prevState,
       [input]: value
     }));
   }
-  
+
   switch (step) {
     case 1:
       return (
         <div className="custom-margin">
-          <Name nextStep={nextStep} handleFormData={handleInputData} values={formData} setFormData={setFormData}/>
+          <Name nextStep={nextStep} handleFormData={handleInputData} values={formData} setFormData={setFormData} />
         </div>
       );
     case 2:
