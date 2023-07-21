@@ -43,31 +43,8 @@ export default function Loan_pages({ setAddTeam, editTeam }) {
     validationSchema: TeamLeadvalSchema,
     onSubmit: (values) => {
       values = { ...values, "description": content }
-      if (editTeam != undefined) {
-        // if (typeof values.loan_img == 'object') {
-        //     let formData = new FormData();
-        //     for (let value in values) {
-        //         formData.append(value, values[value]);
-        //     }
-        //     dispatch(updateLoan(formData));
-        //     setAddTeam(false)
-        // } else {
-        dispatch(updateLoan(values));
-        setAddTeam(false);
-        // }
-      } else {
-        // if (typeof values.loan_img == 'object') {
-        //     let formData = new FormData();
-        //     for (let value in values) {
-        //         formData.append(value, values[value]);
-        //     }
-        //     dispatch(createLoan(formData));
-        //     setAddTeam(false)
-        // } else {
         dispatch(createLoan(values));
         setAddTeam(false);
-        // }
-      }
     },
   });
 

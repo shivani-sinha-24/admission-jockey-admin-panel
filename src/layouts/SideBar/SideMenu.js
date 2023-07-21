@@ -198,6 +198,35 @@ export const MENUITEMS = [
             title: "Seo",
           }
         ],
+      },
+      {
+        title: "Website",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/seo-list`,
+            type: "link",
+            title: "University List",
+          },
+          {
+            path: `/website-college-list`,
+            type: "link",
+            title: "College List",
+          },
+          {
+            path: `/seo-list`,
+            type: "link",
+            title: "University Logo List",
+          },
+          {
+            path: `/seo-list`,
+            type: "link",
+            title: "College Logo List",
+          },
+
+        ],
       }
 
     ],

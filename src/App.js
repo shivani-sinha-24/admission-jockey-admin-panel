@@ -80,6 +80,9 @@ import UpdateHostel from "./components/Pages/Property/NavProperty/pages/UpdateHo
 import SeoList from "./components/Pages/SEO/seo";
 import AddSeo from "./components/Pages/SEO/seo_crud/add";
 import UpdateSeo from "./components/Pages/SEO/seo_crud/update";
+import WebUniversityList from "./components/Pages/Website/UniversityList";
+import WebCollegeList from "./components/Pages/Website/CollegeList";
+import AddWebCollegeList from "./components/Pages/Website/pages/college_pages";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -236,6 +239,9 @@ function App() {
               <Route path={"/seo-list"} element={<SeoList />} />
               <Route path={"/seo-add"} element={<AddSeo />} />
               <Route path={"/update-seo/:id"} element={<UpdateSeo />} />
+              <Route path={"/website-university-list"} element={<WebUniversityList />} />
+              <Route path={"/website-college-list"} element={<WebCollegeList />} />
+              <Route path={"/add-website-college-list"} element={<AddWebCollegeList />} />
             </Route>
           </>
         ) : (
