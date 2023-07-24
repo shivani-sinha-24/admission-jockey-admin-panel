@@ -7,13 +7,15 @@ import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/A
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
+import { addWebCollegeList,fetchCollegeWebList } from "./../../../redux/Action/WebAction";
 import { propertyDelete } from "../../../redux/Action/PropertyAction";
 export default function Editors() {
   const dispatch = useDispatch();
-  const { users, college, tab_status } = useSelector(state => ({
+  const { users, college, tab_status,webColleges } = useSelector(state => ({
     users: state?.userAuth?.loginUser?.user,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     tab_status: state?.propertyType?.tab_status,
+    webColleges: state?.webSite?.colleges,
   }));
 
 
@@ -26,6 +28,7 @@ export default function Editors() {
 
   useEffect(() => {
     dispatch(getCollegeList());
+    dispatch(fetchCollegeWebList());
     if (sessionStorage.getItem("permissions") !== null) {
       let permission = JSON.parse(sessionStorage.getItem("permissions"));
       if (Object.keys(permission)) {
@@ -99,6 +102,7 @@ export default function Editors() {
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
+                {console.log(webColleges,"webColleges")}
                 <datatable.CollegeProrpertyListForWebSiteTable
                   handleStatusUpdate={handleStatusUpdate}
                   handleShow={handleShow}
@@ -106,7 +110,7 @@ export default function Editors() {
                   handleClickOpen={handleClickOpen}
                   tab_status={tab_status}
                   permission={permission}
-                  college={users?.role&&users?.role==2?college?.filter(college=>college.created_by_user_id==users?._id):college} />
+                  college={webColleges} />
               </div>
             </Card.Body>
           </Card>

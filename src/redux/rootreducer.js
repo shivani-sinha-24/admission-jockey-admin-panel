@@ -6,6 +6,7 @@ import universityCourseReducer from './Reducer/UniversityCourseReducer';
 import collegeCourseReducer from './Reducer/CollegeCourseReducer';
 import categoryReducer from './Reducer/CategoryReducer';
 import seoReducer from './Reducer/SeoReducer';
+import webReducer from './Reducer/WebReducer';
 const reducer = combineReducers({
     userAuth:userAuthReducer,
     status:statusReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     category:categoryReducer,
     universityCourse:universityCourseReducer,
     collegeCourse:collegeCourseReducer,
-    seo:seoReducer
+    seo:seoReducer,
+    webSite:webReducer
 });
 export default reducer;

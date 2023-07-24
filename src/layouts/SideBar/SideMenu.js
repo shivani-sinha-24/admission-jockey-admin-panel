@@ -206,7 +206,7 @@ export const MENUITEMS = [
         active: false,
         children: [
           {
-            path: `/seo-list`,
+            path: `/website-university-list`,
             type: "link",
             title: "University List",
           },
@@ -216,12 +216,12 @@ export const MENUITEMS = [
             title: "College List",
           },
           {
-            path: `/seo-list`,
+            path: `/website-university-logo-list`,
             type: "link",
             title: "University Logo List",
           },
           {
-            path: `/seo-list`,
+            path: `/website-college-logo-list`,
             type: "link",
             title: "College Logo List",
           },

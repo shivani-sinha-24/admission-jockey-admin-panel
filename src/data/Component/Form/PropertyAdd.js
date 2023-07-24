@@ -630,6 +630,9 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
     initialValues: {
       "email": values.email || "",
       "phone": values.phonenumber || "",
+      "property_address": values.property_address || "",
+      "property_state": values.property_state || "",
+      "property_district": values.property_district || "",
       "website": values.website || "",
       "edu_type": values.type || "",
       "college_type": "Gov",

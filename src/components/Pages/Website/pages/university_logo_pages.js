@@ -22,7 +22,7 @@ const Loan = () => {
     const [colleges, setColleges] = React.useState([]);
     const [displayColleges, setDisplayColleges] = React.useState([]);
     const { property,webColleges } = useSelector((state) => ({
-        webColleges: state?.webSite?.colleges,
+        webColleges: state?.webSite?.universityLogo,
         property: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     }));
     const filterItem=()=>{
@@ -50,7 +50,7 @@ const Loan = () => {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h3">Add Web Colleges List</Card.Title>
+                                <Card.Title as="h3">Add Web University Logo List</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Card>

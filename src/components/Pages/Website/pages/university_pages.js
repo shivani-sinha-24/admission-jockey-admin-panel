@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams,useNavigate } from "react-router-dom"; import {
+import { NavLink, useParams, useNavigate } from "react-router-dom"; import {
     Stack,
     OutlinedInput,
     InputLabel,
@@ -14,19 +14,19 @@ import { useFormik } from "formik";
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { getCollegeList } from "../../../../redux/Action/PropertyTypeAction";
-import { addWebCollegeList,fetchCollegeWebList } from "../../../../redux/Action/WebAction";
+import { addWebUniversityList, fetchCollegeWebList } from "../../../../redux/Action/WebAction";
 const Loan = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
     const [colleges, setColleges] = React.useState([]);
     const [displayColleges, setDisplayColleges] = React.useState([]);
-    const { property,webColleges } = useSelector((state) => ({
-        webColleges: state?.webSite?.colleges,
+    const { property, webColleges } = useSelector((state) => ({
+        webColleges: state?.webSite?.universities,
         property: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     }));
-    const filterItem=()=>{
-        let result=property.filter(item=>!webColleges.includes(item.name));
+    const filterItem = () => {
+        let result = property.filter(item => !webColleges.includes(item.name));
         setDisplayColleges(result);
     }
     useEffect(() => {
@@ -37,10 +37,10 @@ const Loan = () => {
     const formik = useFormik({
         onSubmit: values => {
             values = {
-                "collegeList": colleges
+                "universityList": colleges
             }
-            dispatch(addWebCollegeList(values));
-            navigate('/website-college-list',{replace:false});
+            dispatch(addWebUniversityList(values));
+            navigate('/website-university-list', { replace: false });
         },
     });
     return (
@@ -50,7 +50,7 @@ const Loan = () => {
                     <Col lg={12} xl={12} md={12} sm={12}>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h3">Add Web Colleges List</Card.Title>
+                                <Card.Title as="h3">Add Web University List</Card.Title>
                             </Card.Header>
                             <Col sm={12} lg={12} md={12} xl={12}>
                                 <Card>

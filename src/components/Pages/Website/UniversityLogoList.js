@@ -7,7 +7,7 @@ import { fetchUserByRole, userDelete, userUpdate } from "../../../redux/Action/A
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { WarningModal } from "../../Modal/WarningModal";
 import { getCollegeList } from "../../../redux/Action/PropertyTypeAction";
-import { addWebCollegeList,fetchUniversityWebList } from "./../../../redux/Action/WebAction";
+import { addWebCollegeList,fetchCollegeWebList } from "./../../../redux/Action/WebAction";
 import { propertyDelete } from "../../../redux/Action/PropertyAction";
 export default function Editors() {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export default function Editors() {
     users: state?.userAuth?.loginUser?.user,
     college: state?.propertyType?.college.filter(item => item?.edu_type == "College"),
     tab_status: state?.propertyType?.tab_status,
-    webColleges: state?.webSite?.universities,
+    webColleges: state?.webSite?.universityLogos,
   }));
 
 
@@ -28,7 +28,7 @@ export default function Editors() {
 
   useEffect(() => {
     dispatch(getCollegeList());
-    dispatch(fetchUniversityWebList());
+    dispatch(fetchCollegeWebList());
     if (sessionStorage.getItem("permissions") !== null) {
       let permission = JSON.parse(sessionStorage.getItem("permissions"));
       if (Object.keys(permission)) {
@@ -74,19 +74,19 @@ export default function Editors() {
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title"> University Property List For WebSite</h1>
+          <h1 className="page-title"> University Logo Property List For WebSite</h1>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item className="breadcrumb-item" href="#">
               Property
             </Breadcrumb.Item>
             <Breadcrumb.Item className="breadcrumb-item active breadcrumds" aria-current="page">
-            University Property List
+            University Logo Property List
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
         {permission?.collegeCreate == true || Object.keys(permission)==false ?
           <div className="ms-auto pageheader-btn">
-            <NavLink to="/add-website-university-list" className="btn btn-primary btn-icon text-white me-3">
+            <NavLink to="/add-website-university-logo-list" className="btn btn-primary btn-icon text-white me-3">
               <span>
                 <i className="fe fe-plus"></i>&nbsp;
               </span>
@@ -98,11 +98,11 @@ export default function Editors() {
         <Col lg={12}>
           <Card>
             <Card.Header>
-              <h3 className="card-title">University Property List</h3>
+              <h3 className="card-title">University Logo Property List</h3>
             </Card.Header>
             <Card.Body>
               <div className="table-responsive">
-                <datatable.UniversityProrpertyListForWebSiteTable
+                <datatable.UniversityLogoProrpertyListForWebSiteTable
                   handleStatusUpdate={handleStatusUpdate}
                   handleShow={handleShow}
                   propertyDeleteAction={propertyDeleteAction}

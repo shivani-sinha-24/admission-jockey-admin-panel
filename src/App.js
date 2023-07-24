@@ -82,7 +82,12 @@ import AddSeo from "./components/Pages/SEO/seo_crud/add";
 import UpdateSeo from "./components/Pages/SEO/seo_crud/update";
 import WebUniversityList from "./components/Pages/Website/UniversityList";
 import WebCollegeList from "./components/Pages/Website/CollegeList";
+import WebUniversityLogoList from "./components/Pages/Website/UniversityLogoList";
+import WebCollegeLogoList from "./components/Pages/Website/CollegeLogoList";
 import AddWebCollegeList from "./components/Pages/Website/pages/college_pages";
+import AddWebUniversityList from "./components/Pages/Website/pages/university_pages";
+import AddWebCollegeLogoList from "./components/Pages/Website/pages/college_logo_pages";
+import AddWebUniversityLogoList from "./components/Pages/Website/pages/university_logo_pages";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -241,7 +246,12 @@ function App() {
               <Route path={"/update-seo/:id"} element={<UpdateSeo />} />
               <Route path={"/website-university-list"} element={<WebUniversityList />} />
               <Route path={"/website-college-list"} element={<WebCollegeList />} />
+              <Route path={"/website-college-logo-list"} element={<WebCollegeLogoList />} />
+              <Route path={"/website-university-logo-list"} element={<WebUniversityLogoList />} />
               <Route path={"/add-website-college-list"} element={<AddWebCollegeList />} />
+              <Route path={"/add-website-university-list"} element={<AddWebUniversityList />} />
+              <Route path={"/add-website-college-logo-list"} element={<AddWebCollegeLogoList />} />
+              <Route path={"/add-website-university-logo-list"} element={<AddWebUniversityLogoList />} />
             </Route>
           </>
         ) : (
