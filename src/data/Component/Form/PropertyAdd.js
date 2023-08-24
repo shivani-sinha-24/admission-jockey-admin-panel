@@ -451,6 +451,8 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
                             <option value="">Select Type</option>
                             <option value="University" >University</option>
                             <option value="College" >College</option>
+                            <option value="OnlineLearning" >Online Learning</option>
+                            <option value="Eduversity" >Eduversity</option>
                           </Form.Select>
                           {hastypeError ? (
                             <Form.Text style={{ color: "red" }}>
@@ -655,11 +657,11 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
           formData.append(value, values[value]);
         }
         dispatch(createProperty(formData));
-        { values.edu_type == "University" ? navigate('/university-property-list') : navigate('/property-list') }
-        dispatch(getCollegeList())
+        { values.edu_type == "University" ? navigate('/university-property-list') : values.edu_type == "OnlineLearning" ? navigate('/online-learning-property-list') : values.edu_type == "eduversity" ? navigate('/online-learning-property-list') : navigate('/property-list') }
+        dispatch(getCollegeList());
       } else {
         dispatch(createProperty(values));
-        { values.edu_type == "University" ? navigate('/university-property-list') : navigate('/property-list') }
+        { values.edu_type == "University" ? navigate('/university-property-list') : values.edu_type == "OnlineLearning" ? navigate('/online-learning-property-list') : navigate('/property-list') }
         dispatch(getCollegeList())
       }
     },

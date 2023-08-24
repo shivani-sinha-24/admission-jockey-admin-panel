@@ -51,6 +51,8 @@ import Announcement from "./components/Pages/Property/NavProperty/Announcement";
 import Faqs from "./components/Pages/Property/NavProperty/Faqs";
 import QA from "./components/Pages/Property/NavProperty/QA";
 import UniversityPropertyList from "./components/Pages/Property/UniversityProperty";
+import OnlineLearningPropertyList from "./components/Pages/Property/OnlineLearningList";
+import EduversityPropertyList from "./components/Pages/Property/EduversityList";
 import ClaimUniversityPropertyList from "./components/Pages/Property/ClaimUniversityPropertyList";
 import ClaimCollegePropertyList from "./components/Pages/Property/ClaimCollegePropertyList";
 import MyUniversityPropertyList from "./components/Pages/Property/MyUniversityPropertyList";
@@ -132,6 +134,8 @@ function App() {
               <Route path={"/property-list"} element={<PropertyList />} />
               {/* <Route path={"/property-list"} element={<PropertyList />} /> */}
               <Route path={"/university-property-list"} element={<UniversityPropertyList />} />
+              <Route path={"/online-learning-property-list"} element={<OnlineLearningPropertyList />} />
+              <Route path={"/eduversity-property-list"} element={<EduversityPropertyList />} />
               <Route path={"/claim-university-property-list"} element={<ClaimUniversityPropertyList />} />
               <Route path={"/claim-college-property-list"} element={<ClaimCollegePropertyList />} />
               <Route path={"/my-university-property-list"} element={<MyUniversityPropertyList />} />

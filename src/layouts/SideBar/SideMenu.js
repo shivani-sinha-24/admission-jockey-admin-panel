@@ -52,24 +52,6 @@ export const MENUITEMS = [
           }
         ],
       },
-      // {
-      //   title: "College",
-      //   icon: "user",
-      //   type: "sub",
-      //   active: false,
-      //   children: [
-      //     {
-      //       path: `/college-list`,
-      //       type: "link",
-      //       title: "All College",
-      //     },
-      //     {
-      //       path: `/guest`,
-      //       type: "link",
-      //       title: "Add College",
-      //     }
-      //   ],
-      // },
 
       {
         title: "Property",
@@ -88,12 +70,12 @@ export const MENUITEMS = [
             title: "College Properties",
           },
           {
-            path: `/property-list`,
+            path: `/online-learning-property-list`,
             type: "link",
             title: "Online Learning",
           },
           {
-            path: `/property-list`,
+            path: `/eduversity-property-list`,
             type: "link",
             title: "Eduversity",
           },
@@ -384,12 +366,12 @@ export const EDITORMENUITEMS = [
             title: "College properties",
           },
           {
-            path: `/property-list`,
+            path: `/online-learning-property-list`,
             type: "link",
             title: "Online Learning",
           },
           {
-            path: `/property-list`,
+            path: `/eduversity-property-list`,
             type: "link",
             title: "Eduversity",
           },
