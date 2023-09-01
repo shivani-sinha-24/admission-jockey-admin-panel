@@ -90,6 +90,7 @@ import AddWebCollegeList from "./components/Pages/Website/pages/college_pages";
 import AddWebUniversityList from "./components/Pages/Website/pages/university_pages";
 import AddWebCollegeLogoList from "./components/Pages/Website/pages/college_logo_pages";
 import AddWebUniversityLogoList from "./components/Pages/Website/pages/university_logo_pages";
+import MyTeam from "./components/Pages/CallerTeamLeader/CallerTeamLeader";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -192,6 +193,7 @@ function App() {
               <Route path={"/property-list/:edu_type/:clgid/loan"} element={<Loan />} />
               <Route path={"/property-list/:clgid/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:edu_type/:clgid/hostel"} element={<Hostel />} />
+              <Route path={"/my-team"} element={<MyTeam />} />
               <Route path={"/update-hostel/:id"} element={<UpdateHostel />} />
               <Route path={"/property-list/:clgid/QA"} element={<QA />} />
               <Route path={"/property-list/:edu_type/:clgid/QA"} element={<QA />} />

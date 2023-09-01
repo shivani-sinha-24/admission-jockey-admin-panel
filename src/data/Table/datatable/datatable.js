@@ -2362,6 +2362,113 @@ export const UniversityLogoProrpertyListForWebSiteTable = ({
   );
 };
 
+export const MyTeamTable = ({
+  handleShow,
+  tab_status,
+  handleStatusUpdate,
+  handleClickOpen,
+  myTeam,
+  permission
+}) => {
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [toggleCleared, setToggleCleared] = React.useState(false);
+  const [data, setData] = React.useState(tableDataItems);
+
+  const handleRowSelected = React.useCallback((state) => {
+    setSelectedRows(state.selectedRows);
+  }, []);
+  
+  const columns = [
+    {
+      name: "NAME",
+      selector: (row) => [row.name],
+      sortable: true,
+    },
+    // {
+    //   name: "COLLEGE TYPE",
+    //   selector: (row) => [row.college_type],
+    //   sortable: true,
+    // },
+    // {
+    //   name: "COLLEGE EMAIL",
+    //   selector: (row) => [row.email],
+    //   sortable: true,
+    // },
+    // {
+    //   name: "ACTION",
+    //   selector: (row) => [row.action],
+    //   sortable: true,
+    //   cell: (row) => (
+    //     <span className="" style={{ width: "409px" }}>
+    //       {permission?.collegeDelete == true || Object.keys(permission) == false ?
+    //         <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
+    //           <Link
+    //             onClick={
+    //               handleShow(row?._id)
+    //             }
+    //             to="#"
+    //             className="btn btn-danger btn-sm rounded-11"
+    //           >
+    //             <i>
+    //               <svg
+    //                 className="table-delete"
+    //                 xmlns="http://www.w3.org/2000/svg"
+    //                 height="20"
+    //                 viewBox="0 0 24 24"
+    //                 width="16"
+    //               >
+    //                 <path d="M0 0h24v24H0V0z" fill="none" />
+    //                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+    //               </svg>
+    //             </i>
+    //           </Link>
+    //         </OverlayTrigger> : ""}
+    //     </span>
+    //   ),
+    // },
+  ];
+
+  const contextActions = React.useMemo(() => {
+    const handleDelete = () => {
+      if (
+        window.confirm(
+          `Are you sure you want to delete:\r ${selectedRows.map(
+            (r) => r.SNO
+          )}?`
+        )
+      ) {
+        setToggleCleared(!toggleCleared);
+        setData(differenceBy(data, selectedRows, "SNO"));
+      }
+    };
+
+    return (
+      <Button key="delete" onClick={handleDelete} icon="true">
+        Delete
+      </Button>
+    );
+  }, [data, selectedRows, toggleCleared]);
+  const tableDatas = {
+    columns,
+    data,
+  };
+
+  return (
+    // <DataTableExtensions {...tableDatas}>
+    <DataTable
+      title
+      columns={columns}
+      data={myTeam}
+      selectableRows
+      contextActions={contextActions}
+      onSelectedRowsChange={handleRowSelected}
+      clearSelectedRows={toggleCleared}
+      pagination
+    />
+    // </DataTableExtensions>
+  );
+};
+
 export const DataTablesForProperty = ({
   handleShow,
   userDeleteAction,

@@ -272,7 +272,6 @@ export const MENUITEMS2 = [
 
     ],
   },
-
 ];
 export const PROPERTYMANAGERMENUITEMS = [
   {
@@ -330,7 +329,42 @@ export const PROPERTYMANAGERMENUITEMS = [
       }
     ],
   },
-  
+
+];
+
+export const CALLERLEADERMENUITEMS = [
+  {
+    menutitle: "MAIN",
+    Items: [
+      {
+        path: `/dashboard`,
+        icon: "home",
+        type: "link",
+        active: true,
+        title: "Dashboard",
+      },
+    ],
+    
+  },
+  {
+    menutitle: "Pages",
+    Items: [
+      {
+        title: "My Team",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/my-team`,
+            type: "link",
+            title: "My Team",
+          },
+
+        ],
+      }
+    ],
+  },
 
 ];
 export const EDITORMENUITEMS = [

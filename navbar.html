@@ -11,39 +11,49 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+    <style>
+        .p1 {
+            background-color: red;
+        }
+
+        #pid1 {
+            font-size: 20px;
+        }
+
+        #pid2 {
+            font-size: 10px;
+        }
+    </style>
+
 </head>
 
 <body>
-    <nav class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
-        <div class="d-flex justify-content-between w-100 pl-5 pr-5">
-            <div><a class="navbar-brand" href="#">Navbar</a></div>
-            <div>
-                <ul class="navbar-nav mr-auto form-inline my-2 my-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div>
+        <h1>Paragraph 1</h1>
+        <h3>Paragraph 3</h3>
+        <h6>Paragraph 6</h6>
+        <p>
+            There are a few different types of paragraphs one can write, and we’ll get into that.
+            Just know that no matter what type of paragraph you <br>
+            <hr> are writing, the action you are undertaking is called
+            paragraphing.
+            <a
+                href="https://www.google.com/search?q=mysql+commands&sca_esv=560936523&rlz=1C1RXQR_enIN1035IN1035&sxsrf=AB5stBjPAAK5Ep4IDfad7_ewrjWq38IIkw%3A1693297915003&ei=-qztZIXQPPWt4-EP2_6q-AE&ved=0ahUKEwiFteOluoGBAxX11jgGHVu_Ch8Q4dUDCBA&uact=5&oq=mysql+commands&gs_lp=Egxnd3Mtd2l6LXNlcnAiDm15c3FsIGNvbW1hbmRzMgQQABhHMgQQABhHMgQQABhHMgQQABhHMgQQABhHMgQQABhHMgQQABhHMgQQABhHSOoiUFZYxSFwAHgCkAEAmAEAoAEAqgEAuAEDyAEA-AEB4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp">Rishav</a>
+        </p>
+        <input id="input1" />
+        <button onclick="hello()">Click</button>
+        <p id="p1"></p>
+    </div>
+    <script>
+        function hello() {
+            console.log(document.getElementById('input1').value.trim().length);
+            console.log(document.getElementById('input1').value.replace(/ /g,'').length);
+            if ( document.getElementById('input1').value.length) {
+            }else{
+                console.log('add content');
+            }
+        }
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
