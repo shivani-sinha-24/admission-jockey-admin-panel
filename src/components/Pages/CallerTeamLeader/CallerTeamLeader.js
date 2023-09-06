@@ -10,9 +10,9 @@ import { WarningModal } from "../../Modal/WarningModal";
 export default function DataTables() {
     const dispatch = useDispatch();
 
-    const { users,myTeam } = useSelector(state => ({
+    const { users, myTeam } = useSelector(state => ({
         users: state?.userAuth?.users,
-        myTeam: state?.webSite?.myTeam
+        myTeam: state?.webSite?.myTeam?.filter((item) => item._id !== sessionStorage.getItem('userId'))
     }));
 
     const [show, setShow] = useState(false);
@@ -58,20 +58,14 @@ export default function DataTables() {
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
-                {/* <div className="ms-auto pageheader-btn">
-          <Link onClick={handleClickOpen("paper")} to="#" className="btn btn-primary btn-icon text-white me-3">
-            <span>
-              <i className="fe fe-plus"></i>&nbsp;
-            </span>
-            Add College
-          </Link>
-          <Link to="#" className="btn btn-success btn-icon text-white">
-            <span>
-              <i className="fe fe-log-in"></i>&nbsp;
-            </span>
-            Export
-          </Link>
-        </div> */}
+                <div className="ms-auto pageheader-btn">
+                    <Link to="/give-quiries-callers" className="btn btn-primary btn-icon text-white me-3">
+                        <span>
+                            <i className="fe fe-plus"></i>&nbsp;
+                        </span>
+                        Give Quiries
+                    </Link>
+                </div>
             </div>
 
 

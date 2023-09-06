@@ -1,5 +1,5 @@
 import API from "../../service/API";
-import { WEB_COLLEGES_ADD_FAILURE, MY_TEAM_GET_REQUEST, MY_TEAM_GET_FAILURE, MY_TEAM_GET_SUCCESS, WEB_UNIVERSITY_ADD_REQUEST, WEB_UNIVERSITY_ADD_FAILURE, WEB_UNIVERSITY_ADD_SUCCESS, WEB_COLLEGES_ADD_SUCCESS, UNIVERSITY_WEBLIST_GET_REQUEST, UNIVERSITY_WEBLIST_GET_FAILURE, UNIVERSITY_WEBLIST_GET_SUCCESS, WEB_COLLEGES_ADD_REQUEST, COLLEGE_WEBLIST_GET_FAILURE, COLLEGE_WEBLIST_GET_SUCCESS, COLLEGE_WEBLIST_GET_REQUEST } from "../Constants/Constants";
+import { QUERIES_SET_FAILURE, QUERIES_SET_SUCCESS, QUERIES_SET_REQUEST, QUERIES_GET_REQUEST, QUERIES_GET_SUCCESS, QUERIES_GET_FAILURE, WEB_COLLEGES_ADD_FAILURE, MY_TEAM_GET_REQUEST, MY_TEAM_GET_FAILURE, MY_TEAM_GET_SUCCESS, WEB_UNIVERSITY_ADD_REQUEST, WEB_UNIVERSITY_ADD_FAILURE, WEB_UNIVERSITY_ADD_SUCCESS, WEB_COLLEGES_ADD_SUCCESS, UNIVERSITY_WEBLIST_GET_REQUEST, UNIVERSITY_WEBLIST_GET_FAILURE, UNIVERSITY_WEBLIST_GET_SUCCESS, WEB_COLLEGES_ADD_REQUEST, COLLEGE_WEBLIST_GET_FAILURE, COLLEGE_WEBLIST_GET_SUCCESS, COLLEGE_WEBLIST_GET_REQUEST } from "../Constants/Constants";
 import { ToastContainer, toast } from 'react-toastify';
 
 //Add Status action
@@ -74,6 +74,31 @@ export const fetchMyTeam = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: MY_TEAM_GET_FAILURE,
+        });
+    }
+}
+
+
+export const fetchQuires = () => async (dispatch) => {
+    try {
+        dispatch({ type: QUERIES_GET_REQUEST });
+        const { data } = await API.get(`/getQueryList`);
+        dispatch({ type: QUERIES_GET_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: QUERIES_GET_FAILURE,
+        });
+    }
+}
+
+export const setQuires = (values) => async (dispatch) => {
+    try {
+        dispatch({ type: QUERIES_SET_REQUEST });
+        const { data } = await API.post(`/setQuery`, values);
+        dispatch({ type: QUERIES_SET_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: QUERIES_SET_FAILURE,
         });
     }
 }
