@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { createProperty } from "../../../redux/Action/PropertyAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import {
 import validator from "validator";
 // import { DropImg } from "../../StepForm/component/DropImg";
 import { DropImg } from "../../../components/Pages/Property/StepForm/component/DropImg";
+import JoditEditor from "jodit-react";
 
 
 //WizardForm
@@ -303,8 +304,9 @@ function Name({ nextStep, handleFormData, values, setFormData }) {
 
 
 function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, university, handleChange, personName }) {
-  console.log(values);
-  // const ITEM_HEIGHT = 48;
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
+   // const ITEM_HEIGHT = 48;
   // const ITEM_PADDING_TOP = 8;
   const MenuProps = {
     PaperProps: {
@@ -338,6 +340,10 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
   const [shortName, setshortName] = useState(values.shortName || "");
   const [isshortNameTouched, setIsshortNameTouched] = useState(false);
 
+  
+  const [description, setdescription] = useState(values.description || "");
+  const [isdescriptionTouched, setIsdescriptionTouched] = useState(false);
+
   const [estyr, setestyr] = useState(values.estyr || "");
   const [isestyrTouched, setIsestyrTouched] = useState(false);
 
@@ -352,6 +358,9 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
 
   const isshortNameValid = shortName.trim() !== "";
   const hasshortNameError = !isshortNameValid && isshortNameTouched;
+  
+  const isdescriptionValid = content.trim() !== "";
+  const hasdescriptionError = !isdescriptionValid && isdescriptionTouched;
 
   const isestyrValid = estyr.trim() !== "";
   const hasestyrError = !isestyrValid && isestyrTouched;
@@ -361,8 +370,8 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
 
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
-    setIsFormValid(istypeValid && isnameValid && isshortNameValid && isestyrValid && isaprovedByValid);
-  }, [istypeValid, isnameValid, isshortNameValid, isestyrValid, isaprovedByValid]);
+    setIsFormValid(istypeValid && isnameValid && isshortNameValid && isdescriptionValid && isestyrValid && isaprovedByValid);
+  }, [istypeValid, isnameValid, isshortNameValid, isestyrValid, isaprovedByValid, isdescriptionValid]);
 
   const submitFormData = (e) => {
     e.preventDefault();
@@ -376,6 +385,7 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
     } else {
       setIsaprovedByTouched(true);
       setIsestyrTouched(true);
+      setIsdescriptionTouched(true)
       setIsshortNameTouched(true);
       setIsnameTouched(true);
       setIstypeTouched(true)
@@ -423,7 +433,19 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
   const shortNameBlurHandler = (e) => {
     setIsshortNameTouched(true);
   };
+  const descriptionChangeHandler = (content) => {
+    setdescription(content);
+    setFormData({ ...values, description: content })
+  };
 
+  const descriptionBlurHandler = (e) => {
+    setIsdescriptionTouched(true);
+    if (content.trim() === "") {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
 
   return (
     <div>
@@ -508,6 +530,25 @@ function StepTwo({ setFormData, nextStep, handleFormData, prevStep, values, univ
                               )}
                             </Form.Group>
                           </div>
+                        </div>
+                        <div className="row  d-flex">
+                            <div className="col-md-12">
+                                <label className="form-label">Description</label>
+                                <JoditEditor
+                                  style={{ border: hasdescriptionError ? "2px solid red" : "" }}
+                                  ref={editor}
+                                  value={content}
+                                  onChange={newContent => {setContent(newContent);descriptionChangeHandler(newContent);handleFormData("description")}}
+                                  onBlur={descriptionBlurHandler}
+                                />
+                                {hasdescriptionError ? (
+                                <Form.Text style={{ color: "red" }}>
+                                  This is a required field
+                                </Form.Text>
+                              ) : (
+                                ""
+                              )}
+                            </div>
                         </div>
                         <div className="row d-flex">
                           <div className="col-md-4">
@@ -640,6 +681,7 @@ function ThirdStep({ nextStep, handleFormData, prevStep, values, personName }) {
       "college_type": "Gov",
       "name": values.name || "",
       "short_name": values.shortName || "",
+      "description": values.description || "",
       "est_year": values.estyr || "",
       "approve_by": values.aprovedBy || "",
       "logo": "",
@@ -744,6 +786,7 @@ export function PropertyAdd() {
     type: "",
     name: "",
     shortName: "",
+    description:"",
     estyr: "",
     affilatedBy: [],
     aprovedBy: ""
