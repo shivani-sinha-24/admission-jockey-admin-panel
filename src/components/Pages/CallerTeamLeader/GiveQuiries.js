@@ -25,7 +25,7 @@ export default function AddTeamLeader() {
     })
     const { myTeam, queries } = useSelector(state => ({
         myTeam: state?.webSite?.myTeam?.filter((item) => item._id !== sessionStorage.getItem('userId')),
-        queries: state?.webSite?.queries
+        queries: state?.webSite?.queries?.filter(item=> item.isAssigned == false)
     }));
     const formik = useFormik({
         initialValues: {
@@ -39,9 +39,11 @@ export default function AddTeamLeader() {
         }
     });
     useEffect(() => {
-        dispatch(fetchMyTeam());
+        dispatch(fetchMyTeam(sessionStorage.getItem("name")));
         dispatch(fetchQuires());
     }, []);
+
+    console.log('myTeam :',myTeam)
     return (
         <div>
             <form onSubmit={formik.handleSubmit}>

@@ -92,6 +92,8 @@ import AddWebCollegeLogoList from "./components/Pages/Website/pages/college_logo
 import AddWebUniversityLogoList from "./components/Pages/Website/pages/university_logo_pages";
 import MyTeam from "./components/Pages/CallerTeamLeader/CallerTeamLeader";
 import GiveQuiries from "./components/Pages/CallerTeamLeader/GiveQuiries";
+import QueryUpdate from "./components/Pages/Query/QueryUpdate";
+import QueryList from "./components/Pages/Query/QueryList";
 
 function App() {
   const authenticate = sessionStorage.getItem("accessToken");
@@ -260,6 +262,8 @@ function App() {
               <Route path={"/add-website-college-logo-list"} element={<AddWebCollegeLogoList />} />
               <Route path={"/add-website-university-logo-list"} element={<AddWebUniversityLogoList />} />
               <Route path={"/give-quiries-callers"} element={< GiveQuiries/>} />
+              <Route path={"/quiries-lists/:id"} element={< QueryList/>} />
+              <Route path={"/query-update/:id"} element={<QueryUpdate/>} />
             </Route>
           </>
         ) : (

@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete } from "../../../redux/Action/AuthAction";
-import { fetchMyTeam } from "../../../redux/Action/WebAction";
+import { fetchMyTeam, fetchTeam } from "../../../redux/Action/WebAction";
 import { useDispatch, useSelector } from "react-redux";
 import { WarningModal } from "../../Modal/WarningModal";
+import axios from 'axios'
+import API from "../../../service/API";
+import { toast } from "react-toastify";
 export default function DataTables() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
-    const { users, myTeam } = useSelector(state => ({
+    const { users, myTeam, team } = useSelector(state => ({
         users: state?.userAuth?.users,
-        myTeam: state?.webSite?.myTeam?.filter((item) => item._id !== sessionStorage.getItem('userId'))
+        myTeam: state?.webSite?.myTeam?.filter((item) => item._id !== sessionStorage.getItem('userId')),
+        // myTeam: state?.webSite?.myTeam,
+        team: state?.webSite?.team?.map(item=>item)
+        // team: state?.webSite?.team?.map(item=>item.team)
     }));
+
 
     const [show, setShow] = useState(false);
     const [open, setOpen] = React.useState(false);
@@ -32,7 +40,8 @@ export default function DataTables() {
     };
 
     useEffect(() => {
-        dispatch(fetchMyTeam())
+        dispatch(fetchMyTeam(sessionStorage.getItem("name")))
+        dispatch(fetchTeam(sessionStorage.getItem("name")))
     }, [])
 
     const userDeleteAction = (id) => {
@@ -44,6 +53,15 @@ export default function DataTables() {
         setDeleteId(id)
         setShow(true)
     };
+
+    const findQueryForUpdate = (id) => {
+        API.put(`${process.env.REACT_APP_API_BASE_URL}/findQueryForUpdate`,{id})
+        .then(res=> res?.data?.length>0 ? navigate(`/query-update/${res?.data[0]?._id}`) : toast.error("No user query is assigned to this caller"))
+        .catch(err=>{})
+    }
+
+    
+
     return (
         <div>
             <div className="page-header">
@@ -78,7 +96,8 @@ export default function DataTables() {
                         </Card.Header>
                         <Card.Body>
                             <div className="table-responsive">
-                                <datatable.MyTeamTable handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} myTeam={myTeam} />
+                                <datatable.MyTeamTable handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} myTeam={myTeam} findQueryForUpdate={findQueryForUpdate} />
+                                {/* <datatable.TeamTable handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} myTeam={team} /> */}
                             </div>
                         </Card.Body>
                     </Card>

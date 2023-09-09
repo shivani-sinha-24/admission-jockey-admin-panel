@@ -60,7 +60,8 @@ export const login = (userInfo) => async (dispatch) => {
         sessionStorage.setItem("email", data?.data?.responseUser?.email);
         sessionStorage.setItem("contact_no", data?.data?.responseUser?.contact_no);
         sessionStorage.setItem("createdAt", data?.data?.responseUser?.created_at);
-        sessionStorage.setItem("image", data?.data?.responseUser?.image);
+        sessionStorage.setItem("image", data?.data?.responseUser?.image);        
+        sessionStorage.setItem("sub_role", data?.data?.responseUser?.sub_role);
         if (data?.data?.responseUser?.permissions !== undefined) {
           sessionStorage.setItem("permissions", JSON.stringify(data?.data?.responseUser?.permissions));
         }

@@ -1,4 +1,4 @@
-import { WEB_COLLEGES_ADD_SUCCESS, MY_TEAM_GET_SUCCESS, QUERIES_GET_SUCCESS, SEO_UPDATE_SUCCESS, WEB_UNIVERSITY_ADD_SUCCESS, UNIVERSITY_LOGO_WEBLIST_GET_SUCCESS, UNIVERSITY_WEBLIST_GET_SUCCESS, SEO_GET_SUCCESS, SEO_DELETE_SUCCESS, COLLEGE_WEBLIST_GET_SUCCESS, CATEGORY_GET_SUCCESS, CATEGORY_DELETE_SUCCESS, CATEGORY_UPDATE_SUCCESS } from '../Constants/Constants';
+import { WEB_COLLEGES_ADD_SUCCESS, MY_TEAM_GET_SUCCESS, QUERIES_GET_SUCCESS, SEO_UPDATE_SUCCESS, WEB_UNIVERSITY_ADD_SUCCESS, UNIVERSITY_LOGO_WEBLIST_GET_SUCCESS, UNIVERSITY_WEBLIST_GET_SUCCESS, SEO_GET_SUCCESS, SEO_DELETE_SUCCESS, COLLEGE_WEBLIST_GET_SUCCESS, CATEGORY_GET_SUCCESS, CATEGORY_DELETE_SUCCESS, CATEGORY_UPDATE_SUCCESS, TEAM_GET_SUCCESS } from '../Constants/Constants';
 
 let initState = {
     colleges: [],
@@ -6,7 +6,8 @@ let initState = {
     collegeLogos: [],
     universityLogos: [],
     myTeam: [],
-    queries: []
+    queries: [],
+    team:[],
 }
 
 const examReducer = (state = initState, action) => {
@@ -21,6 +22,11 @@ const examReducer = (state = initState, action) => {
                 ...state,
                 myTeam: action.payload
             });
+        case TEAM_GET_SUCCESS:
+        return ({
+            ...state,
+            team: action.payload
+        });
         case QUERIES_GET_SUCCESS:
             return ({
                 ...state,

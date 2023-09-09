@@ -3,7 +3,7 @@ import { MENUITEMS, MENUITEMS2, PROPERTYMANAGERMENUITEMS, EDITORMENUITEMS, SUPER
 import { Link, NavLink } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 const Sidebar = () => {
-  const MENU = ["9"].includes(sessionStorage.getItem("role")) ? SUPERADMINMENUITEMS : ["1"].includes(sessionStorage.getItem("role")) ? PROPERTYMANAGERMENUITEMS : ["2"].includes(sessionStorage.getItem("role")) ? EDITORMENUITEMS : ["3"].includes(sessionStorage.getItem("role")) ? CALLERLEADERMENUITEMS : MENUITEMS;
+  const MENU = ["9"].includes(sessionStorage.getItem("role")) ? SUPERADMINMENUITEMS : ["1"].includes(sessionStorage.getItem("role")) ? PROPERTYMANAGERMENUITEMS : ["2"].includes(sessionStorage.getItem("role")) ? EDITORMENUITEMS : ["3"].includes(sessionStorage.getItem("role"))&& ['100'].includes(sessionStorage.getItem('sub_role')) ? CALLERLEADERMENUITEMS : MENUITEMS;
   //const MENUITEM = [2,5].includes(sessionStorage.getItem("role")) ? MENUITEMS : MENUITEMS.splice(1,1)
   const [mainmenu, setMainMenu] = useState(MENU);
   useEffect(() => {
