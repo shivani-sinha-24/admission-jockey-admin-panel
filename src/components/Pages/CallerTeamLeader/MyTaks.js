@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import * as datatable from "../../../data/Table/datatable/datatable";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Row, Card, Col, Breadcrumb } from "react-bootstrap";
 import { SimpleModal } from "../../Modal/SimpleModal";
 import { fetchUserByRole, userDelete } from "../../../redux/Action/AuthAction";
 import { fetchMyTeam, fetchQuires, fetchTeam, queryDelete } from "../../../redux/Action/WebAction";
 import { useDispatch, useSelector } from "react-redux";
-import { QueryWarningModal } from "../../Modal/QueryWarningModal";
+import { WarningModal } from "../../Modal/WarningModal";
 import axios from 'axios'
 import API from "../../../service/API";
 import { toast } from "react-toastify";
 export default function DataTables() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const {id} = useParams()
 
-    const { users, myTeam, team } = useSelector(state => ({
+    const { users, myTeam, team,queries } = useSelector(state => ({
         users: state?.userAuth?.loginUser?.user,
         myTeam: state?.webSite?.myTeam?.filter((item) => item._id !== sessionStorage.getItem('userId')),
-        team: state?.webSite?.team?.map(item=>item)
+        // myTeam: state?.webSite?.myTeam,
+        team: state?.webSite?.team?.map(item=>item),
+        queries:state?.webSite?.queries?.filter(query=>query?.assignedName == sessionStorage.getItem('userId'))
         // team: state?.webSite?.team?.map(item=>item.team)
     }));
 
@@ -28,6 +29,7 @@ export default function DataTables() {
     const [scroll, setScroll] = React.useState("paper");
     const [editUser, setEditUser] = useState();
     const [deleteId, setDeleteId] = useState();
+    const [tasks,setTasks] = useState()
     const [querySelected,setquerySelected] = useState()
 
     const handleClickOpen = (scrollType, row) => () => {
@@ -41,7 +43,8 @@ export default function DataTables() {
     };
 
     useEffect(() => {
-        dispatch(fetchMyTeam())
+        dispatch(fetchMyTeam(sessionStorage.getItem("name")))
+        dispatch(fetchQuires())
         dispatch(fetchTeam(sessionStorage.getItem("name")))
     }, [])
 
@@ -49,6 +52,7 @@ export default function DataTables() {
     //     dispatch(userDelete(deleteId))
     //     dispatch(fetchUserByRole(1))
     // }
+
     const queryDeletAction = (id) => {
         dispatch(queryDelete(deleteId))
         dispatch(fetchQuires())
@@ -60,33 +64,25 @@ export default function DataTables() {
         setShow(true)
     };
 
-    const [query,setQuery] = useState()
-    const findQueryForUpdate = () => {
+    const findQueryForUpdate = (id) => {
         API.put(`${process.env.REACT_APP_API_BASE_URL}/findQueryForUpdate`,{id})
-        .then(res=> res?.data && setQuery(res?.data) )
+        .then(res=> res?.data?.length>0 ? navigate(`/query-update/${res?.data[0]?._id}`) : toast.error("No user query is assigned to this caller"))
         .catch(err=>{})
     }
 
-    // const getQueriesAssigned = () => {
-    //     API.post(`${process.env.REACT_APP_API_BASE_URL}/getQueriesAssigned`,{id})
-    //     // .then(res=> res?.data?.length>0 ? navigate(`/query-update/${res?.data[0]?._id}`) : toast.error("No user query is assigned to this caller"))
-    //     .then(res=> console.log(res?.data))
-    //     .catch(err=>{})
-    // }
-
-    useEffect(()=>{findQueryForUpdate()},[])
+    
 
     return (
         <div>
             <div className="page-header">
                 <div>
-                    <h1 className="page-title">All Queries</h1>
+                    <h1 className="page-title">All Tasks Assigned</h1>
                     <Breadcrumb className="breadcrumb">
                         <Breadcrumb.Item className="breadcrumb-item" href="#">
-                            Queries
+                            Tasks Assigned
                         </Breadcrumb.Item>
                         <Breadcrumb.Item className="breadcrumb-item active breadcrumds" aria-current="page">
-                            All Queries
+                            All Tasks Assigned
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
@@ -106,11 +102,11 @@ export default function DataTables() {
                 <Col lg={12}>
                     <Card>
                         <Card.Header>
-                            <h3 className="card-title">All Queries</h3>
+                            <h3 className="card-title">All Tasks Assigned</h3>
                         </Card.Header>
                         <Card.Body>
                             <div className="table-responsive">
-                                <datatable.QueryTable querySelected={querySelected} user={users} handleShow={handleShow} userDeleteAction={queryDeletAction} handleClickOpen={handleClickOpen} myTeam={query} findQueryForUpdate={findQueryForUpdate} />
+                                <datatable.QueryTable setquerySelected={setquerySelected} handleShow={handleShow} userDeleteAction={queryDeletAction} handleClickOpen={handleClickOpen} myTeam={queries} findQueryForUpdate={findQueryForUpdate} />
                                 {/* <datatable.TeamTable handleShow={handleShow} userDeleteAction={userDeleteAction} handleClickOpen={handleClickOpen} myTeam={team} /> */}
                             </div>
                         </Card.Body>
@@ -118,7 +114,7 @@ export default function DataTables() {
                 </Col>
             </Row>
             <SimpleModal editUser={editUser} open={open} scroll={scroll} handleClose={handleClose} />
-            <QueryWarningModal setShow={setShow} deleteId={deleteId} propertyDeleteAction={queryDeletAction} show={show} handleShow={handleShow} />
+            <WarningModal setShow={setShow} userDeleteAction={queryDeletAction} show={show} handleShow={handleShow} />
         </div>
     );
 }

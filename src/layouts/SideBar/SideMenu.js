@@ -367,6 +367,41 @@ export const CALLERLEADERMENUITEMS = [
   },
 
 ];
+export const CALLERMENUITEMS = [
+  {
+    menutitle: "MAIN",
+    Items: [
+      {
+        path: `/dashboard`,
+        icon: "home",
+        type: "link",
+        active: true,
+        title: "Dashboard",
+      },
+    ],
+    
+  },
+  {
+    menutitle: "Pages",
+    Items: [
+      {
+        title: "My Tasks",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `/my-tasks`,
+            type: "link",
+            title: "My Taks",
+          },
+
+        ],
+      }
+    ],
+  },
+
+];
 export const EDITORMENUITEMS = [
   {
     menutitle: "MAIN",

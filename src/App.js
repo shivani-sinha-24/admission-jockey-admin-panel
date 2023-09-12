@@ -91,6 +91,7 @@ import AddWebUniversityList from "./components/Pages/Website/pages/university_pa
 import AddWebCollegeLogoList from "./components/Pages/Website/pages/college_logo_pages";
 import AddWebUniversityLogoList from "./components/Pages/Website/pages/university_logo_pages";
 import MyTeam from "./components/Pages/CallerTeamLeader/CallerTeamLeader";
+import MyTasks from "./components/Pages/CallerTeamLeader/MyTaks";
 import GiveQuiries from "./components/Pages/CallerTeamLeader/GiveQuiries";
 import QueryUpdate from "./components/Pages/Query/QueryUpdate";
 import QueryList from "./components/Pages/Query/QueryList";
@@ -197,6 +198,7 @@ function App() {
               <Route path={"/property-list/:clgid/hostel"} element={<Hostel />} />
               <Route path={"/property-list/:edu_type/:clgid/hostel"} element={<Hostel />} />
               <Route path={"/my-team"} element={<MyTeam />} />
+              <Route path={"/my-tasks"} element={<MyTasks />} />
               <Route path={"/update-hostel/:id"} element={<UpdateHostel />} />
               <Route path={"/property-list/:clgid/QA"} element={<QA />} />
               <Route path={"/property-list/:edu_type/:clgid/QA"} element={<QA />} />

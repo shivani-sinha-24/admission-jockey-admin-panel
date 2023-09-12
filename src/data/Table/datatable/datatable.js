@@ -2484,12 +2484,14 @@ export const MyTeamTable = ({
 };
 export const QueryTable = ({
   handleShow,
+  setquerySelected,
   tab_status,
   handleStatusUpdate,
   handleClickOpen,
   myTeam,
   permission,
-  findQueryForUpdate
+  findQueryForUpdate,
+  user
 }) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -2499,7 +2501,9 @@ export const QueryTable = ({
     setSelectedRows(state.selectedRows);
   }, []);
   
-  const columns = [
+  const columns = 
+  user?.sub_role!=100 ?
+  [
     {
       name: "NAME",
       selector: (row) => [row.name],
@@ -2520,7 +2524,123 @@ export const QueryTable = ({
       selector: (row) => [row.course],
       sortable: true,
     },
-  ];
+    {
+      name: "ACTION",
+      selector: (row) => [row.action],
+      sortable: true,
+      cell: (row) => (
+        <span className="" style={{ width: "409px" }}>
+          <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>}>
+            <Link
+              onClick={
+                handleShow(row?._id)
+              }
+              to={`/query-update/${row?._id}`}
+              className="btn btn-primary btn-sm rounded-11"
+            >
+              <i
+                className="fa fa-eye"
+                style={{ fontSize: "1.3rem" }}
+                aria-hidden="true"
+              ></i>
+            </Link>
+          </OverlayTrigger>
+          {/* {permission?.collegeDelete == true || Object.keys(permission) == false ?
+            <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
+              <Link
+                onClick={
+                  handleShow(row?._id)
+                }
+                to="#"
+                className="btn btn-danger btn-sm rounded-11"
+              >
+                <i>
+                  <svg
+                    className="table-delete"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="16"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+                  </svg>
+                </i>
+              </Link>
+            </OverlayTrigger> : ""} */}
+        </span>
+      ),
+    },
+  ]:
+  [
+    {
+      name: "NAME",
+      selector: (row) => [row.name],
+      sortable: true,
+    },
+    {
+      name: "EMAIL",
+      selector: (row) => [row.email],
+      sortable: true,
+    },
+    {
+      name: "PHONE NUMBER",
+      selector: (row) => [row.phone_number],
+      sortable: true,
+    },
+    {
+      name: "ENQUIRED FOR",
+      selector: (row) => [row.course],
+      sortable: true,
+    },
+    {
+      name: "ACTION",
+      selector: (row) => [row.action],
+      sortable: true,
+      cell: (row) => (
+        <span className="" style={{ width: "409px" }}>
+          <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
+            <Link
+              onClick={handleShow(row?._id)
+              }
+              // to={`/query-update/${row?._id}`}
+              className="btn btn-danger btn-sm rounded-11"
+            >
+              <i
+                className="fa fa-trash"
+                style={{ fontSize: "1.3rem" }}
+                aria-hidden="true"
+              ></i>
+            </Link>
+          </OverlayTrigger>
+          {/* {permission?.collegeDelete == true || Object.keys(permission) == false ?
+            <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>}>
+              <Link
+                onClick={
+                  handleShow(row?._id)
+                }
+                to="#"
+                className="btn btn-danger btn-sm rounded-11"
+              >
+                <i>
+                  <svg
+                    className="table-delete"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="16"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+                  </svg>
+                </i>
+              </Link>
+            </OverlayTrigger> : ""} */}
+        </span>
+      ),
+    },
+  ]
+  ;
 
   const contextActions = React.useMemo(() => {
     const handleDelete = () => {
